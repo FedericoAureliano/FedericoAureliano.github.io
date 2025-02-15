@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Federico Mora Rocha</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Federico Mora Rocha's academic website. Topics of interest include verification, formal methods, automated reasoning, program synthesis, satisfiability modulo theories (SMT), program analysis, programming languages, and logic">
+    <meta name="author" content="Federico Mora Rocha">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="reset.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="light.css" id="theme-link">
+    <link rel="shortcut icon" type="image/png" href="./images/favicon.svg" />
+    <script data-goatcounter="https://federicoaureliano.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><noscript><img src="https://federicoaureliano.goatcounter.com/count?p=/test-noscript"></noscript>
+</head>
+
+<body>
+<header><div id="scroller"></div>
+<label class="switch-mode">
+    <input type="checkbox" id="mode">
+    <span class="slider round"></span>
+</label>
+<script>window.onscroll = function() {scroller()};
+function scroller() {
+  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  var scrolled = (winScroll / height) * 100;
+  // scrolled should be between 0 and 100
+  scrolled = Math.min(100, Math.max(0, scrolled));
+  document.getElementById("scroller").style.width = scrolled + "%";
+}</script>
+<script>const btn = document.querySelector(".switch-mode");
+const theme = document.querySelector("#theme-link");
+
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    theme.href = "dark.css";
+    document.getElementById("mode").checked = true;
+}
+
+btn.addEventListener("change", function() {
+  // Swap out the URL for the different stylesheets
+  if (document.getElementById("mode").checked) {
+    theme.href = "dark.css";
+  } else {
+    theme.href = "light.css";
+  }
+});</script>
+</header>
+<div class="content">
+<div class="section">
+<h1>Publications <span class="more"><a href="./index.html">Federico Mora Rocha</a></span></h1>
+<div class="hbar"></div>
+<span class="legend">(undergraduate mentees underlined)</span>
+<div id="publications">
+<h2 id="Refereed Conference Paperspublications">Refereed Conference Papers</h2><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<div class="bigscreen"><small><a href="https://neurips.cc/Conferences/2024">NeurIPS '24</a></small></div><div class="smallscreen"><a href="https://neurips.cc/Conferences/2024">NeurIPS '24</a></div>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+Synthetic Programming Elicitation for Text-to-Code in Very <br class="bigscreen"> Low-Resource Programming and Formal Languages
+</div>
+<div class="paper-authors">
+F. Mora,
+<a href="https://people.eecs.berkeley.edu/~wong.justin/">J. Wong</a>,
+<span class="mentee"><a href="https://www.linkedin.com/in/haleylepe">H. Lepe</a></span>,
+<a href="https://scholar.google.com/citations?user=HwfGXkcAAAAJ&hl=en">S. Bhatia</a>,
+<a href="https://kael.tech.blog/">K. Elmaaroufi</a>,
+<br class="bigscreen"><a href="https://www.georgevargheseucla.com/">G. Varghese</a>,
+<a href="https://people.eecs.berkeley.edu/~jegonzal/">J. E. Gonzalez</a>,
+<a href="https://polgreen.github.io/">E. Polgreen</a> and
+<a href="https://people.eecs.berkeley.edu/~sseshia/">S. A. Seshia</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://openreview.net/pdf?id=kQPzFiwVIu" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/FedericoAureliano/eudoxus" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://people.eecs.berkeley.edu/~fmora/neurips24_presentation.pdf" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://github.com/FedericoAureliano/eudoxus/blob/main/CITATION.bib" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<a href="https://aaai.org/aaai-conference/">AAAI '24</a>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+An Eager Satisfiability Modulo Theories Solver for Algebraic Datatypes
+</div>
+<div class="paper-authors">
+<span class="mentee"><a href="https://www.cs.cmu.edu/~amarshah/">A. Shah</a></span>,
+F. Mora and
+<a href="https://people.eecs.berkeley.edu/~sseshia/">S. A. Seshia</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://ojs.aaai.org/index.php/AAAI/article/view/28649" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/uclid-org/algaroba/tree/aaai24" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://people.eecs.berkeley.edu/~fmora/aaai24_presentation.pdf" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/aaai/ShahMS24.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<div class="bigscreen"><small><a href="https://2023.splashcon.org/track/splash-2023-oopsla">OOPSLA '23</a></small></div><div class="smallscreen"><a href="https://2023.splashcon.org/track/splash-2023-oopsla">OOPSLA '23</a></div>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+Message Chains for Distributed System Verification
+</div>
+<div class="paper-authors">
+F. Mora,
+<a href="https://ankushdesai.github.io/">A. Desai</a>,
+<a href="https://polgreen.github.io/">E. Polgreen</a> and
+<a href="https://people.eecs.berkeley.edu/~sseshia/">S. A. Seshia</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://dl.acm.org/doi/pdf/10.1145/3622876" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/FedericoAureliano/upverifier/tree/main" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://github.com/FedericoAureliano/upverifier/blob/main/docs/oopsla_presentation.pdf" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/journals/pacmpl/MoraDPS23.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<a href="https://lcs.ios.ac.cn/fm2021/">FM '21</a>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+Z3str4: A Multi-armed String Solver
+</div>
+<div class="paper-authors">
+F. Mora,
+<a href="https://scholar.google.ca/citations?user=cEEaxGIAAAAJ&hl=en">M. Berzish</a>,
+<a href="https://www.informatik.uni-kiel.de/~mku/">M. Kulczynski</a>,
+<a href="https://www.zs.informatik.uni-kiel.de/en/team/nowotka">D. Nowotka</a> and
+<a href="https://ece.uwaterloo.ca/~vganesh/">V. Ganesh</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://people.eecs.berkeley.edu/~fmora/fm21a.pdf" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://z3str4.github.io/" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://people.eecs.berkeley.edu/~fmora/fm21a_presentation.pdf" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/fm/MoraBKNG21.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<div class="bigscreen"><small><a href="https://words2021.sciencesconf.org/">WORDS '21</a></small></div><div class="smallscreen"><a href="https://words2021.sciencesconf.org/">WORDS '21</a></div>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+String Theories involving Regular Membership Predicates: From <br class="bigscreen"> Practice to Theory and Back
+</div>
+<div class="paper-authors">
+<a href="https://scholar.google.ca/citations?user=cEEaxGIAAAAJ&hl=en">M. Berzish</a>,
+<a href="https://www.lboro.ac.uk/departments/compsci/staff/academic-teaching/joel-day/">J. Day</a>,
+<a href="https://ece.uwaterloo.ca/~vganesh/">V. Ganesh</a>,
+<a href="https://www.informatik.uni-kiel.de/~mku/">M. Kulczynski</a>,
+<br class="bigscreen"><a href="https://flmanea.blogspot.com/">F. Manea</a>,
+F. Mora and
+<a href="https://www.zs.informatik.uni-kiel.de/en/team/nowotka">D. Nowotka</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://arxiv.org/abs/2105.07220" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://drive.univ-rouen.fr/f/9904c77d8d444d00a121/" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/cwords/BerzishDGKMMN21.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<a href="https://formal-analysis.com/atva/2021/">ATVA '21</a>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+Verification by Gambling on Program Slices
+</div>
+<div class="paper-authors">
+<span class="mentee"><a href="http://murad-akh.ca/">M. Akhundov</a></span>,
+F. Mora,
+<a href="http://www.cs.toronto.edu/~fengnick/">N. Feng</a>,
+<a href="https://github.com/vhui">V. Hui</a> and
+<a href="http://www.cs.toronto.edu/~chechik/">M. Chechik</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://people.eecs.berkeley.edu/~fmora/atva21.pdf" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/MuradAkh/Qicc" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://people.eecs.berkeley.edu/~fmora/atva21_presentation.pdf" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/atva/AkhundovMFHC21.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<a href="https://www.iiia.csic.es/sat2021/">SAT '21</a>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+MedleySolver: Online SMT Algorithm Selection
+</div>
+<div class="paper-authors">
+<span class="mentee"><a href="http://nikhilpim.github.io/">N. Pimpalkhare</a></span>,
+F. Mora,
+<a href="https://polgreen.github.io/">E. Polgreen</a> and
+<a href="https://people.eecs.berkeley.edu/~sseshia/">S. A. Seshia</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://people.eecs.berkeley.edu/~fmora/sat21.pdf" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/uclid-org/medley-solver/tree/SAT2021" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://people.eecs.berkeley.edu/~fmora/sat21_presentation.pdf" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/sat/PimpalkhareMPS21.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<a href="http://i-cav.org/2021/">CAV '21</a>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+An SMT Solver for Regular Expressions and <br class="bigscreen"> Linear Arithmetic over String Length
+</div>
+<div class="paper-authors">
+<a href="https://scholar.google.ca/citations?user=cEEaxGIAAAAJ&hl=en">M. Berzish</a>,
+<a href="https://www.informatik.uni-kiel.de/~mku/">M. Kulczynski</a>,
+F. Mora,
+<a href="https://flmanea.blogspot.com/">F. Manea</a>,
+<br class="bigscreen"><a href="https://www.lboro.ac.uk/departments/compsci/staff/academic-teaching/joel-day/">J. Day</a>,
+<a href="https://www.zs.informatik.uni-kiel.de/en/team/nowotka">D. Nowotka</a> and
+<a href="https://ece.uwaterloo.ca/~vganesh/">V. Ganesh</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://people.eecs.berkeley.edu/~fmora/cav21.pdf" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://figshare.com/s/5ae73a6f3c55f5c5e4c1" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://ucl-pplv.github.io/CAV21/poster_P_220/" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/cav/BerzishKMMDNG20.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<a href="https://conf.researchr.org/home/ase-2020">ASE '20</a>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+Scaling Client-Specific Equivalence Checking via <br class="bigscreen"> Impact Boundary Search
+</div>
+<div class="paper-authors">
+<a href="http://www.cs.toronto.edu/~fengnick/">N. Feng</a>,
+F. Mora,
+<a href="https://github.com/vhui">V. Hui</a> and
+<a href="http://www.cs.toronto.edu/~chechik/">M. Chechik</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://people.eecs.berkeley.edu/~fmora/ase20.pdf" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/CC24LIFE/CC2" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://dblp.org/rec/conf/kbse/FengMHC20.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<div class="bigscreen"><small><a href="https://sri-csl.github.io/VSTTE20/">VSTTE '20</a></small></div><div class="smallscreen"><a href="https://sri-csl.github.io/VSTTE20/">VSTTE '20</a></div>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+BanditFuzz: A Reinforcement-Learning Based Performance <br class="bigscreen"> Fuzzer for SMT Solvers
+</div>
+<div class="paper-authors">
+<a href="https://cs.uwaterloo.ca/~j29scott/">J. Scott</a>,
+F. Mora and
+<a href="https://ece.uwaterloo.ca/~vganesh/">V. Ganesh</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://people.eecs.berkeley.edu/~fmora/vstte20.pdf" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/j29scott/BanditFuzz_Public" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://people.eecs.berkeley.edu/~fmora/smt20_presentation.pdf" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/vstte/ScottMG20.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<a href="http://www.ase2018.com/">ASE '18</a>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+Client-Specific Equivalence Checking
+</div>
+<div class="paper-authors">
+F. Mora,
+<a href="https://personal.ntu.edu.sg/yi_li/">Y. Li</a>,
+<a href="https://www.ece.ubc.ca/~mjulia/">J. Rubin</a> and
+<a href="http://www.cs.toronto.edu/~chechik/">M. Chechik</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://people.eecs.berkeley.edu/~fmora/ase18.pdf" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/Client-Specific-Equivalence-Checker/CLEVER" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://people.eecs.berkeley.edu/~fmora/ase18_presentation.pdf" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/kbse/Mora0RC18.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div><h2 id="Refereed Journal Publicationspublications">Refereed Journal Publications</h2><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<a href="https://www.sciencedirect.com/journal/theoretical-computer-science">TCS '23</a>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+Towards more efficient methods for solving <br class="bigscreen"> regular-expression heavy string constraints
+</div>
+<div class="paper-authors">
+<a href="https://scholar.google.ca/citations?user=cEEaxGIAAAAJ&hl=en">M. Berzish</a>,
+<a href="https://www.lboro.ac.uk/departments/compsci/staff/academic-teaching/joel-day/">J. Day</a>,
+<a href="https://ece.uwaterloo.ca/~vganesh/">V. Ganesh</a>,
+<a href="https://www.informatik.uni-kiel.de/~mku/">M. Kulczynski</a>,
+<br class="bigscreen"><a href="https://flmanea.blogspot.com/">F. Manea</a>,
+F. Mora and
+<a href="https://www.zs.informatik.uni-kiel.de/en/team/nowotka">D. Nowotka</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://www.sciencedirect.com/science/article/pii/S030439752200723X" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://dblp.org/rec/journals/tcs/BerzishDGKMMN23.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div><h2 id="Refereed Short or Tool Paperspublications">Refereed Short or Tool Papers</h2><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<a href="http://i-cav.org/2022/">CAV '22</a>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+UCLID5: Multi-Modal Formal Modeling, Verification, and Synthesis
+</div>
+<div class="paper-authors">
+<a href="https://polgreen.github.io/">E. Polgreen</a>,
+<a href="https://kkmc.github.io/">K. Cheang</a>,
+<a href="https://github.com/d0cd">P. Gaddamadugu</a>,
+<a href="https://github.com/adwait">A. Godbole</a>,
+<a href="https://kevinlaeufer.com/">K. Laeufer</a>,
+<br class="bigscreen"><a href="https://shaokai.io/">S. Lin</a>,
+<a href="https://web.eecs.umich.edu/~manerkar/">Y. Manerkar</a>,
+F. Mora and
+<a href="https://people.eecs.berkeley.edu/~sseshia/">S. A. Seshia</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://arxiv.org/abs/2208.03699" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/uclid-org/uclid" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://easychair.org/smart-slide/slide/SJtw" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/cav/PolgreenCGGLLMM22.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<a href="https://lcs.ios.ac.cn/fm2021/">FM '21</a>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+BanditFuzz: Fuzzing SMT Solvers with <br class="bigscreen"> Multi-Agent Reinforcement Learning
+</div>
+<div class="paper-authors">
+<a href="https://cs.uwaterloo.ca/~j29scott/">J. Scott</a>,
+T. Sudula,
+H. Rehman,
+F. Mora and
+<a href="https://ece.uwaterloo.ca/~vganesh/">V. Ganesh</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://people.eecs.berkeley.edu/~fmora/fm21b.pdf" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://www.youtube.com/watch?v=TS0E534MntA" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/fm/ScottSRMG21.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<a href="http://cavconference.org/2018/">CAV '18</a>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+StringFuzz: A Fuzzer for String Solvers
+</div>
+<div class="paper-authors">
+<a href="http://dmitryblotsky.com/">D. Blotsky</a>,
+F. Mora,
+<a href="https://scholar.google.ca/citations?user=cEEaxGIAAAAJ&hl=en">M. Berzish</a>,
+<a href="https://zyh1121.github.io/">Y. Zheng</a>,
+<a href="https://ifazk.com/">I. Kabir</a> and
+<a href="https://ece.uwaterloo.ca/~vganesh/">V. Ganesh</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://people.eecs.berkeley.edu/~fmora/cav18.pdf" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/dblotsky/stringfuzz" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://easychair.org/smart-slide/slide/pN13#" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/cav/BlotskyMBZKG18.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div><h2 id="Refereed Workshop Presentationspublications">Refereed Workshop Presentations</h2><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<a href="https://homepage.cs.uiowa.edu/~ajreynol/SYNT2023/">SYNT '23</a>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+Genetic Algorithms for Searching a Matrix <br class="bigscreen"> of Metagrammars for Synthesis
+</div>
+<div class="paper-authors">
+Y. Li,
+F. Mora,
+<a href="https://polgreen.github.io/">E. Polgreen</a> and
+<a href="https://people.eecs.berkeley.edu/~sseshia/">S. A. Seshia</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://arxiv.org/ftp/arxiv/papers/2306/2306.00521.pdf" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a>
+</div>
+</div>
+</div><div class="paper">
+<div class="paper-flex">
+<div class="paper-conference">
+<a href="http://pl.cs.uchicago.edu/synt2020/">SYNT '20</a>
+</div>
+<div class="paper-details">
+<div class="paper-title">
+Synthesis in UCLID5
+</div>
+<div class="paper-authors">
+F. Mora,
+<a href="https://kkmc.github.io/">K. Cheang</a>,
+<a href="https://polgreen.github.io/">E. Polgreen</a> and
+<a href="https://people.eecs.berkeley.edu/~sseshia/">S. A. Seshia</a>
+</div>
+</div>
+<div class="paper-icons">
+<a href="https://people.eecs.berkeley.edu/~fmora/synt20.pdf" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/uclid-org/uclid" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://people.eecs.berkeley.edu/~fmora/synt20_presentation.pdf" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/journals/corr/abs-2007-06760.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+
+<footer>
+<p>Feel free to <a href="https://github.com/FedericoAureliano/FedericoAureliano.github.io">use this website template</a>.</p>
+</footer>
+</body>
+</html>

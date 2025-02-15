@@ -1,0 +1,52 @@
+header {
+    background-color: tertiary-color-placeholder;
+}
+
+#scroller {
+    background-color: quaternary-color-placeholder;
+}
+
+body {
+    background-color: secondary-color-placeholder;
+    color: primary-color-placeholder;
+}
+
+h1,
+h2,
+h3 {
+    color: primary-color-placeholder;
+}
+
+a {
+    color: tertiary-color-placeholder;
+}
+
+a:hover {
+    color: quaternary-color-placeholder;
+}
+
+.hbar {
+    color: primary-color-placeholder;
+    border-bottom-width: divider-width-placeholder;
+}
+
+h2 {
+    border-bottom: 1px primary-color-placeholder dashed;
+}
+
+.paper-icon {
+    display: None;
+}
+
+.headshot {
+    border: 1px solid secondary-color-placeholder;
+}
+
+.announcement {
+    border: 2px solid primary-color-placeholder;
+}
+
+.mentee {
+    text-decoration-color: quaternary-color-placeholder;
+    text-decoration-thickness: underline-width-placeholder;
+}

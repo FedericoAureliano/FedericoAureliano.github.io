@@ -1,0 +1,68 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "json2cv"
+dynamic = ["version"]
+description = 'Generate academic webpage from json data files'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Federico Mora", email = "fmorarocha@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "click",
+  "pybtex",
+  "setuptools",
+]
+
+[project.urls]
+Documentation = "https://github.com/FedericoAureliano/json2cv#readme"
+Issues = "https://github.com/FedericoAureliano/json2cv/issues"
+Source = "https://github.com/FedericoAureliano/json2cv"
+
+[project.scripts]
+json2cv = "json2cv.cli:json2cv"
+
+[tool.hatch.version]
+path = "src/json2cv/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/json2cv tests}"
+
+[tool.coverage.run]
+source_pkgs = ["json2cv", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/json2cv/__about__.py",
+]
+
+[tool.coverage.paths]
+json2cv = ["src/json2cv", "*/json2cv/src/json2cv"]
+tests = ["tests", "*/json2cv/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]

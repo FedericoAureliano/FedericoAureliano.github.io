@@ -1,0 +1,20 @@
+[
+    {
+        "year"        : "Ongoing",
+        "degree"      : "Ph.D. in Computer Science",
+        "note"        : "Advised by Sanjit A. Seshia",
+        "institution" : "University of California, Berkeley"
+    },
+    {
+        "year"        : "2018",
+        "degree"      : "M.Sc. in Computer Science",
+        "note"        : "Advised by Marsha Chechik",
+        "institution" : "University of Toronto"
+    },
+    {
+        "year"        : "2016",
+        "degree"      : "B.Sc. in Computer Science and Mathematics",
+        "note"        : "First Class Honours with Distinction",
+        "institution" : "Mount Allison University"
+    }
+]

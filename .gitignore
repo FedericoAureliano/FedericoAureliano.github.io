@@ -1,0 +1,11 @@
+.vscode
+.DS_Store
+
+seo.json
+links.txt
+
+__pycache__
+.hatch
+dist
+
+docs/cv/build

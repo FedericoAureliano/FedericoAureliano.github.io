@@ -1,0 +1,52 @@
+header {
+    background-color: #47a2eb;
+}
+
+#scroller {
+    background-color: #f02405;
+}
+
+body {
+    background-color: #202a3c;
+    color: #fffafc;
+}
+
+h1,
+h2,
+h3 {
+    color: #fffafc;
+}
+
+a {
+    color: #47a2eb;
+}
+
+a:hover {
+    color: #f02405;
+}
+
+.hbar {
+    color: #fffafc;
+    border-bottom-width: 1px;
+}
+
+h2 {
+    border-bottom: 1px #fffafc dashed;
+}
+
+.paper-icon {
+    display: None;
+}
+
+.headshot {
+    border: 1px solid #202a3c;
+}
+
+.announcement {
+    border: 2px solid #fffafc;
+}
+
+.mentee {
+    text-decoration-color: #f02405;
+    text-decoration-thickness: 2px;
+}

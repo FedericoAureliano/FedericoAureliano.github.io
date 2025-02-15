@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Federico Mora Rocha</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="../main.css">
+  <link rel="stylesheet" type="text/css" href="blog.css">
+  <link rel="shortcut icon" type="image/png" href="../images/favicon.png" />
+  <script data-goatcounter="https://federicoaureliano.goatcounter.com/count"
+    async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+  <h1>Answering Questions About DNA Sequences on StackOverflow with a Sequence Solver</h1>
+  <p style="font-size: 12pt">Written by <a href="../index.html">Federico Mora</a> on April 23, 2020</p>
+  <div class="hbar"> </div>
+  <p id="noteblock0">
+    We recently submitted a paper describing a new SMT solver for the theory of
+    strings. To celebrate, I thought I'd go on StackOverflow, search for
+    questions related to DNA sequences, and answer some of them using a sequence
+    solver.<sup><a href="#footnote0">0</a></sup>
+  </p>
+
+  <h2><a
+      href="https://stackoverflow.com/questions/53267820/generating-dna-sequence-excluding-specific-sequence">Generating
+      DNA sequence excluding specific sequence</a></h2>
+
+  <blockquote>
+    I've just started to learn programming with python. In class we were asked to
+    generate a random DNA sequence, that does NOT contain a specific 6-letter
+    sequence (AACGTT). The point is to make a funtion that always return a legal
+    sequence. Currently my function generates a correct sequence about 78% of the
+    time. How can I make it return a legal sqeuence 100% of the time? Any help is
+    appreciated.
+  </blockquote>
+
+  <p id="noteblock1">
+    Let's take "generate a random DNA sequence" to mean "generate some DNA
+    sequence" and let's write something like an <small>SMT-LIB</small><sup><a href="#footnote1">1</a></sup> query to
+    help this student. The first thing we
+    need to do is define<sup><a href="#footnote2">2</a></sup> nucleotides. We'll do
+    this through an enumerated type with members A, C, T, and G.
+  </p>
+
+  <pre><code>
+(declare-datatype Nucleotide (A C T G))
+</code></pre>
+
+  <p>
+    Next we'll declare the variable that we want to solve for: a sequence of
+    nucleotides called DNA1.
+  </p>
+
+  <pre><code>
+(declare-const DNA1 (Seq Nucleotide))
+</code></pre>
+
+  <p>
+    Then we'll assert that DNA1 is at least six nucleotides long (to avoid
+    trivial solutions), and does not contain the sequence AACGTT, as desired.
+    Finally we'll ask the solver to give us a solution. Voilà. That's it.
+  </p>
+
+  <pre><code>
+(assert (>= (seq.len DNA1) 6))
+(assert (not (seq.contains DNA1 AACGTT)))
+(check-sat)
+(get-model)
+</code></pre>
+
+  <p>
+    OK I lied. Writing literal sequences is a bit ugly so I snuck a macro
+    in there that builds the literal sequence units and concatenates them all together. Here is the full query.
+  </p>
+
+  <pre><code>
+(declare-datatype Nucleotide (A C T G))
+(declare-const DNA1 (Seq Nucleotide))
+
+(define-fun AACGTT () (Seq Nucleotide)
+  (seq.++ (seq.unit A) 
+          (seq.unit A) 
+          (seq.unit C) 
+          (seq.unit G) 
+          (seq.unit T) 
+          (seq.unit T)))
+
+(assert (>= (seq.len DNA1) 6))
+(assert (not (seq.contains DNA1 AACGTT)))
+(check-sat)
+(get-model)
+</code></pre>
+
+  <p id="noteblock2">
+    Running <small>Z3</small><sup><a href="#footnote3">3</a></sup> on this query gives
+    us the answer AAAAAA. Somewhat underwhelming but 100%
+    correct&trade;. On the bright side, we now know enough about the input language to tackle more interesting
+    questions.
+  </p>
+
+  <h2><a
+      href="https://stackoverflow.com/questions/2420412/search-for-string-allowing-for-one-mismatch-in-any-location-of-the-string">Search
+      for string allowing for one mismatch in any location of the string</a></h2>
+
+  <blockquote>
+    I am working with DNA sequences of length 25... [I want] to find a close match defined as wrong (mismatched) at
+    any location, but only one location, and record the location in the sequence. I
+    am not sure how do do this... For example,
+    <br><br>
+    AGCCTCCCATGATTGAACAGATCAT
+    <br>
+    AGCCTCCCATGATAGAACAGATCAT
+    <br><br>
+    is a close match with a mismatch at position 13...
+  </blockquote>
+
+  <p>
+    A complete solution to this problem would require a loop over the elements
+    of the database. We'll just write an <small>SMT-LIB</small>-like query to
+    find the single position at which two (hard-coded) input DNA sequences
+    differ, if it exists. The full query for the given example (omitting
+    macros) is
+  </p>
+
+  <pre><code>
+(declare-const X (Seq Nucleotide))
+(declare-const Y (Seq Nucleotide))
+
+(declare-const m Nucleotide)
+(declare-const n Nucleotide)
+
+(assert (= XmY AGCCTCCCATGATTGAACAGATCAT))
+(assert (= XnY AGCCTCCCATGATAGAACAGATCAT))
+
+(assert (not (= n m)))
+
+(check-sat)
+(get-value ((seq.len X)))
+</code></pre>
+
+  <p>
+    The first block of commands declares two nucleotide sequence variables, X and Y, that we will use to hold
+    sub-sequences of the input DNA sequences. The second block of commands declares two nucleotide variables, n and m,
+    that will
+    hold the pair of nucleotides that differ. The third block asserts that both input
+    DNA sequences begin with X, end with Y, and have some nucleotide&mdash;n
+    and m respectively&mdash;in between. The fourth block asserts that n and m
+    are different. Finally, the fifth block asks
+    the solver to find a solution and print it (in our encoding, the length of X is the position at which the DNA
+    sequences differ).
+    <small>Z3</small> quickly returns the correct solution: the position is 13.
+  </p>
+
+  <pre><code>
+sat
+(((seq.len X) 13))
+</code></pre>
+
+  <p>
+    If the two input DNA sequences were
+    the same or differed by more than
+    one nucleotide, then <small>Z3</small> would have returned unsat.
+  </p>
+
+
+
+  <h2><a href="https://stackoverflow.com/questions/8310602/obtain-dna-substrings-wrt-their-original-orders">Obtain DNA
+      substrings wrt their original orders</a></h2>
+
+  <blockquote>
+    I'd like to get the substrings of long DNA sequences <br>
+    For example, given: <br><br>
+    1/ATCGAAATTCCGGAAGGGGTGG<br>
+    ...<br>
+    5/ATTATTGTTCACTATTT
+    <br><br>
+    the output is to be:
+    <br><br>
+    1/TCG - TTCC<br>
+    ...<br>
+    5/ -
+    <br><br>
+    I tried ... but I don't know how to retrieve the order of each result that has
+    appeared in the original sequences. That is, whether TTCC and TCG appear first and second respectively ... Thank you for your insights.
+  </blockquote>
+
+  <p>
+    This one is a little more tricky, but we can use a familiar technique to encode it. At a high level, we want to
+    decompose an input DNA sequence into five pieces. The second and fourth pieces will try to match to TCG or TTCC. The
+    first, third, and fifth pieces will hold the rest of the input.
+  </p>
+
+  <pre><code>
+(declare-const X (Seq Nucleotide))
+(declare-const M (Seq Nucleotide))
+(declare-const Y (Seq Nucleotide))
+(declare-const N (Seq Nucleotide))
+(declare-const Z (Seq Nucleotide))
+
+(assert (= (seq.++ X M Y N Z) INPUT))
+(assert (or (= M TCG) (= M TTCC)))
+(assert (or (= N TCG) (= N TTCC) (= N EMPTY)))
+(assert (=> (= N EMPTY)
+    (and (not (seq.contains (seq.++ Y Z) TCG))
+         (not (seq.contains (seq.++ Y Z) TTCC))
+         (not (seq.contains X TCG))
+         (not (seq.contains X TTCC)))))
+
+(check-sat)
+(get-value (M (seq.len X)))
+(get-value (N (seq.len (seq.++ X M Y))))
+</code></pre>
+
+  <p>
+    More specifically, we declare five variables: X, M, Y, N, Z. The first
+    assertion decomposes the input so that M represents the first match, N
+    represents the second match, and X, Y and Z represent the rest of the
+    input. The second assertion forces M to match to one of TCG and TTCC; the
+    third assertion does the same for N, but allows for it to be empty. Letting
+    N be empty is good because it lets us capture cases where there is
+    only one occurrence of TCG or TTCC, but it is bad because the solver can
+    choose to always match N with the empty sequence. The fourth assertion blocks this: it
+    asserts that N is only empty if there is nothing to match it to. Finally,
+    with the get-value commands, we ask the solver to tell us where TTCC and
+    TCG appear.
+  </p>
+
+  <p>
+    Plugging in ATCGAAATTCCGGAAGGGGTGG for INPUT and running <small>Z3</small>
+    gives us that the first match, N, is TCG at index 1, and that the second match, M, is
+    TTCC at index 7.
+  </p>
+
+<pre><code>
+sat
+((M (seq.++ (seq.unit T) 
+            (seq.unit C) 
+            (seq.unit G)))
+ ((seq.len X) 1))
+((N (seq.++ (seq.unit T) 
+            (seq.unit T) 
+            (seq.unit C) 
+            (seq.unit C)))
+ ((seq.len (seq.++ X M Y)) 7))
+</code></pre>
+
+  <p>
+    With ATTATTGTTCACTATTT the solver gives us unsat, since there are no matches.
+  </p>
+
+
+  <h2>What Does it All Mean?</h2>
+  <p id="noteblock3">
+    I think the biggest takeaway is that you can encode a lot of problems using
+    only concatenation and equality.<sup><a href="#footnote4">4</a></sup> When
+    I first searched "dna sequence" on StackOverflow I wasn't expecting it to
+    be so easy to find problems that I could quickly express and solve with
+    <small>Z3</small>. The encodings don't even need regular expressions!<sup><a
+    href="#footnote5">5</a></sup>
+  </p>
+
+  <p>
+    Maybe one day I'll revisit this post to talk about the sequence logic and
+    how these solvers work. In the meantime, is anyone actually using automated
+    reasoning on DNA sequences? Scalability would surely be an issue.
+  </p>
+
+  <br>
+  <div class="hbar"> </div>
+  <p style="font-size: 10pt" id="footnote0">
+    <a href="#noteblock0">0</a>. No, you're obsessive! 
+  </p>
+  <p style="font-size: 10pt" id="footnote1">
+    <a href="#noteblock1">1</a>. Sequences are not officially part of <a href="http://smtlib.cs.uiowa.edu/">The
+      Satisfiability Modulo Theories
+      Library</a>.
+  </p>
+  <p style="font-size: 10pt" id="footnote2">
+    <a href="#noteblock1">2</a>. Maybe "declare-datatype" should be "define-datatype" since we're not solving for it.
+  </p>
+  <p style="font-size: 10pt" id="footnote3">
+    <a href="#noteblock2">3</a>. As far as I know <a href="https://github.com/Z3Prover/z3/wiki">The <small>Z3</small> Theorem Prover </a> is the only publicly available sequence solver.
+  </p>
+  <p style="font-size: 10pt" id="footnote4">
+    <a href="#noteblock3">4</a>. <code>(seq.contains X Y)</code> is the same as <code>(= X (seq.++ W Y Z))</code> for fresh W and Z.
+  </p>
+  <p style="font-size: 10pt" id="footnote5">
+    <a href="#noteblock3">5</a>. The sequence solver <b>can</b> handle regular expressions by the way.
+  </p>
+</body>
+
+</html>

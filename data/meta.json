@@ -1,0 +1,6 @@
+{
+    "name": "Federico Mora Rocha",
+    "description": "Federico Mora Rocha's academic website. Topics of interest include verification, formal methods, automated reasoning, program synthesis, satisfiability modulo theories (SMT), program analysis, programming languages, and logic",
+    "favicon": "./images/favicon.svg",
+    "tracker": "<script data-goatcounter=\"https://federicoaureliano.goatcounter.com/count\" async src=\"//gc.zgo.at/count.js\"></script><noscript><img src=\"https://federicoaureliano.goatcounter.com/count?p=/test-noscript\"></noscript>"
+}
