@@ -1,4 +1,4 @@
-Copyright (c) 2021 Federico Mora.
+Copyright (c) 2025 Federico Mora.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
