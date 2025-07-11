@@ -10,7 +10,7 @@ $endfor$
 $if(keywords)$
   <meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$" />
 $endif$
-  <title>$author$</title>
+  <title>$pagetitle$</title>
   <style>
     $styles.html()$
   </style>
@@ -46,6 +46,12 @@ $endif$
 $for(include-before)$
 $include-before$
 $endfor$
+<h1>$title$</h1>
+<h2>
+  $for(authors)$
+  $authors$
+  $endfor$
+</h2>
 $body$
 $for(include-after)$
 $include-after$

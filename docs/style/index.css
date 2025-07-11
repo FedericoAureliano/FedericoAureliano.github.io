@@ -1,0 +1,109 @@
+:root {
+    --headshot-width: 9em;
+}
+
+/* Profile Section Stuff */
+
+.headshot {
+    width: var(--headshot-width);
+    height: auto;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+#profile > table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0em;
+}
+
+#profile > table td + td { 
+    border-left:2px solid var(--nord0); 
+}
+
+#profile > table > tbody > tr > td:nth-child(odd) {
+    width: var(--headshot-width);
+    padding-right: 2em;
+    text-align: left;
+}
+
+#profile > table > tbody > tr > td:nth-child(even) {
+    padding-left: 2em;
+}
+
+#profile > table > tbody > tr > td > p,  #profile > table > tbody > tr > td > div > p {
+    margin: 0em;
+    padding: 0em;
+}
+
+/* News and Publication Stuff */
+
+#recent-news > table, #selected-publications > table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-size: 12pt;
+}
+
+#recent-news > table > tbody > tr > td:nth-child(odd), #selected-publications > table > tbody > tr > td:nth-child(odd) {
+    width: 6em;
+    text-align: right;
+    vertical-align: top;
+    padding-right: 1em;
+}
+
+#recent-news > table > tbody > tr > td > a, #selected-publications > table > tbody > tr > td > a {
+    font-size: 12pt;
+}
+
+#profile > h1 {
+    display: none;
+}
+
+section {
+    margin-bottom: 2em;
+}
+
+h1 {
+    font-size: 18pt;
+    margin: 0em;
+    color: var(--white);
+    text-decoration: none;
+    background-color: var(--nord0);
+    border-radius: 4px;
+    padding: 0.2em 0.3em;
+    width: fit-content;
+}
+
+h2 {
+    font-size: 13pt;
+    margin: 0em;
+    margin-top: 0.5em;
+    color: var(--nord0);
+    text-decoration: none;
+    background-color: var(--nord4);
+    border-radius: 4px;
+    padding: 0.2em 0.3em;
+    width: fit-content;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 1em;
+        margin: 0em;
+    }
+
+    .headshot {
+        display: none;
+    }
+
+    #profile > table > tbody > tr > td:nth-child(odd) {
+        width: 0em;
+        padding: 0em;
+    }
+
+    #profile > table > tbody > tr > td:nth-child(even) {
+        padding-left: 1em;
+    }
+}

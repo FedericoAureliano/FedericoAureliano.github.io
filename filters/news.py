@@ -9,9 +9,10 @@ import panflute as pf
 import os
 import pathlib
 import markdown
+import datetime
 
 def prepare(doc):
-    news_items: List[Tuple[str,str]] = []
+    news_items: List[Tuple[datetime.date,str,str]] = []
 
     news_dir = doc.get_metadata('news')
 
@@ -27,20 +28,28 @@ def prepare(doc):
         data = pathlib.Path(news_path).read_text(encoding='utf-8')
         md = markdown.Markdown(extensions=['meta'])
         md.convert(data)
-        news_items.append((md.Meta['date'][0], md.Meta['title'][0]))
+
+        assert 'date' in md.Meta, f"Missing 'date' metadata in {news_file}"
+        assert 'title' in md.Meta, f"Missing 'title' metadata in {news_file}"
+
+        date = datetime.datetime.strptime(md.Meta['date'][0], '%m/%Y').date()
+        title = md.Meta['title'][0]
+        name = os.path.splitext(news_file)[0]  # Remove the .md extension
+        
+        news_items.append((date, name, title))
+
+    # Sort by date, most recent first
+    news_items.sort(key=lambda x: x[0], reverse=True)  
     
-    news_items.sort(key=lambda x: x[0], reverse=True)  # Sort by date, most recent first
-    doc.news_items = news_items
+    doc.news_items = [(pf.Link(pf.Str(date.strftime('%m/%Y')), url=f"{news_dir}/{name}.html"), pf.Str(title)) for (date, name, title) in news_items]
 
 def action(elem, doc):
     match elem:
-        case pf.Header(identifier='news', level=1):
-            bullets = pf.BulletList()
+        case pf.Header(identifier='recent-news', level=1):
+            rows = []
             for (date, title) in doc.news_items:
-                bullets.content.append(pf.ListItem(pf.Plain(
-                    pf.Str(f"{date}: "), pf.Str(title)
-                )))
-            return pf.Div(elem, bullets, classes=['posts'])
+                rows.append(pf.TableRow(pf.TableCell(pf.Plain(date)), pf.TableCell(pf.Plain(title))))
+            return pf.Div(elem, pf.Table(pf.TableBody(*rows)), classes=['posts'])
 
 def finalize(doc):
     pass
