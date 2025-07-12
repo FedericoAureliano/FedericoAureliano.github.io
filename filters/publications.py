@@ -29,13 +29,16 @@ def prepare(doc):
     papers_files = [f for f in os.listdir(papers_dir) if f.endswith('.md')]
     for papers_file in papers_files:
         paper_path = os.path.join(papers_dir, papers_file)
+        pf.debug(f"\t- {paper_path}")
+
         data = pathlib.Path(paper_path).read_text(encoding='utf-8')
         md = markdown.Markdown(extensions=['meta'])
         md.convert(data)
 
-        assert 'selected' in md.Meta, f"Missing 'selected' metadata in {papers_file}"
-        if md.Meta['selected'][0].lower() != 'true':
-            continue
+        if 'selected' in md.Meta and md.Meta['selected'][0].lower() == 'true':
+            selected = True
+        else:
+            selected = False
 
         assert 'venue' in md.Meta, f"Missing 'venue' metadata in {papers_file}"
         venue = md.Meta['venue'][0]
@@ -64,23 +67,27 @@ def prepare(doc):
             'venue': venue,
             'year': year,
             'link': link,
+            'selected': selected,
         }
 
         doc.papers.setdefault(category, []).append(paper_info)
 
     # Sort papers by category and then by year
     for category, papers in doc.papers.items():
-        papers.sort(key=lambda x: (x['year'], x['title']))
+        papers.sort(key=lambda x: (x['year'], x['title']), reverse=True)
 
 def action(elem, doc):
     match elem:
-        case pf.Header(identifier='selected-publications', level=1):
+        case pf.Header(identifier=name, level=1) if "publications" in name:
             div = pf.Div(elem, classes=['publications'])
             for category, papers in doc.papers.items():
-                div.content.append(pf.Header(pf.Str(category), level=2))
+                if len(papers) == 0:
+                    continue
                 # make a table with two columns: venue and title
                 rows = []
                 for paper in papers:
+                    if "selected" in name and not paper['selected']:
+                        continue
                     venue = pf.Str(f"{paper['venue']} '{paper['year'][-2:]}")
                     venue = pf.Plain(pf.Link(venue, url=paper['link']))
                     title = pf.Plain(pf.Str(paper['title']))
@@ -88,6 +95,9 @@ def action(elem, doc):
                         pf.TableCell(venue),
                         pf.TableCell(title)
                     ))
+                if not rows:
+                    continue
+                div.content.append(pf.Header(pf.Str(category), level=2))
                 div.content.append(pf.Table(pf.TableBody(*rows)))
 
             return div

@@ -5,7 +5,8 @@ pandoc index.md -o docs/index.html \
     --css "style/index.css" \
     --filter filters/news.py \
     --filter filters/publications.py \
-    --filter filters/sections.py # sections has to be last
+    --filter filters/sections.py 
+    # sections filter has to be last
 
 for file in posts/*.md; do
     filename=$(basename "$file" .md)

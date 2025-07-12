@@ -2,7 +2,39 @@
     --headshot-width: 9em;
 }
 
+section {
+    padding: 0em;
+    margin: 1em 0em 2em 0em;
+}
+
+h1 {
+    font-size: 16pt;
+    margin: 0em;
+    color: var(--white);
+    text-decoration: none;
+    background-color: var(--nord0);
+    border-radius: 4px;
+    padding: 0.2em 0.3em;
+    width: fit-content;
+}
+
+h2 {
+    font-size: 12pt;
+    margin: 0em;
+    margin-top: 0.5em;
+    color: var(--nord0);
+    text-decoration: none;
+    background-color: var(--nord4);
+    border-radius: 4px;
+    padding: 0.2em 0.3em;
+    width: fit-content;
+}
+
 /* Profile Section Stuff */
+
+#profile > h1 {
+    display: none;
+}
 
 .headshot {
     width: var(--headshot-width);
@@ -11,10 +43,30 @@
     vertical-align: middle;
 }
 
+/* News, Publication, and Teaching Tables */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-size: 12pt;
+}
+
+table > tbody > tr > td:nth-child(odd) {
+    width: 6em;
+    text-align: right;
+    vertical-align: top;
+    padding-right: 1em;
+}
+
+/* Profile Table */
+
 #profile > table {
     width: 100%;
     border-collapse: collapse;
     margin: 0em;
+    font-size: 14pt;
 }
 
 #profile > table td + td { 
@@ -36,64 +88,9 @@
     padding: 0em;
 }
 
-/* News and Publication Stuff */
-
-#recent-news > table, #selected-publications > table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    font-size: 12pt;
-}
-
-#recent-news > table > tbody > tr > td:nth-child(odd), #selected-publications > table > tbody > tr > td:nth-child(odd) {
-    width: 6em;
-    text-align: right;
-    vertical-align: top;
-    padding-right: 1em;
-}
-
-#recent-news > table > tbody > tr > td > a, #selected-publications > table > tbody > tr > td > a {
-    font-size: 12pt;
-}
-
-#profile > h1 {
-    display: none;
-}
-
-section {
-    margin-bottom: 2em;
-}
-
-h1 {
-    font-size: 18pt;
-    margin: 0em;
-    color: var(--white);
-    text-decoration: none;
-    background-color: var(--nord0);
-    border-radius: 4px;
-    padding: 0.2em 0.3em;
-    width: fit-content;
-}
-
-h2 {
-    font-size: 13pt;
-    margin: 0em;
-    margin-top: 0.5em;
-    color: var(--nord0);
-    text-decoration: none;
-    background-color: var(--nord4);
-    border-radius: 4px;
-    padding: 0.2em 0.3em;
-    width: fit-content;
-}
+/* Mobile Stuff */
 
 @media (max-width: 600px) {
-    body {
-        padding: 1em;
-        margin: 0em;
-    }
-
     .headshot {
         display: none;
     }

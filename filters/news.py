@@ -24,7 +24,8 @@ def prepare(doc):
     news_files = [f for f in os.listdir(news_dir) if f.endswith('.md')]
     for news_file in news_files:
         news_path = os.path.join(news_dir, news_file)
-        pf.debug(f"Loading news file: {news_path}")
+        pf.debug(f"\t- {news_path}")
+
         data = pathlib.Path(news_path).read_text(encoding='utf-8')
         md = markdown.Markdown(extensions=['meta'])
         md.convert(data)
@@ -45,9 +46,11 @@ def prepare(doc):
 
 def action(elem, doc):
     match elem:
-        case pf.Header(identifier='recent-news', level=1):
+        case pf.Header(identifier=name, level=1) if "news" in name or "posts" in name:
             rows = []
-            for (date, title) in doc.news_items:
+            for (i, (date, title)) in enumerate(doc.news_items):
+                if "recent" in name and i >= 5:
+                    break
                 rows.append(pf.TableRow(pf.TableCell(pf.Plain(date)), pf.TableCell(pf.Plain(title))))
             return pf.Div(elem, pf.Table(pf.TableBody(*rows)), classes=['posts'])
 
