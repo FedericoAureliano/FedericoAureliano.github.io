@@ -66,6 +66,13 @@ a:hover {
     border-bottom-right-radius: 4px;
 }
 
+.footer {
+    text-align: right;
+    font-size: 8pt;
+    color: var(--nord3);
+    margin-top: 2em;
+}
+
 /* Hack because Panddoc tries to calculate the size of tables columns */
 col {
     width: 0% !important;

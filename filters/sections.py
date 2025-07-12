@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
 """
-Clump all the headers into sections and add the headshot to the profile section.
+Clump all the headers into sections, add the headshot to the profile section, and add a footer with the current date.
 """
 
 import panflute as pf
+import datetime
 
 def prepare(doc):
     doc.headshot = doc.get_metadata('headshot')
@@ -56,6 +57,10 @@ def finalize(doc):
         # Adjust the offset for the next section
         offset += (start_index - end_index) + 1
 
+    # Add a footer with the current date
+    last_update = pf.Plain(pf.Str(f"Last updated: {datetime.datetime.now().strftime('%Y-%m-%d')}"))
+    footer = pf.Div(last_update, classes=['footer'])
+    doc.content.append(footer)
 
 def main(doc=None):
     return pf.run_filter(action, prepare=prepare, finalize=finalize, doc=doc) 
