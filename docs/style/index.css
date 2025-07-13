@@ -102,4 +102,9 @@ table > tbody > tr > td:nth-child(odd) > a {
     #profile > table > tbody > tr > td:nth-child(even) {
         padding-left: 1em;
     }
+    
+    table > tbody > tr > td:nth-child(odd) {
+        width: unset;
+    }
+
 }
