@@ -1,20 +1,32 @@
-# Federico's Academic Website
+---
+author: "Federico Mora Rocha"
+icon: "images/favicon.svg"
+counter: |
+    <script data-goatcounter="https://federicoaureliano.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+news: posts
+papers: main.bib
+headshot: images/federico.jpg
+---
 
-Feel free to use this website generator. No need to ask for permission or to credit me on your site. If you do use it, I'd love to hear how it went :)
+# Profile
 
-**NOTE**: while I do not ask that you credit me on your site, please respect the software license in LICENSE.md.
+My name is Federico Mora Rocha and I'm an Applied Scientist in the [Automated Reasoning Group (ARG) at Amazon Web Services (AWS)](https://www.amazon.science/research-areas/automated-reasoning). Starting Fall 2026, I will be an Assistant Professor in the [Cheriton School of Computer Science at the University of Waterloo](https://cs.uwaterloo.ca/) and a Faculty Affiliate at the [Vector Institute](https://vectorinstitute.ai/).
 
-## Creating Your Website
-0. Install hatch (https://hatch.pypa.io/latest/).
-1. Fill in the ```.json``` files in the ```data``` folder.
-2. Run ```hatch run json2cv``` to build your website.
-3. Open ```docs/index.html``` to admire it!
+# News
 
-**NOTE**: don't edit ```docs/index.html```, ```docs/news.html```, ```docs/pubs.html```, or ```docs/main.css``` directly. If you want to make structural changes to your  website and you know what you are doing, then edit the code ```src/json2cv/cli``` or the template files in ```templates/```. 
+# Publications
 
-**NOTE**: after making changes to the ```.json``` files in ```/data```, the template files in ```templates/```, or the code ```src/json2cv/cli``` remember to run ```hatch run json2cv``` again for your changes to take effect!
+# Group
 
-## Hosting Your Website With GitHub Pages
-1. In your repo, go to ```settings -> pages``` and set ```source``` to ```/docs```.
+If you are interested in automated reasoning, programming languages, or neuro-symbolic systems, please take a look at my recent publications and consider [applying](https://uwaterloo.ca/future-graduate-students/admissions/how-to-apply) to join my group!
 
-**NOTE**: remember to remove or replace ```docs/CNAME```.
+# Awards
+
+| | |
+|-|-|
+| [2024](https://smt-comp.github.io/2024/results/qf_datatypes-single-query/) |  QF_Datatypes division of SMT-COMP |
+| [2024](https://ga.berkeley.edu/ga-news/ga-mentorship-awards/) | Outstanding Graduate Student Peer Mentor Award |
+| [2024](https://www2.eecs.berkeley.edu/Students/Awards/1/) | Demetri Angelakos Memorial Achievement Award |
+| [2023](https://www2.eecs.berkeley.edu/Students/Awards/13/) | Outstanding Teaching Assistant Award |
+| [2022](https://gsi.berkeley.edu/programs-services/award-programs/ogsi/) | Outstanding Graduate Student Instructor Award |
+| [2021](https://www.qualcomm.com/research/research/university-relations/innovation-fellowship/winners) | Qualcomm Innovation Fellowship |

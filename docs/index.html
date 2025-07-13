@@ -1,282 +1,310 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <title>Federico Mora Rocha</title>
-    <meta charset="UTF-8">
-    <meta name="description" content="Federico Mora Rocha's academic website. Topics of interest include verification, formal methods, automated reasoning, program synthesis, satisfiability modulo theories (SMT), program analysis, programming languages, and logic">
-    <meta name="author" content="Federico Mora Rocha">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="reset.css">
-    <link rel="stylesheet" type="text/css" href="main.css">
-    <link rel="stylesheet" type="text/css" href="light.css" id="theme-link">
-    <link rel="shortcut icon" type="image/png" href="./images/favicon.svg" />
-    <script data-goatcounter="https://federicoaureliano.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><noscript><img src="https://federicoaureliano.goatcounter.com/count?p=/test-noscript"></noscript>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Federico Mora Rocha" />
+  <title>Federico Mora Rocha</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="style/main.css" />
+  <link rel="stylesheet" href="style/index.css" />
+  <script>
+      window.onscroll = function () { scroller() };
+      function scroller() {
+          var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+          var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          var scrolled = (winScroll / height) * 100;
+          scrolled = Math.min(100, Math.max(0, scrolled));
+          document.getElementById("scroller").style.width = (100 - scrolled) + "%";
+      }
+  </script>
+  <link rel="icon" type="image/x-icon" href="images/favicon.svg">
+  <script>
+    function toggleSelected() {
+      var notSelected = document.getElementsByClassName("not-selected");
+      var toggle = document.getElementsByClassName("toggle-publications")[0];
+      var state = toggle.innerHTML === "(show selected)";
+      state = !state;
+      for (var i = 0; i < notSelected.length; i++) {
+        notSelected[i].style.display = state ? "revert" : "none";
+      }
+      toggle.innerHTML = state ? "(show selected)" : "(show all)";
+    }
+    function toggleRecent() {
+      var notRecent = document.getElementsByClassName("not-recent");
+      var toggle = document.getElementsByClassName("toggle-recent")[0];
+      var state = toggle.innerHTML === "(show recent)";
+      state = !state;
+      for (var i = 0; i < notRecent.length; i++) {
+        notRecent[i].style.display = state ? "revert" : "none";
+      }
+      toggle.innerHTML = state ? "(show recent)" : "(show all)";
+    }
+    window.onload = function() {
+      var togglePubs = document.getElementsByClassName("toggle-publications")[0];
+      togglePubs.onclick = toggleSelected;
+      var toggleNews = document.getElementsByClassName("toggle-recent")[0];
+      toggleNews.onclick = toggleRecent;
+    }
+  </script>
+  <script data-goatcounter="https://federicoaureliano.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
-
+<div id="scroller"></div>
 <body>
-<header><div id="scroller"></div>
-<label class="switch-mode">
-    <input type="checkbox" id="mode">
-    <span class="slider round"></span>
-</label>
-<script>window.onscroll = function() {scroller()};
-function scroller() {
-  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  var scrolled = (winScroll / height) * 100;
-  // scrolled should be between 0 and 100
-  scrolled = Math.min(100, Math.max(0, scrolled));
-  document.getElementById("scroller").style.width = scrolled + "%";
-}</script>
-<script>const btn = document.querySelector(".switch-mode");
-const theme = document.querySelector("#theme-link");
-
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    theme.href = "dark.css";
-    document.getElementById("mode").checked = true;
-}
-
-btn.addEventListener("change", function() {
-  // Swap out the URL for the different stylesheets
-  if (document.getElementById("mode").checked) {
-    theme.href = "dark.css";
-  } else {
-    theme.href = "light.css";
-  }
-});</script>
-</header>
-<div class="content">
-<div class="profile">
-<img class="headshot" src="images/federico.jpg" alt="Headshot"/>
-<p>My name is Federico <abbr title="Mora is my paternal surname, not my middle name. Rocha is my maternal surname, not my last name.">Mora Rocha.</abbr> I am a Ph.D. student in computer science at the <a href="https://en.wikipedia.org/wiki/University_of_California,_Berkeley">University of California, Berkeley</a>, where I am advised by <a href="https://people.eecs.berkeley.edu/~sseshia/">Sanjit A. Seshia</a>. Before Berkeley, I completed an M.Sc. in computer science at the <a href="https://en.wikipedia.org/wiki/University_of_Toronto">University of Toronto</a>, where I  was advised by <a href="http://www.cs.toronto.edu/~chechik/">Marsha Chechik</a>. Before Toronto, I completed a B.Sc. in computer science and mathematics at <a href="https://en.wikipedia.org/wiki/Mount_Allison_University">Mount Allison University</a>.</p><p>My primary areas of expertise are <a href="https://en.wikipedia.org/wiki/Automated_reasoning">automated reasoning</a>, <a href="https://en.wikipedia.org/wiki/Formal_methods">formal methods</a>, and <a href="https://en.wikipedia.org/wiki/Programming_language_theory">programming language theory</a>.</p><div class="announcement">
-I am on the job market this year! Here is my CV (<a href="https://federico.morarocha.ca/cv/cv.pdf">pdf</a>), research statement (<a href="https://federico.morarocha.ca/job-market/research.pdf">pdf</a>, <a href="https://federico.morarocha.ca/job-market/research.html">html</a>), teaching statement (<a href="https://federico.morarocha.ca/job-market/teaching.pdf">pdf</a>, <a href="https://federico.morarocha.ca/job-market/teaching.html">html</a>), Google Scholar profile (<a href="https://scholar.google.com/citations?user=mm91pq0AAAAJ&hl">html</a>), and DBLP profile (<a href="https://dblp.org/pid/82/5093-2.html">html</a>). You can reach me at fmora@cs.berkeley.edu.</div>
+<section id="profile" class="profile">
+<h1>Profile</h1>
+<table>
+<tbody>
+<tr>
+<td><p><img src="images/federico.jpg" title="Headshot"
+class="headshot" /></p></td>
+<td><div>
+<p>My name is Federico Mora Rocha and I’m an Applied Scientist in the <a
+href="https://www.amazon.science/research-areas/automated-reasoning">Automated
+Reasoning Group (ARG) at Amazon Web Services (AWS)</a>. Starting Fall
+2026, I will be an Assistant Professor in the <a
+href="https://cs.uwaterloo.ca/">Cheriton School of Computer Science at
+the University of Waterloo</a> and a Faculty Affiliate at the <a
+href="https://vectorinstitute.ai/">Vector Institute</a>.</p>
+</div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="news" class="posts">
+<h1>News <a href="#news" class="toggle-recent">(show all)</a></h1>
+<table>
+<tbody>
+<tr>
+<td><a href="posts/waterloo-job.html">07/2025</a></td>
+<td>Accepted Tenure-Track Faculty Position at the University of
+Waterloo</td>
+</tr>
+<tr>
+<td><a href="posts/algaroba-smtcomp.html">07/2024</a></td>
+<td>Won the QF_Datatypes division of SMT-COMP 2024</td>
+</tr>
+<tr>
+<td><a href="posts/amar-shah-src.html">05/2024</a></td>
+<td>Amar Shah Won Silver at the ACM SRC Grand Finals</td>
+</tr>
+<tr>
+<td><a href="posts/peer-mentor-award.html">04/2024</a></td>
+<td>Won Outstanding Graduate Student Peer Mentor Award</td>
+</tr>
+<tr>
+<td><a href="posts/demetri-angelakos-award.html">04/2024</a></td>
+<td>Won Demetri Angelakos Memorial Achievement Award</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/haley-lepe-stem-award.html">10/2023</a></td>
+<td>Haley Lepe won National Diversity in STEM Conference Presentation
+Award</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/pldi23-competition.html">06/2023</a></td>
+<td>Amar Shah won PLDI Undergraduate Student Research Competition</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/outstanding-ta-award.html">05/2023</a></td>
+<td>Won Outstanding TA Award</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/quals-passed.html">02/2023</a></td>
+<td>Passed Qualifying Exam</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/outstanding-gsi-award.html">05/2022</a></td>
+<td>Won Outstanding GSI Award</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/periodicals-map.html">03/2022</a></td>
+<td>African American Museum and Library Recommends my Map</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/qualcomm-fellowship.html">07/2021</a></td>
+<td>Won Qualcomm Innovation Fellowship</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/popl20-competition.html">01/2020</a></td>
+<td>Murad Akhundov won POPL Undergraduate Student Research
+Competition</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="publications" class="publications">
+<h1>Publications <a href="#publications"
+class="toggle-publications">(show all)</a></h1>
+<table>
+<tbody>
+<tr class="selected">
+<td><a href="https://openreview.net/pdf?id=kQPzFiwVIu">NeurIPS
+'24</a></td>
+<td>Synthetic Programming Elicitation for Text-to-Code in Very
+Low-Resource Programming and Formal Languages</td>
+</tr>
+<tr class="selected">
+<td><a
+href="https://ojs.aaai.org/index.php/AAAI/article/view/28649">AAAI
+'24</a></td>
+<td>An Eager Satisfiability Modulo Theories Solver for Algebraic
+Datatypes</td>
+</tr>
+<tr class="not-selected">
+<td><a
+href="https://www.sciencedirect.com/science/article/pii/S030439752200723X">TCS
+'23</a></td>
+<td>Towards more efficient methods for solving regular-expression heavy
+string constraints</td>
+</tr>
+<tr class="not-selected">
+<td><a
+href="https://arxiv.org/ftp/arxiv/papers/2306/2306.00521.pdf">SYNT
+'23</a></td>
+<td>Genetic Algorithms for Searching a Matrix of Metagrammars for
+Synthesis</td>
+</tr>
+<tr class="selected">
+<td><a href="https://dl.acm.org/doi/pdf/10.1145/3622876">OOPSLA
+'23</a></td>
+<td>Message Chains for Distributed System Verification</td>
+</tr>
+<tr class="not-selected">
+<td><a href="https://arxiv.org/abs/2208.03699">CAV '22</a></td>
+<td>UCLID5: Multi-Modal Formal Modeling, Verification, and
+Synthesis</td>
+</tr>
+<tr class="not-selected">
+<td><a href="https://arxiv.org/abs/2105.07220">WORDS '21</a></td>
+<td>String Theories involving Regular Membership Predicates: From
+Practice to Theory and Back</td>
+</tr>
+<tr class="selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/sat21.pdf">SAT
+'21</a></td>
+<td>MedleySolver: Online SMT Algorithm Selection</td>
+</tr>
+<tr class="selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/fm21a.pdf">FM
+'21</a></td>
+<td>Z3str4: A Multi-armed String Solver</td>
+</tr>
+<tr class="not-selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/fm21b.pdf">FM
+'21</a></td>
+<td>BanditFuzz: Fuzzing SMT Solvers with Multi-Agent Reinforcement
+Learning</td>
+</tr>
+<tr class="selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/cav21.pdf">CAV
+'21</a></td>
+<td>An SMT Solver for Regular Expressions and Linear Arithmetic over
+String Length</td>
+</tr>
+<tr class="not-selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/atva21.pdf">ATVA
+'21</a></td>
+<td>Verification by Gambling on Program Slices</td>
+</tr>
+<tr class="not-selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/vstte20.pdf">VSTTE
+'20</a></td>
+<td>BanditFuzz: A Reinforcement-Learning Based Performance Fuzzer for
+SMT Solvers</td>
+</tr>
+<tr class="not-selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/synt20.pdf">SYNT
+'20</a></td>
+<td>Synthesis in UCLID5</td>
+</tr>
+<tr class="not-selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/ase20.pdf">ASE
+'20</a></td>
+<td>Scaling Client-Specific Equivalence Checking via Impact Boundary
+Search</td>
+</tr>
+<tr class="selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/cav18.pdf">CAV
+'18</a></td>
+<td>StringFuzz: A Fuzzer for String Solvers</td>
+</tr>
+<tr class="not-selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/ase18.pdf">ASE
+'18</a></td>
+<td>Client-Specific Equivalence Checking</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="group" class="group">
+<h1>Group</h1>
+<p>If you are interested in automated reasoning, programming languages,
+or neuro-symbolic systems, please take a look at my recent publications
+and consider <a
+href="https://uwaterloo.ca/future-graduate-students/admissions/how-to-apply">applying</a>
+to join my group!</p>
+</section>
+<section id="awards" class="awards">
+<h1>Awards</h1>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr>
+<td><a
+href="https://smt-comp.github.io/2024/results/qf_datatypes-single-query/">2024</a></td>
+<td>QF_Datatypes division of SMT-COMP</td>
+</tr>
+<tr>
+<td><a
+href="https://ga.berkeley.edu/ga-news/ga-mentorship-awards/">2024</a></td>
+<td>Outstanding Graduate Student Peer Mentor Award</td>
+</tr>
+<tr>
+<td><a
+href="https://www2.eecs.berkeley.edu/Students/Awards/1/">2024</a></td>
+<td>Demetri Angelakos Memorial Achievement Award</td>
+</tr>
+<tr>
+<td><a
+href="https://www2.eecs.berkeley.edu/Students/Awards/13/">2023</a></td>
+<td>Outstanding Teaching Assistant Award</td>
+</tr>
+<tr>
+<td><a
+href="https://gsi.berkeley.edu/programs-services/award-programs/ogsi/">2022</a></td>
+<td>Outstanding Graduate Student Instructor Award</td>
+</tr>
+<tr>
+<td><a
+href="https://www.qualcomm.com/research/research/university-relations/innovation-fellowship/winners">2021</a></td>
+<td>Qualcomm Innovation Fellowship</td>
+</tr>
+</tbody>
+</table>
+</section>
+<div class="footer">
+Last updated: 2025-07-12
 </div>
-<div class="section">
-<h1>Recent News <span class="more">(<a href="./news.html">see all</a>)</span></h1>
-<div class="hbar"></div>
-<div id="news">
-<div class="news-item">
-<div class="news-left">
-07/2024
-</div>
-<div class="news-right">
-We won the QF_Datatypes division of <a href="https://smt-comp.github.io/2024/results/qf_datatypes-single-query/">SMT-COMP 2024</a>!
-</div>
-</div><div class="news-item">
-<div class="news-left">
-05/2024
-</div>
-<div class="news-right">
-<a href="https://www.cs.cmu.edu/~amarshah/">Amar Shah</a>, my mentee, came second at the <a href="https://src.acm.org/">2024 ACM SRC Grand Finals</a>!
-</div>
-</div><div class="news-item">
-<div class="news-left">
-04/2024
-</div>
-<div class="news-right">
-I won UC Berkeley's <a href="https://ga.berkeley.edu/ga-news/ga-mentorship-awards/">Outstanding Graduate Student Peer Mentor Award</a>!
-</div>
-</div><div class="news-item">
-<div class="news-left">
-04/2024
-</div>
-<div class="news-right">
-I won the <a href="https://www2.eecs.berkeley.edu/Students/Awards/1/">Demetri Angelakos Memorial Achievement Award</a>!
-</div>
-</div><div class="news-item">
-<div class="news-left">
-02/2024
-</div>
-<div class="news-right">
-<a href="https://youtu.be/I1wHDsPZHbI">I presented</a> our paper on an eager SMT solver for ADTs at <a href="https://aaai.org/aaai-conference/">AAAI '24</a>
-</div>
-</div></div>
-</div>
-<div class="section">
-<h1>Selected Publications <span class="more">(<a href="./pubs.html">see all</a>)</span></h1><div class="hbar"></div>
-<span class="legend">(undergraduate mentees underlined)</span>
-<div id="publications">
-<h2 id="Refereed Conference Paperspublications">Refereed Conference Papers</h2><div class="paper">
-<div class="paper-flex">
-<div class="paper-conference">
-<div class="bigscreen"><small><a href="https://neurips.cc/Conferences/2024">NeurIPS '24</a></small></div><div class="smallscreen"><a href="https://neurips.cc/Conferences/2024">NeurIPS '24</a></div>
-</div>
-<div class="paper-details">
-<div class="paper-title">
-Synthetic Programming Elicitation for Text-to-Code in Very <br class="bigscreen"> Low-Resource Programming and Formal Languages
-</div>
-<div class="paper-authors">
-F. Mora,
-<a href="https://people.eecs.berkeley.edu/~wong.justin/">J. Wong</a>,
-<span class="mentee"><a href="https://www.linkedin.com/in/haleylepe">H. Lepe</a></span>,
-<a href="https://scholar.google.com/citations?user=HwfGXkcAAAAJ&hl=en">S. Bhatia</a>,
-<a href="https://kael.tech.blog/">K. Elmaaroufi</a>,
-<br class="bigscreen"><a href="https://www.georgevargheseucla.com/">G. Varghese</a>,
-<a href="https://people.eecs.berkeley.edu/~jegonzal/">J. E. Gonzalez</a>,
-<a href="https://polgreen.github.io/">E. Polgreen</a> and
-<a href="https://people.eecs.berkeley.edu/~sseshia/">S. A. Seshia</a>
-</div>
-</div>
-<div class="paper-icons">
-<a href="https://openreview.net/pdf?id=kQPzFiwVIu" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/FedericoAureliano/eudoxus" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://people.eecs.berkeley.edu/~fmora/neurips24_presentation.pdf" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://github.com/FedericoAureliano/eudoxus/blob/main/CITATION.bib" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
-</div>
-</div>
-</div><div class="paper">
-<div class="paper-flex">
-<div class="paper-conference">
-<a href="https://aaai.org/aaai-conference/">AAAI '24</a>
-</div>
-<div class="paper-details">
-<div class="paper-title">
-An Eager Satisfiability Modulo Theories Solver for Algebraic Datatypes
-</div>
-<div class="paper-authors">
-<span class="mentee"><a href="https://www.cs.cmu.edu/~amarshah/">A. Shah</a></span>,
-F. Mora and
-<a href="https://people.eecs.berkeley.edu/~sseshia/">S. A. Seshia</a>
-</div>
-</div>
-<div class="paper-icons">
-<a href="https://ojs.aaai.org/index.php/AAAI/article/view/28649" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/uclid-org/algaroba/tree/aaai24" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://people.eecs.berkeley.edu/~fmora/aaai24_presentation.pdf" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/aaai/ShahMS24.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
-</div>
-</div>
-</div><div class="paper">
-<div class="paper-flex">
-<div class="paper-conference">
-<div class="bigscreen"><small><a href="https://2023.splashcon.org/track/splash-2023-oopsla">OOPSLA '23</a></small></div><div class="smallscreen"><a href="https://2023.splashcon.org/track/splash-2023-oopsla">OOPSLA '23</a></div>
-</div>
-<div class="paper-details">
-<div class="paper-title">
-Message Chains for Distributed System Verification
-</div>
-<div class="paper-authors">
-F. Mora,
-<a href="https://ankushdesai.github.io/">A. Desai</a>,
-<a href="https://polgreen.github.io/">E. Polgreen</a> and
-<a href="https://people.eecs.berkeley.edu/~sseshia/">S. A. Seshia</a>
-</div>
-</div>
-<div class="paper-icons">
-<a href="https://dl.acm.org/doi/pdf/10.1145/3622876" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/FedericoAureliano/upverifier/tree/main" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://github.com/FedericoAureliano/upverifier/blob/main/docs/oopsla_presentation.pdf" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/journals/pacmpl/MoraDPS23.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
-</div>
-</div>
-</div><div class="paper">
-<div class="paper-flex">
-<div class="paper-conference">
-<a href="https://lcs.ios.ac.cn/fm2021/">FM '21</a>
-</div>
-<div class="paper-details">
-<div class="paper-title">
-Z3str4: A Multi-armed String Solver
-</div>
-<div class="paper-authors">
-F. Mora,
-<a href="https://scholar.google.ca/citations?user=cEEaxGIAAAAJ&hl=en">M. Berzish</a>,
-<a href="https://www.informatik.uni-kiel.de/~mku/">M. Kulczynski</a>,
-<a href="https://www.zs.informatik.uni-kiel.de/en/team/nowotka">D. Nowotka</a> and
-<a href="https://ece.uwaterloo.ca/~vganesh/">V. Ganesh</a>
-</div>
-</div>
-<div class="paper-icons">
-<a href="https://people.eecs.berkeley.edu/~fmora/fm21a.pdf" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://z3str4.github.io/" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://people.eecs.berkeley.edu/~fmora/fm21a_presentation.pdf" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/fm/MoraBKNG21.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
-</div>
-</div>
-</div><div class="paper">
-<div class="paper-flex">
-<div class="paper-conference">
-<a href="https://www.iiia.csic.es/sat2021/">SAT '21</a>
-</div>
-<div class="paper-details">
-<div class="paper-title">
-MedleySolver: Online SMT Algorithm Selection
-</div>
-<div class="paper-authors">
-<span class="mentee"><a href="http://nikhilpim.github.io/">N. Pimpalkhare</a></span>,
-F. Mora,
-<a href="https://polgreen.github.io/">E. Polgreen</a> and
-<a href="https://people.eecs.berkeley.edu/~sseshia/">S. A. Seshia</a>
-</div>
-</div>
-<div class="paper-icons">
-<a href="https://people.eecs.berkeley.edu/~fmora/sat21.pdf" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/uclid-org/medley-solver/tree/SAT2021" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://people.eecs.berkeley.edu/~fmora/sat21_presentation.pdf" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/sat/PimpalkhareMPS21.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
-</div>
-</div>
-</div><div class="paper">
-<div class="paper-flex">
-<div class="paper-conference">
-<a href="http://i-cav.org/2021/">CAV '21</a>
-</div>
-<div class="paper-details">
-<div class="paper-title">
-An SMT Solver for Regular Expressions and <br class="bigscreen"> Linear Arithmetic over String Length
-</div>
-<div class="paper-authors">
-<a href="https://scholar.google.ca/citations?user=cEEaxGIAAAAJ&hl=en">M. Berzish</a>,
-<a href="https://www.informatik.uni-kiel.de/~mku/">M. Kulczynski</a>,
-F. Mora,
-<a href="https://flmanea.blogspot.com/">F. Manea</a>,
-<br class="bigscreen"><a href="https://www.lboro.ac.uk/departments/compsci/staff/academic-teaching/joel-day/">J. Day</a>,
-<a href="https://www.zs.informatik.uni-kiel.de/en/team/nowotka">D. Nowotka</a> and
-<a href="https://ece.uwaterloo.ca/~vganesh/">V. Ganesh</a>
-</div>
-</div>
-<div class="paper-icons">
-<a href="https://people.eecs.berkeley.edu/~fmora/cav21.pdf" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://figshare.com/s/5ae73a6f3c55f5c5e4c1" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://ucl-pplv.github.io/CAV21/poster_P_220/" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/cav/BerzishKMMDNG20.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
-</div>
-</div>
-</div><h2 id="Refereed Short or Tool Paperspublications">Refereed Short or Tool Papers</h2><div class="paper">
-<div class="paper-flex">
-<div class="paper-conference">
-<a href="http://i-cav.org/2022/">CAV '22</a>
-</div>
-<div class="paper-details">
-<div class="paper-title">
-UCLID5: Multi-Modal Formal Modeling, Verification, and Synthesis
-</div>
-<div class="paper-authors">
-<a href="https://polgreen.github.io/">E. Polgreen</a>,
-<a href="https://kkmc.github.io/">K. Cheang</a>,
-<a href="https://github.com/d0cd">P. Gaddamadugu</a>,
-<a href="https://github.com/adwait">A. Godbole</a>,
-<a href="https://kevinlaeufer.com/">K. Laeufer</a>,
-<br class="bigscreen"><a href="https://shaokai.io/">S. Lin</a>,
-<a href="https://web.eecs.umich.edu/~manerkar/">Y. Manerkar</a>,
-F. Mora and
-<a href="https://people.eecs.berkeley.edu/~sseshia/">S. A. Seshia</a>
-</div>
-</div>
-<div class="paper-icons">
-<a href="https://arxiv.org/abs/2208.03699" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/uclid-org/uclid" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://easychair.org/smart-slide/slide/SJtw" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/cav/PolgreenCGGLLMM22.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
-</div>
-</div>
-</div><div class="paper">
-<div class="paper-flex">
-<div class="paper-conference">
-<a href="http://cavconference.org/2018/">CAV '18</a>
-</div>
-<div class="paper-details">
-<div class="paper-title">
-StringFuzz: A Fuzzer for String Solvers
-</div>
-<div class="paper-authors">
-<a href="http://dmitryblotsky.com/">D. Blotsky</a>,
-F. Mora,
-<a href="https://scholar.google.ca/citations?user=cEEaxGIAAAAJ&hl=en">M. Berzish</a>,
-<a href="https://zyh1121.github.io/">Y. Zheng</a>,
-<a href="https://ifazk.com/">I. Kabir</a> and
-<a href="https://ece.uwaterloo.ca/~vganesh/">V. Ganesh</a>
-</div>
-</div>
-<div class="paper-icons">
-<a href="https://people.eecs.berkeley.edu/~fmora/cav18.pdf" alt="[PDF] "><img class="paper-icon" src="images/paper.png"/><img class="paper-icon-dark" src="images/paper-dark.png"/></a><a href="https://github.com/dblotsky/stringfuzz" alt="[Extra] "><img class="paper-icon" src="images/extra.png"/><img class="paper-icon-dark" src="images/extra-dark.png"/></a><a href="https://easychair.org/smart-slide/slide/pN13#" alt="[Slides] "><img class="paper-icon" src="images/slides.png"/><img class="paper-icon-dark" src="images/slides-dark.png"/></a><a href="https://dblp.org/rec/conf/cav/BlotskyMBZKG18.html?view=bibtex" alt="[Bibtex] "><img class="paper-icon" src="images/bibtex.png"/><img class="paper-icon-dark" src="images/bibtex-dark.png"/></a>
-</div>
-</div>
-</div></div>
-</div>
-</div>
-
-<footer>
-<p>Feel free to <a href="https://github.com/FedericoAureliano/FedericoAureliano.github.io">use this website template</a>.</p>
-</footer>
 </body>
 </html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="$lang$" xml:lang="$lang$"$if(dir)$ dir="$dir$"$endif$>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+$for(author-meta)$
+  <meta name="author" content="$author-meta$" />
+$endfor$
+$if(keywords)$
+  <meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$" />
+$endif$
+  <title>$author$</title>
+  <style>
+    $styles.html()$
+  </style>
+$for(css)$
+  <link rel="stylesheet" href="$css$" />
+$endfor$
+$for(header-includes)$
+  $header-includes$
+$endfor$
+$if(math)$
+  $math$
+$endif$
+$if(icon)$
+  <link rel="icon" type="image/x-icon" href="$icon$">
+$endif$
+  <script>
+    function toggleSelected() {
+      var notSelected = document.getElementsByClassName("not-selected");
+      var toggle = document.getElementsByClassName("toggle-publications")[0];
+      var state = toggle.innerHTML === "(show selected)";
+      state = !state;
+      for (var i = 0; i < notSelected.length; i++) {
+        notSelected[i].style.display = state ? "revert" : "none";
+      }
+      toggle.innerHTML = state ? "(show selected)" : "(show all)";
+    }
+    function toggleRecent() {
+      var notRecent = document.getElementsByClassName("not-recent");
+      var toggle = document.getElementsByClassName("toggle-recent")[0];
+      var state = toggle.innerHTML === "(show recent)";
+      state = !state;
+      for (var i = 0; i < notRecent.length; i++) {
+        notRecent[i].style.display = state ? "revert" : "none";
+      }
+      toggle.innerHTML = state ? "(show recent)" : "(show all)";
+    }
+    window.onload = function() {
+      var togglePubs = document.getElementsByClassName("toggle-publications")[0];
+      togglePubs.onclick = toggleSelected;
+      var toggleNews = document.getElementsByClassName("toggle-recent")[0];
+      toggleNews.onclick = toggleRecent;
+    }
+  </script>
+$if(counter)$
+  $counter$
+$endif$
+</head>
+<div id="scroller"></div>
+<body>
+$for(include-before)$
+$include-before$
+$endfor$
+$body$
+$for(include-after)$
+$include-after$
+$endfor$
+</body>
+</html>

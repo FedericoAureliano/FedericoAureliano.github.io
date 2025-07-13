@@ -1,0 +1,105 @@
+:root {
+    --headshot-width: 130px;
+}
+
+/* Profile Section Stuff */
+
+#profile > h1 {
+    display: none;
+}
+
+.headshot {
+    width: var(--headshot-width);
+    height: auto;
+    border-radius: 4px;
+}
+
+/* News, Publication, and Teaching Tables */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+table > tbody > tr > td:nth-child(odd) {
+    width: 6em;
+    text-align: right;
+    vertical-align: top;
+    padding-right: 1em;
+}
+
+
+table > tbody > tr > td:nth-child(odd) > a {
+    font-size: 11pt;
+}
+
+/* Profile Table */
+
+#profile > table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0em;
+    font-size: 14pt;
+}
+
+#profile > table td + td { 
+    border-left:2px solid var(--grey3); 
+}
+
+#profile > table > tbody > tr > td:nth-child(odd) {
+    width: var(--headshot-width);
+    padding-right: 1em;
+    text-align: left;
+    vertical-align: middle;
+}
+
+#profile > table > tbody > tr > td:nth-child(even) {
+    padding-left: 1em;
+}
+
+#profile > table > tbody > tr > td > p,  #profile > table > tbody > tr > td > div > p {
+    margin: 0em;
+    padding: 0em;
+}
+
+#profile > table > tbody > tr > td > div > p > a {
+    font-size: 13pt;
+}
+
+/* Toggle publications and news links */
+
+.toggle-publications, .toggle-recent {
+    font-size: 11pt;
+    float: right;
+    margin: 0em;
+    padding: 0em;
+    background-color: transparent;
+    text-transform: lowercase;
+}
+
+.toggle-publications:hover, .toggle-recent:hover {
+    color: var(--blue);
+}
+
+.not-selected, .not-recent {
+    display: none;
+}
+
+/* Mobile Stuff */
+
+@media (max-width: 600px) {
+    .headshot {
+        display: none;
+    }
+
+    #profile > table > tbody > tr > td:nth-child(odd) {
+        width: 0em;
+        padding: 0em;
+    }
+
+    #profile > table > tbody > tr > td:nth-child(even) {
+        padding-left: 1em;
+    }
+}

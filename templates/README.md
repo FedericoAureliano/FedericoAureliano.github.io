@@ -1,1 +1,0 @@
-Any string that ends in ```-placeholder``` is essentially a variable whose value is defined in ```/data```.
