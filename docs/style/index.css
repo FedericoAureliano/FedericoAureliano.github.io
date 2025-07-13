@@ -1,33 +1,5 @@
 :root {
-    --headshot-width: 9em;
-}
-
-section {
-    padding: 0em;
-    margin: 1em 0em 2em 0em;
-}
-
-h1 {
-    font-size: 16pt;
-    margin: 0em;
-    color: var(--white);
-    text-decoration: none;
-    background-color: var(--nord0);
-    border-radius: 4px;
-    padding: 0.2em 0.3em;
-    width: fit-content;
-}
-
-h2 {
-    font-size: 12pt;
-    margin: 0em;
-    margin-top: 0.5em;
-    color: var(--nord0);
-    text-decoration: none;
-    background-color: var(--nord4);
-    border-radius: 4px;
-    padding: 0.2em 0.3em;
-    width: fit-content;
+    --headshot-width: 130px;
 }
 
 /* Profile Section Stuff */
@@ -40,7 +12,6 @@ h2 {
     width: var(--headshot-width);
     height: auto;
     border-radius: 4px;
-    vertical-align: middle;
 }
 
 /* News, Publication, and Teaching Tables */
@@ -50,7 +21,6 @@ table {
     border-collapse: collapse;
     margin-top: 1em;
     margin-bottom: 1em;
-    font-size: 12pt;
 }
 
 table > tbody > tr > td:nth-child(odd) {
@@ -58,6 +28,11 @@ table > tbody > tr > td:nth-child(odd) {
     text-align: right;
     vertical-align: top;
     padding-right: 1em;
+}
+
+
+table > tbody > tr > td:nth-child(odd) > a {
+    font-size: 11pt;
 }
 
 /* Profile Table */
@@ -70,22 +45,46 @@ table > tbody > tr > td:nth-child(odd) {
 }
 
 #profile > table td + td { 
-    border-left:2px solid var(--nord0); 
+    border-left:2px solid var(--grey3); 
 }
 
 #profile > table > tbody > tr > td:nth-child(odd) {
     width: var(--headshot-width);
-    padding-right: 2em;
+    padding-right: 1em;
     text-align: left;
+    vertical-align: middle;
 }
 
 #profile > table > tbody > tr > td:nth-child(even) {
-    padding-left: 2em;
+    padding-left: 1em;
 }
 
 #profile > table > tbody > tr > td > p,  #profile > table > tbody > tr > td > div > p {
     margin: 0em;
     padding: 0em;
+}
+
+#profile > table > tbody > tr > td > div > p > a {
+    font-size: 13pt;
+}
+
+/* Toggle publications and news links */
+
+.toggle-publications, .toggle-recent {
+    font-size: 11pt;
+    float: right;
+    margin: 0em;
+    padding: 0em;
+    background-color: transparent;
+    text-transform: lowercase;
+}
+
+.toggle-publications:hover, .toggle-recent:hover {
+    color: var(--blue);
+}
+
+.not-selected, .not-recent {
+    display: none;
 }
 
 /* Mobile Stuff */

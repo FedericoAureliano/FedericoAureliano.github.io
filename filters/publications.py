@@ -6,100 +6,72 @@ Add selected publications to the end of the document.
 
 import panflute as pf
 import os
-import pathlib
-import markdown
+from pybtex.database import parse_file, Person
 
-
-def clean(text: str) -> str:
+def clean_venue(text: str) -> str:
     """
-    Clean the text by removing extra spaces and newlines.
+    "Annual Conference on Neural Information Processing Systems (NeurIPS)" -> "NeurIPS"
+    "International Conference on Computer-Aided Verification (CAV)" -> "CAV" 
     """
-    return ' '.join(text.split()).strip()
+    return text.split("(")[-1].strip(")")
 
 def prepare(doc):
-    papers_dir = doc.get_metadata('papers')
+    bib_file = doc.get_metadata('papers')
+    pubs_bibtex = parse_file(bib_file).entries.values() if os.path.exists(bib_file) else []
 
-    doc.papers = {}
+    doc.papers = []
 
-    if not papers_dir:
-        pf.debug("No 'papers' metadata found, skipping papers filter.")
-        return
+    for pub in pubs_bibtex:
+        pf.debug(f"\t- {pub.key}")
 
-    pf.debug(f"Loading papers items from directory: {papers_dir}")
-    papers_files = [f for f in os.listdir(papers_dir) if f.endswith('.md')]
-    for papers_file in papers_files:
-        paper_path = os.path.join(papers_dir, papers_file)
-        pf.debug(f"\t- {paper_path}")
+        selected = pub.fields['selected'].lower() == 'true' if 'selected' in pub.fields else False
+        link = pub.fields["url"] if 'url' in pub.fields else ""
 
-        data = pathlib.Path(paper_path).read_text(encoding='utf-8')
-        md = markdown.Markdown(extensions=['meta'])
-        md.convert(data)
-
-        if 'selected' in md.Meta and md.Meta['selected'][0].lower() == 'true':
-            selected = True
+        if "booktitle" in pub.fields:
+            venue = clean_venue(pub.fields['booktitle'])
+        elif "journal" in pub.fields:
+            venue = clean_venue(pub.fields['journal'])
         else:
-            selected = False
+            assert False, f"Missing 'booktitle' or 'journal' metadata in {pub.key}"
 
-        assert 'venue' in md.Meta, f"Missing 'venue' metadata in {papers_file}"
-        venue = md.Meta['venue'][0]
-        assert 'year' in md.Meta, f"Missing 'year' metadata in {papers_file}"
-        year = md.Meta['year'][0]
-        
-        assert 'title' in md.Meta, f"Missing 'title' metadata in {papers_file}"
-        title = md.Meta['title']
-        if "|" in title[0]:
-            title = clean(title[1])
-        else:
-            title = clean(title[0])
-
-        assert 'authors' in md.Meta, f"Missing 'authors' metadata in {papers_file}"
-        authors = md.Meta['authors']
-        authors = [clean(a) for a in authors if a.strip()]
-        
-        assert 'category' in md.Meta, f"Missing 'category' metadata in {papers_file}"
-        category = md.Meta['category'][0]
-
-        link = papers_dir + "/" + os.path.splitext(papers_file)[0] + '.html' 
+        assert 'year' in pub.fields, f"Missing 'year' metadata in {pub.key}"
+        year = pub.fields['year']
+        assert 'title' in pub.fields, f"Missing 'title' metadata in {pub.key}"
+        title = pub.fields['title']
 
         paper_info = {
             'title': title,
-            'authors': authors,
             'venue': venue,
             'year': year,
-            'link': link,
             'selected': selected,
+            'link': link,
         }
 
-        doc.papers.setdefault(category, []).append(paper_info)
+        doc.papers.append(paper_info)
 
-    # Sort papers by category and then by year
-    for category, papers in doc.papers.items():
-        papers.sort(key=lambda x: (x['year'], x['title']), reverse=True)
+    doc.papers.sort(key=lambda x: (x['year'], x['venue']), reverse=True)
 
 def action(elem, doc):
     match elem:
         case pf.Header(identifier=name, level=1) if "publications" in name:
             div = pf.Div(elem, classes=['publications'])
-            for category, papers in doc.papers.items():
-                if len(papers) == 0:
-                    continue
-                # make a table with two columns: venue and title
-                rows = []
-                for paper in papers:
-                    if "selected" in name and not paper['selected']:
-                        continue
-                    venue = pf.Str(f"{paper['venue']} '{paper['year'][-2:]}")
-                    venue = pf.Plain(pf.Link(venue, url=paper['link']))
-                    title = pf.Plain(pf.Str(paper['title']))
-                    rows.append(pf.TableRow(
-                        pf.TableCell(venue),
-                        pf.TableCell(title)
-                    ))
-                if not rows:
-                    continue
-                div.content.append(pf.Header(pf.Str(category), level=2))
-                div.content.append(pf.Table(pf.TableBody(*rows)))
-
+            toggle_link = pf.Link(
+                pf.Str("(show all)"),
+                url=f"#{name}",
+                classes=["toggle-publications"]
+            )
+            elem.content += [pf.Space(), toggle_link]
+            rows = []
+            for paper in doc.papers:
+                venue = pf.Str(f"{paper['venue']} '{paper['year'][-2:]}")
+                venue = pf.Plain(pf.Link(venue, url=paper['link']))
+                title = pf.Plain(pf.Str(paper['title']))
+                rows.append(pf.TableRow(
+                    pf.TableCell(venue),
+                    pf.TableCell(title),
+                    classes=["selected" if paper['selected'] else "not-selected"]
+                ))
+            div.content.append(pf.Table(pf.TableBody(*rows)))
             return div
 
 def finalize(doc):

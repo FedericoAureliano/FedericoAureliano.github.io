@@ -27,16 +27,33 @@ $if(icon)$
   <link rel="icon" type="image/x-icon" href="$icon$">
 $endif$
   <script>
-    window.onscroll = function() {scroller()};
-    function scroller() {
-      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      var scrolled = (winScroll / height) * 100;
-      // scrolled should be between 0 and 100
-      scrolled = Math.min(100, Math.max(0, scrolled));
-      document.getElementById("scroller").style.width = scrolled + "%";
+    function toggleSelected() {
+      var notSelected = document.getElementsByClassName("not-selected");
+      var toggle = document.getElementsByClassName("toggle-publications")[0];
+      var state = toggle.innerHTML === "(show selected)";
+      state = !state;
+      for (var i = 0; i < notSelected.length; i++) {
+        notSelected[i].style.display = state ? "revert" : "none";
+      }
+      toggle.innerHTML = state ? "(show selected)" : "(show all)";
     }
-  </script> 
+    function toggleRecent() {
+      var notRecent = document.getElementsByClassName("not-recent");
+      var toggle = document.getElementsByClassName("toggle-recent")[0];
+      var state = toggle.innerHTML === "(show recent)";
+      state = !state;
+      for (var i = 0; i < notRecent.length; i++) {
+        notRecent[i].style.display = state ? "revert" : "none";
+      }
+      toggle.innerHTML = state ? "(show recent)" : "(show all)";
+    }
+    window.onload = function() {
+      var togglePubs = document.getElementsByClassName("toggle-publications")[0];
+      togglePubs.onclick = toggleSelected;
+      var toggleNews = document.getElementsByClassName("toggle-recent")[0];
+      toggleNews.onclick = toggleRecent;
+    }
+  </script>
 $if(counter)$
   $counter$
 $endif$

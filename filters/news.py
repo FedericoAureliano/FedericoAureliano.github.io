@@ -49,9 +49,14 @@ def action(elem, doc):
         case pf.Header(identifier=name, level=1) if "news" in name or "posts" in name:
             rows = []
             for (i, (date, title)) in enumerate(doc.news_items):
-                if "recent" in name and i >= 5:
-                    break
-                rows.append(pf.TableRow(pf.TableCell(pf.Plain(date)), pf.TableCell(pf.Plain(title))))
+                classes = ['not-recent'] if i >= 5 else []
+                rows.append(pf.TableRow(pf.TableCell(pf.Plain(date)), pf.TableCell(pf.Plain(title)), classes=classes))
+            toggle_link = pf.Link(
+                pf.Str("(show all)"),
+                url=f"#{name}",
+                classes=["toggle-recent"]
+            )
+            elem.content += [pf.Space(), toggle_link]
             return pf.Div(elem, pf.Table(pf.TableBody(*rows)), classes=['posts'])
 
 def finalize(doc):

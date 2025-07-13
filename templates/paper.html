@@ -26,17 +26,6 @@ $endif$
 $if(icon)$
   <link rel="icon" type="image/x-icon" href="$icon$">
 $endif$
-  <script>
-    window.onscroll = function() {scroller()};
-    function scroller() {
-      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      var scrolled = (winScroll / height) * 100;
-      // scrolled should be between 0 and 100
-      scrolled = Math.min(100, Math.max(0, scrolled));
-      document.getElementById("scroller").style.width = scrolled + "%";
-    }
-  </script> 
 $if(counter)$
   $counter$
 $endif$
@@ -46,12 +35,10 @@ $endif$
 $for(include-before)$
 $include-before$
 $endfor$
-<h1>$title$</h1>
-<h2>
-  $for(authors)$
+$title$
+$for(authors)$
   $authors$
-  $endfor$
-</h2>
+$endfor$
 $body$
 $for(include-after)$
 $include-after$

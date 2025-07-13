@@ -25,18 +25,45 @@
   </style>
   <link rel="stylesheet" href="style/main.css" />
   <link rel="stylesheet" href="style/index.css" />
+  <script>
+      window.onscroll = function () { scroller() };
+      function scroller() {
+          var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+          var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          var scrolled = (winScroll / height) * 100;
+          scrolled = Math.min(100, Math.max(0, scrolled));
+          document.getElementById("scroller").style.width = (100 - scrolled) + "%";
+      }
+  </script>
   <link rel="icon" type="image/x-icon" href="images/favicon.svg">
   <script>
-    window.onscroll = function() {scroller()};
-    function scroller() {
-      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      var scrolled = (winScroll / height) * 100;
-      // scrolled should be between 0 and 100
-      scrolled = Math.min(100, Math.max(0, scrolled));
-      document.getElementById("scroller").style.width = scrolled + "%";
+    function toggleSelected() {
+      var notSelected = document.getElementsByClassName("not-selected");
+      var toggle = document.getElementsByClassName("toggle-publications")[0];
+      var state = toggle.innerHTML === "(show selected)";
+      state = !state;
+      for (var i = 0; i < notSelected.length; i++) {
+        notSelected[i].style.display = state ? "revert" : "none";
+      }
+      toggle.innerHTML = state ? "(show selected)" : "(show all)";
     }
-  </script> 
+    function toggleRecent() {
+      var notRecent = document.getElementsByClassName("not-recent");
+      var toggle = document.getElementsByClassName("toggle-recent")[0];
+      var state = toggle.innerHTML === "(show recent)";
+      state = !state;
+      for (var i = 0; i < notRecent.length; i++) {
+        notRecent[i].style.display = state ? "revert" : "none";
+      }
+      toggle.innerHTML = state ? "(show recent)" : "(show all)";
+    }
+    window.onload = function() {
+      var togglePubs = document.getElementsByClassName("toggle-publications")[0];
+      togglePubs.onclick = toggleSelected;
+      var toggleNews = document.getElementsByClassName("toggle-recent")[0];
+      toggleNews.onclick = toggleRecent;
+    }
+  </script>
   <script data-goatcounter="https://federicoaureliano.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <div id="scroller"></div>
@@ -49,7 +76,7 @@
 <td><p><img src="images/federico.jpg" title="Headshot"
 class="headshot" /></p></td>
 <td><div>
-<p>I am currently an Applied Scientist in the <a
+<p>My name is Federico Mora Rocha and I’m an Applied Scientist in the <a
 href="https://www.amazon.science/research-areas/automated-reasoning">Automated
 Reasoning Group (ARG) at Amazon Web Services (AWS)</a>. Starting Fall
 2026, I will be an Assistant Professor in the <a
@@ -61,80 +88,182 @@ href="https://vectorinstitute.ai/">Vector Institute</a>.</p>
 </tbody>
 </table>
 </section>
-<section id="research-interests" class="research-interests">
-<h1>Research Interests</h1>
-<p>My research focuses on designing and implementing domain-specific
-automated reasoning tools for programmers, broadly construed.</p>
-</section>
-<section id="recent-news" class="posts">
-<h1>Recent News</h1>
+<section id="news" class="posts">
+<h1>News <a href="#news" class="toggle-recent">(show all)</a></h1>
 <table>
 <tbody>
 <tr>
 <td><a href="posts/waterloo-job.html">07/2025</a></td>
-<td>Accepted a position as an Assistant Professor at the University of
+<td>Accepted Tenure-Track Faculty Position at the University of
 Waterloo</td>
 </tr>
 <tr>
 <td><a href="posts/algaroba-smtcomp.html">07/2024</a></td>
 <td>Won the QF_Datatypes division of SMT-COMP 2024</td>
 </tr>
+<tr>
+<td><a href="posts/amar-shah-src.html">05/2024</a></td>
+<td>Amar Shah Won Silver at the ACM SRC Grand Finals</td>
+</tr>
+<tr>
+<td><a href="posts/peer-mentor-award.html">04/2024</a></td>
+<td>Won Outstanding Graduate Student Peer Mentor Award</td>
+</tr>
+<tr>
+<td><a href="posts/demetri-angelakos-award.html">04/2024</a></td>
+<td>Won Demetri Angelakos Memorial Achievement Award</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/haley-lepe-stem-award.html">10/2023</a></td>
+<td>Haley Lepe won National Diversity in STEM Conference Presentation
+Award</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/pldi23-competition.html">06/2023</a></td>
+<td>Amar Shah won PLDI Undergraduate Student Research Competition</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/outstanding-ta-award.html">05/2023</a></td>
+<td>Won Outstanding TA Award</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/quals-passed.html">02/2023</a></td>
+<td>Passed Qualifying Exam</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/outstanding-gsi-award.html">05/2022</a></td>
+<td>Won Outstanding GSI Award</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/periodicals-map.html">03/2022</a></td>
+<td>African American Museum and Library Recommends my Map</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/qualcomm-fellowship.html">07/2021</a></td>
+<td>Won Qualcomm Innovation Fellowship</td>
+</tr>
+<tr class="not-recent">
+<td><a href="posts/popl20-competition.html">01/2020</a></td>
+<td>Murad Akhundov won POPL Undergraduate Student Research
+Competition</td>
+</tr>
 </tbody>
 </table>
 </section>
-<section id="selected-publications" class="publications">
-<h1>Selected Publications</h1>
-<h2>Refereed Conference Papers</h2>
+<section id="publications" class="publications">
+<h1>Publications <a href="#publications"
+class="toggle-publications">(show all)</a></h1>
 <table>
 <tbody>
-<tr>
-<td><a href="papers/moraNeurIPS24.html">NeurIPS '24</a></td>
+<tr class="selected">
+<td><a href="https://openreview.net/pdf?id=kQPzFiwVIu">NeurIPS
+'24</a></td>
 <td>Synthetic Programming Elicitation for Text-to-Code in Very
 Low-Resource Programming and Formal Languages</td>
 </tr>
-<tr>
-<td><a href="papers/shahAAAI24.html">AAAI '24</a></td>
+<tr class="selected">
+<td><a
+href="https://ojs.aaai.org/index.php/AAAI/article/view/28649">AAAI
+'24</a></td>
 <td>An Eager Satisfiability Modulo Theories Solver for Algebraic
 Datatypes</td>
 </tr>
-<tr>
-<td><a href="papers/moraOOPSLA23.html">OOPSLA '23</a></td>
+<tr class="not-selected">
+<td><a
+href="https://www.sciencedirect.com/science/article/pii/S030439752200723X">TCS
+'23</a></td>
+<td>Towards more efficient methods for solving regular-expression heavy
+string constraints</td>
+</tr>
+<tr class="not-selected">
+<td><a
+href="https://arxiv.org/ftp/arxiv/papers/2306/2306.00521.pdf">SYNT
+'23</a></td>
+<td>Genetic Algorithms for Searching a Matrix of Metagrammars for
+Synthesis</td>
+</tr>
+<tr class="selected">
+<td><a href="https://dl.acm.org/doi/pdf/10.1145/3622876">OOPSLA
+'23</a></td>
 <td>Message Chains for Distributed System Verification</td>
 </tr>
-<tr>
-<td><a href="papers/moraFM21.html">FM '21</a></td>
-<td>Z3str4: A Multi-armed String Solver</td>
-</tr>
-<tr>
-<td><a href="papers/pimpalkhareSAT21.html">SAT '21</a></td>
-<td>MedleySolver: Online SMT Algorithm Selection</td>
-</tr>
-<tr>
-<td><a href="papers/berzishCAV21.html">CAV '21</a></td>
-<td>An SMT Solver for Regular Expressions and Linear Arithmetic over
-String Length</td>
-</tr>
-</tbody>
-</table>
-<h2>Refereed Short or Tool Papers</h2>
-<table>
-<tbody>
-<tr>
-<td><a href="papers/polgreenCAV22.html">CAV '22</a></td>
+<tr class="not-selected">
+<td><a href="https://arxiv.org/abs/2208.03699">CAV '22</a></td>
 <td>UCLID5: Multi-Modal Formal Modeling, Verification, and
 Synthesis</td>
 </tr>
-<tr>
-<td><a href="papers/blotskyCAV18.html">CAV '18</a></td>
+<tr class="not-selected">
+<td><a href="https://arxiv.org/abs/2105.07220">WORDS '21</a></td>
+<td>String Theories involving Regular Membership Predicates: From
+Practice to Theory and Back</td>
+</tr>
+<tr class="selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/sat21.pdf">SAT
+'21</a></td>
+<td>MedleySolver: Online SMT Algorithm Selection</td>
+</tr>
+<tr class="selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/fm21a.pdf">FM
+'21</a></td>
+<td>Z3str4: A Multi-armed String Solver</td>
+</tr>
+<tr class="not-selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/fm21b.pdf">FM
+'21</a></td>
+<td>BanditFuzz: Fuzzing SMT Solvers with Multi-Agent Reinforcement
+Learning</td>
+</tr>
+<tr class="selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/cav21.pdf">CAV
+'21</a></td>
+<td>An SMT Solver for Regular Expressions and Linear Arithmetic over
+String Length</td>
+</tr>
+<tr class="not-selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/atva21.pdf">ATVA
+'21</a></td>
+<td>Verification by Gambling on Program Slices</td>
+</tr>
+<tr class="not-selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/vstte20.pdf">VSTTE
+'20</a></td>
+<td>BanditFuzz: A Reinforcement-Learning Based Performance Fuzzer for
+SMT Solvers</td>
+</tr>
+<tr class="not-selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/synt20.pdf">SYNT
+'20</a></td>
+<td>Synthesis in UCLID5</td>
+</tr>
+<tr class="not-selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/ase20.pdf">ASE
+'20</a></td>
+<td>Scaling Client-Specific Equivalence Checking via Impact Boundary
+Search</td>
+</tr>
+<tr class="selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/cav18.pdf">CAV
+'18</a></td>
 <td>StringFuzz: A Fuzzer for String Solvers</td>
+</tr>
+<tr class="not-selected">
+<td><a href="https://people.eecs.berkeley.edu/~fmora/ase18.pdf">ASE
+'18</a></td>
+<td>Client-Specific Equivalence Checking</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="teaching" class="teaching">
-<h1>Teaching</h1>
-<h2 id="guest-lectures-university-of-california-berkeley">Guest Lectures
-(University of California, Berkeley)</h2>
+<section id="group" class="group">
+<h1>Group</h1>
+<p>If you are interested in automated reasoning, programming languages,
+or neuro-symbolic systems, please take a look at my recent publications
+and consider <a
+href="https://uwaterloo.ca/future-graduate-students/admissions/how-to-apply">applying</a>
+to join my group!</p>
+</section>
+<section id="awards" class="awards">
+<h1>Awards</h1>
 <table>
 <colgroup>
 <col style="width: 50%" />
@@ -142,71 +271,40 @@ Synthesis</td>
 </colgroup>
 <tbody>
 <tr>
-<td><a href="https://people.eecs.berkeley.edu/~sseshia/219c/">EECS
-219c</a></td>
-<td>Formal Methods: Specification, Verification, and Synthesis (4)</td>
-</tr>
-</tbody>
-</table>
-<h2
-id="graduate-student-instructor-university-of-california-berkeley">Graduate
-Student Instructor (University of California, Berkeley)</h2>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr>
-<td><a href="https://www2.eecs.berkeley.edu/Courses/CS164/">CS
-164</a></td>
-<td>Programming Languages and Compilers</td>
-</tr>
-</tbody>
-</table>
-<h2 id="teaching-assistant-university-of-toronto">Teaching Assistant
-(University of Toronto)</h2>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr>
-<td><a href="https://artsci.calendar.utoronto.ca/course/csc324h1">CSC
-324</a></td>
-<td>Principles of Programming Languages</td>
+<td><a
+href="https://smt-comp.github.io/2024/results/qf_datatypes-single-query/">2024</a></td>
+<td>QF_Datatypes division of SMT-COMP</td>
 </tr>
 <tr>
-<td><a href="https://artsci.calendar.utoronto.ca/course/csc384h1">CSC
-384</a></td>
-<td>Introduction to Artificial Intelligence (2)</td>
+<td><a
+href="https://ga.berkeley.edu/ga-news/ga-mentorship-awards/">2024</a></td>
+<td>Outstanding Graduate Student Peer Mentor Award</td>
 </tr>
 <tr>
-<td><a href="https://artsci.calendar.utoronto.ca/course/csc410h1">CSC
-410</a></td>
-<td>Software Testing and Verification (2)</td>
+<td><a
+href="https://www2.eecs.berkeley.edu/Students/Awards/1/">2024</a></td>
+<td>Demetri Angelakos Memorial Achievement Award</td>
 </tr>
-</tbody>
-</table>
-<h2 id="teaching-assistant-mount-allison-university">Teaching Assistant
-(Mount Allison University)</h2>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
 <tr>
-<td><a href="https://mta.ca/academic_calendar/ComputerScience.html">COMP
-1631</a></td>
-<td>Introduction to Computer Science</td>
+<td><a
+href="https://www2.eecs.berkeley.edu/Students/Awards/13/">2023</a></td>
+<td>Outstanding Teaching Assistant Award</td>
+</tr>
+<tr>
+<td><a
+href="https://gsi.berkeley.edu/programs-services/award-programs/ogsi/">2022</a></td>
+<td>Outstanding Graduate Student Instructor Award</td>
+</tr>
+<tr>
+<td><a
+href="https://www.qualcomm.com/research/research/university-relations/innovation-fellowship/winners">2021</a></td>
+<td>Qualcomm Innovation Fellowship</td>
 </tr>
 </tbody>
 </table>
 </section>
 <div class="footer">
-Last updated: 2025-07-11
+Last updated: 2025-07-12
 </div>
 </body>
 </html>
