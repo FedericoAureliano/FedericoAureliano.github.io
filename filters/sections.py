@@ -7,9 +7,14 @@ Clump all the headers into sections, add the headshot to the profile section, an
 import panflute as pf
 import datetime
 
+def emoji(char):
+    return pf.Span(pf.Str(char), classes=['emoji'])
+
 def prepare(doc):
     doc.headshot = doc.get_metadata('headshot')
-    doc.headshot = pf.Para(pf.Image(url=doc.headshot, title="Headshot", classes=['headshot']))
+    doc.headshot = pf.Div(pf.Plain(pf.Image(url=doc.headshot, title="Headshot")), classes=['headshot'])
+    doc.email = doc.get_metadata('email')
+    doc.email = pf.Span(emoji("✉"), pf.Space(), pf.Code(doc.email), classes=['email'])
 
 def action(elem, doc):
     pass
@@ -39,13 +44,7 @@ def finalize(doc):
             header = doc.content[start_index]
             # Create a section with the content between the headers
             section_content = doc.content[start_index+1:end_index]
-            # create a table with the headshot on the left and the section content on the right
-            row = pf.TableRow(
-                pf.TableCell(doc.headshot),
-                pf.TableCell(pf.Div(*section_content))
-            )
-            table = pf.Table(pf.TableBody(row))
-            section_div = pf.Div(header, table, classes=[name])
+            section_div = pf.Div(header, doc.headshot, pf.Div(*section_content, classes=['blurb']), classes=[name])
         else:
             # Create a section with the content between the headers
             section_content = doc.content[start_index:end_index]
@@ -58,8 +57,8 @@ def finalize(doc):
         offset += (start_index - end_index) + 1
 
     # Add a footer with the current date
-    last_update = pf.Plain(pf.Str(f"Last updated: {datetime.datetime.now().strftime('%Y-%m-%d')}"))
-    footer = pf.Div(last_update, classes=['footer'])
+    last_update = pf.Span(pf.Str(f"Last updated: {datetime.datetime.now().strftime('%Y-%m-%d')}"), classes=['last-update'])
+    footer = pf.Div(pf.Plain(doc.email), pf.Plain(last_update), classes=['footer'])
     doc.content.append(footer)
 
 def main(doc=None):

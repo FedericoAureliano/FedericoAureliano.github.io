@@ -8,11 +8,41 @@
     display: none;
 }
 
+.profile {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
 .headshot {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+}
+
+.headshot > img {
     width: var(--headshot-width);
     height: auto;
     border-radius: 4px;
+    margin-right: 20px;
 }
+
+.blurb {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    border-left: 2px solid var(--grey3);
+    padding-left: 20px;
+    font-size: 14pt;
+}
+
+.blurb > p {
+    margin: 0em;
+}
+
+.blurb > p > a {
+    font-size: 13pt;
+}
+
 
 /* News, Publication, and Teaching Tables */
 
@@ -33,39 +63,6 @@ table > tbody > tr > td:nth-child(odd) {
 
 table > tbody > tr > td:nth-child(odd) > a {
     font-size: 11pt;
-}
-
-/* Profile Table */
-
-#profile > table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0em;
-    font-size: 14pt;
-}
-
-#profile > table td + td { 
-    border-left:2px solid var(--grey3); 
-}
-
-#profile > table > tbody > tr > td:nth-child(odd) {
-    width: var(--headshot-width);
-    padding-right: 1em;
-    text-align: left;
-    vertical-align: middle;
-}
-
-#profile > table > tbody > tr > td:nth-child(even) {
-    padding-left: 1em;
-}
-
-#profile > table > tbody > tr > td > p,  #profile > table > tbody > tr > td > div > p {
-    margin: 0em;
-    padding: 0em;
-}
-
-#profile > table > tbody > tr > td > div > p > a {
-    font-size: 13pt;
 }
 
 /* Toggle publications and news links */

@@ -6,6 +6,7 @@ counter: |
 news: posts
 papers: main.bib
 headshot: images/federico.jpg
+email: federico@uwaterloo.ca
 ---
 
 # Profile
