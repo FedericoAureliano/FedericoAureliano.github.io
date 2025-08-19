@@ -2,6 +2,10 @@
     --headshot-width: 130px;
 }
 
+h1 {
+    text-decoration: underline var(--accent2) 4px;
+}
+
 /* Profile Section Stuff */
 
 #profile > h1 {
@@ -77,7 +81,7 @@ table > tbody > tr > td:nth-child(odd) > a {
 }
 
 .toggle-publications:hover, .toggle-recent:hover {
-    color: var(--blue);
+    color: var(--accent1);
 }
 
 .not-selected, .not-recent {
