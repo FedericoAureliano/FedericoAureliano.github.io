@@ -12,7 +12,7 @@
     --accent2: #DB5461;
 }
 
-html{
+html {
     background-color: var(--grey1);
     min-width: 330px;
 }
