@@ -4,6 +4,7 @@
 
 h1 {
     text-decoration: underline var(--grey3) 4px;
+    text-transform: uppercase;
 }
 
 /* Profile Section Stuff */

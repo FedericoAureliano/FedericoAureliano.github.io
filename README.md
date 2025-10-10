@@ -1,33 +1,52 @@
----
-author: "Federico Mora Rocha"
-icon: "images/favicon.svg"
-counter: |
-    <script data-goatcounter="https://federicoaureliano.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-news: posts
-papers: main.bib
-headshot: images/federico.jpg
-email: federico@uwaterloo.ca
----
+# Personal Academic Website
 
-# Profile
+This repository contains the source code for Federico Mora Rocha's personal academic website, hosted at [federico.morarocha.ca](https://federico.morarocha.ca).
 
-My name is Federico Mora Rocha and I'm an Applied Scientist in the [Automated Reasoning Group (ARG) at Amazon Web Services (AWS)](https://www.amazon.science/research-areas/automated-reasoning). Starting Fall 2026, I will be an Assistant Professor in the [Cheriton School of Computer Science at the University of Waterloo](https://cs.uwaterloo.ca/) and a Faculty Affiliate at the [Vector Institute](https://vectorinstitute.ai/).
+## Structure
 
-# News
+- `index.md` — Main homepage content
+- `cv.md` — Curriculum vitae
+- `main.bib` - List of publications
+- `posts/` — Blog posts in Markdown
+- `templates/` — HTML templates for Pandoc
+- `filters/` — Python filters for Pandoc
+- `docs/` — Generated HTML files (served by GitHub Pages)
 
-# Publications
+## Quick Start
 
-# Group
+1. **Fork and then clone the repository**
+   ```bash
+   git clone https://github.com/FedericoAureliano/FedericoAureliano.github.io.git
+   cd FedericoAureliano.github.io
+   ```
 
-If you are interested in automated reasoning, programming languages, or neuro-symbolic systems, please take a look at my recent publications and consider [applying](https://uwaterloo.ca/future-graduate-students/admissions/how-to-apply) to join my group!
+2. **Install Pandoc**
+   - macOS: `brew install pandoc`
+   - Linux: `sudo apt-get install pandoc` or see [Pandoc installation guide](https://pandoc.org/installing.html)
+   - Windows: Download from [Pandoc releases](https://github.com/jgm/pandoc/releases)
 
-# Awards
+3. **Run the setup script**
+   ```bash
+   chmod +x setup.sh
+   ./setup.sh
+   ```
+   This will create a virtual environment and install Python dependencies.
 
-| | |
-|-|-|
-| [2024](https://smt-comp.github.io/2024/results/qf_datatypes-single-query/) |  QF_Datatypes division of SMT-COMP |
-| [2024](https://ga.berkeley.edu/ga-news/ga-mentorship-awards/) | Outstanding Graduate Student Peer Mentor Award |
-| [2024](https://www2.eecs.berkeley.edu/Students/Awards/1/) | Demetri Angelakos Memorial Achievement Award |
-| [2023](https://www2.eecs.berkeley.edu/Students/Awards/13/) | Outstanding Teaching Assistant Award |
-| [2022](https://gsi.berkeley.edu/programs-services/award-programs/ogsi/) | Outstanding Graduate Student Instructor Award |
-| [2021](https://www.qualcomm.com/research/research/university-relations/innovation-fellowship/winners) | Qualcomm Innovation Fellowship |
+4. **Build the website**
+   ```bash
+   ./build.sh
+   ```
+   Generated HTML files will be in the `docs/` directory.
+
+5. **Admire the website**
+   - Open `docs/index.html`
+
+
+## Requirements
+
+- [Pandoc](https://pandoc.org/)
+- Python >3.10
+- Python packages (installed automatically by `setup.sh`):
+  - panflute
+  - pybtex
+  - markdown

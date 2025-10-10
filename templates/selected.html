@@ -1,0 +1,28 @@
+<script>
+    function toggleSelected() {
+        var notSelected = document.getElementsByClassName("not-selected");
+        var toggle = document.getElementsByClassName("toggle-publications")[0];
+        var state = toggle.innerHTML === "(show selected)";
+        state = !state;
+        for (var i = 0; i < notSelected.length; i++) {
+            notSelected[i].style.display = state ? "revert" : "none";
+        }
+        toggle.innerHTML = state ? "(show selected)" : "(show all)";
+    }
+    function toggleRecent() {
+        var notRecent = document.getElementsByClassName("not-recent");
+        var toggle = document.getElementsByClassName("toggle-recent")[0];
+        var state = toggle.innerHTML === "(show recent)";
+        state = !state;
+        for (var i = 0; i < notRecent.length; i++) {
+            notRecent[i].style.display = state ? "revert" : "none";
+        }
+        toggle.innerHTML = state ? "(show recent)" : "(show all)";
+    }
+    window.onload = function () {
+        var togglePubs = document.getElementsByClassName("toggle-publications")[0];
+        togglePubs.onclick = toggleSelected;
+        var toggleNews = document.getElementsByClassName("toggle-recent")[0];
+        toggleNews.onclick = toggleRecent;
+    }
+</script>
