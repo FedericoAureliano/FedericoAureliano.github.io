@@ -1,10 +1,14 @@
 ---
-author: "Federico Mora Rocha"
 title: Federico Mora
 icon: "images/favicon.svg"
 email: federico@uwaterloo.ca
 website: federico.morarocha.ca
 papers: main.bib
+students:
+  - "Haley Lepe"
+  - "Amar Shah"
+  - "Murad Akhundov"
+  - "Nikhil Pimpalkhare"
 counter: |
     <script data-goatcounter="https://federicoaureliano.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 ---

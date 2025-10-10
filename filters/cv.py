@@ -16,35 +16,66 @@ def clean_venue(text: str) -> str:
     """
     return text.split("(")[-1].strip(")")
 
-def format_author_list(authors) -> str:
+def format_author_list(authors, students=None) -> list:
     """
-    Format a list of authors from pybtex Person objects into a string.
-    Example: "Smith, John and Doe, Jane and Johnson, Bob"
+    Format a list of authors from pybtex Person objects into a list of panflute elements.
+    Student names will be made bold.
+    
+    Args:
+        authors: List of pybtex Person objects
+        students: Set of student names to make bold (optional)
+    
+    Returns:
+        List of panflute elements (Str, Strong, etc.) for the author list
     """
+    if students is None:
+        students = set()
+    
+    author_elements = []
     author_names = []
+    
     for author in authors:
         # Get the full name in "First Last" format
         first = " ".join(author.first_names)
         last = " ".join(author.last_names)
         if first:
-            author_names.append(f"{first} {last}")
+            full_name = f"{first} {last}"
         else:
-            author_names.append(last)
+            full_name = last
+        author_names.append(full_name)
     
     if len(author_names) == 0:
-        return ""
-    elif len(author_names) == 1:
-        return author_names[0]
-    elif len(author_names) == 2:
-        return f"{author_names[0]} and {author_names[1]}"
-    else:
-        # Join all but the last with ", " and add ", and " before the last
-        return ", ".join(author_names[:-1]) + f", and {author_names[-1]}"
+        return []
+    
+    for i, name in enumerate(author_names):
+        # Check if this author is a student
+        if name in students:
+            # Make the name bold
+            author_elements.append(pf.Strong(pf.Str(name)))
+        else:
+            author_elements.append(pf.Str(name))
+        
+        # Add appropriate separator
+        if i < len(author_names) - 2:
+            # Not the last or second-to-last, add ", "
+            author_elements.append(pf.Str(", "))
+        elif i == len(author_names) - 2:
+            # Second-to-last, add ", and " or " and " depending on count
+            if len(author_names) > 2:
+                author_elements.append(pf.Str(", and "))
+            else:
+                author_elements.append(pf.Str(" and "))
+    
+    return author_elements
 
 def prepare(doc):
     """Load publications from bibtex file"""
     bib_file = doc.get_metadata('papers')
     pubs_bibtex = parse_file(bib_file).entries.values() if os.path.exists(bib_file) else []
+
+    # Load student names from metadata
+    students_list = doc.get_metadata('students', [])
+    doc.students = set(students_list) if students_list else set()
 
     doc.papers = []
 
@@ -68,7 +99,7 @@ def prepare(doc):
         
         # Extract and format authors
         authors = pub.persons.get('author', [])
-        author_list = format_author_list(authors)
+        author_elements = format_author_list(authors, doc.students)
 
         paper_info = {
             'title': title,
@@ -76,7 +107,7 @@ def prepare(doc):
             'year': year,
             'selected': selected,
             'link': link,
-            'authors': author_list,
+            'author_elements': author_elements,
         }
 
         doc.papers.append(paper_info)
@@ -113,12 +144,10 @@ def finalize(doc):
             title_with_link = title_str
         
         title_content = [title_with_link]
-        if paper['authors']:
+        if paper['author_elements']:
             # Add a line break and authors
-            title_content.extend([
-                pf.LineBreak(),
-                pf.Emph(pf.Str(paper['authors']))
-            ])
+            title_content.append(pf.LineBreak())
+            title_content.append(pf.Emph(*paper['author_elements']))
         title_cell = pf.Plain(*title_content)
         
         rows.append(pf.TableRow(
