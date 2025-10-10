@@ -13,9 +13,16 @@ h1 {
     display: none;
 }
 
-.profile {
+/* The section should be a block container, not a grid */
+section.profile {
+    display: block;
+}
+
+/* Only the inner profile div should be a grid */
+section.profile > div.profile {
     display: grid;
     grid-template-columns: auto 1fr;
+    margin-bottom: 1em;
 }
 
 .headshot {
@@ -44,8 +51,11 @@ h1 {
     margin: 0em;
 }
 
-.blurb > p > a {
-    font-size: 13pt;
+/* Paragraphs after the profile grid should be full-width */
+#profile > p {
+    width: 100%;
+    margin-top: 1em;
+    font-size: 14pt;
 }
 
 

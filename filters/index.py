@@ -198,7 +198,18 @@ def finalize(doc):
             header = doc.content[start_index]
             # Create a section with the content between the headers
             section_content = doc.content[start_index+1:end_index]
-            section_div = pf.Div(header, doc.headshot, pf.Div(*section_content, classes=['blurb']), classes=[name])
+            
+            # Only put the first paragraph in the blurb class
+            if section_content and isinstance(section_content[0], pf.Para):
+                first_para = section_content[0]
+                remaining_content = section_content[1:]
+                # Create profile grid with headshot and first paragraph side by side
+                profile_grid = pf.Div(doc.headshot, pf.Div(first_para, classes=['blurb']), classes=['profile'])
+                # Create section with profile grid, then remaining content full-width below
+                section_div = pf.Div(header, profile_grid, *remaining_content, classes=[name])
+            else:
+                # Fallback to original behavior if no paragraphs
+                section_div = pf.Div(header, doc.headshot, pf.Div(*section_content, classes=['blurb']), classes=[name])
         else:
             # Create a section with the content between the headers
             section_content = doc.content[start_index:end_index]

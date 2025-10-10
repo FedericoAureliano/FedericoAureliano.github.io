@@ -68,6 +68,33 @@ table > tbody > tr > td:nth-child(even) > em {
     font-size: 10pt;
 }
 
+table em {
+    font-size: 10pt;
+}
+
+table > tbody > tr > td:nth-child(even) > p {
+    margin: 0em;
+}
+
+table > tbody > tr > td:nth-child(even) > p + p {
+    margin-top: 0.5em;
+}
+
+table > tbody > tr > td[colspan="2"] {
+    text-indent: 2em;
+    text-align: left;
+}
+
+/* Lists inside tables should be less spacious */
+table ul, table ol {
+    margin: 0;
+    padding-left: 1.5em;
+}
+
+table li {
+    margin-bottom: 0.2em;
+}
+
 /* Publications and lists */
 ol, ul {
     padding-left: 1.5em;
