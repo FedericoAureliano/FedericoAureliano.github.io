@@ -298,6 +298,16 @@ a:hover {
 
 /* Mobile responsive styles */
 @media (max-width: 600px) {
+    .cv-contact {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3em;
+    }
+    
+    .cv-separator {
+        display: none;
+    }
+    
     table > tbody > tr > td:nth-child(odd) {
         width: 5em;
         padding-right: 1em;
