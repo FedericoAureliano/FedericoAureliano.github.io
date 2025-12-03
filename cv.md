@@ -45,7 +45,7 @@ I study automated reasoning, programming language theory, and neuro-symbolic art
 
 ## Publications
 
-This list contains refereed conference, journal, and workshop papers. For a full list of publications, see my [Google Scholar profile](https://scholar.google.com/citations?user=mm91pq0AAAAJ&hl). Student advisees are listed in bold.
+This list contains refereed conference, journal, and workshop papers. For a full list of publications, see my [Google Scholar profile](https://scholar.google.com/citations?user=mm91pq0AAAAJ&hl). Student advisees are listed in **bold**.
 
 ## Grant Writing
 

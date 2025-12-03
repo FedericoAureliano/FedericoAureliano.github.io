@@ -31,7 +31,8 @@
           var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
           var scrolled = (winScroll / height) * 100;
           scrolled = Math.min(100, Math.max(0, scrolled));
-          document.getElementById("scroller").style.width = (100 - scrolled) + "%";
+          var scrollerElement = document.getElementById("scroller");
+          scrollerElement.style.setProperty('--scroller-width', (100 - scrolled) + "%");
       }
   </script>
   <link rel="icon" type="image/x-icon" href="images/favicon.svg">
@@ -114,7 +115,8 @@ Mount Allison University</p>
 <p>This list contains refereed conference, journal, and workshop papers.
 For a full list of publications, see my <a
 href="https://scholar.google.com/citations?user=mm91pq0AAAAJ&amp;hl">Google
-Scholar profile</a>. Student advisees are listed in bold.</p>
+Scholar profile</a>. Student advisees are listed in
+<strong>bold</strong>.</p>
 <table>
 <tbody>
 <tr>
