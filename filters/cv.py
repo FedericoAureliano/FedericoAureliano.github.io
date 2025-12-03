@@ -3,6 +3,7 @@
 """
 CV filter for generating curriculum vitae with detailed publication information.
 Includes author lists in publications, unlike the index.py filter.
+Also standardizes table column widths for consistent formatting.
 """
 
 import panflute as pf
@@ -71,17 +72,20 @@ def format_author_list(authors, students=None) -> list:
 def prepare(doc):
     """Load publications from bibtex file"""
     bib_file = doc.get_metadata('papers')
-    pubs_bibtex = parse_file(bib_file).entries.values() if os.path.exists(bib_file) else []
+    if not bib_file:
+        pf.debug("  no papers")
+    pubs_bibtex = parse_file(bib_file).entries.values() if (bib_file and os.path.exists(bib_file)) else []
+    pf.debug(f"  bib → {bib_file}")
 
     # Load student names from metadata
     students_list = doc.get_metadata('students', [])
     doc.students = set(students_list) if students_list else set()
 
     doc.papers = []
+    # Track whether we've seen the first top-level section
+    doc.first_section_seen = False
 
     for pub in pubs_bibtex:
-        pf.debug(f"\t- {pub.key}")
-
         selected = pub.fields['selected'].lower() == 'true' if 'selected' in pub.fields else False
         link = pub.fields["url"] if 'url' in pub.fields else ""
 
@@ -113,20 +117,39 @@ def prepare(doc):
         doc.papers.append(paper_info)
 
     doc.papers.sort(key=lambda x: (x['year'], x['venue']), reverse=True)
+    pf.debug(f"  papers → {len(doc.papers)}")
 
 def action(elem, doc):
-    """Handle publications header and mark it for table insertion"""
+    """Handle publications header and standardize table column widths"""
     match elem:
+        case pf.Header(level=1):
+            # Allow the first section to start on the first page; add breaks for subsequent ones
+            if not getattr(doc, 'first_section_seen', False):
+                doc.first_section_seen = True
+                return elem
+            return [pf.RawBlock('\\clearpage', format='latex'), elem]
         case pf.Header(identifier=name) if "publications" in name:
             # Mark this header so we can find the section later
             doc.publications_header = elem
             # Store the parent for later reference
             if not hasattr(doc, 'current_section'):
                 doc.current_section = None
+            pf.debug(f"  header → {name}")
+        case pf.Table():
+            # Standardize column widths for 2-column tables
+            if len(elem.colspec) == 2:
+                # Set first column to fixed width (0.15 of line width ≈ 1 inch), right-aligned
+                # Set second column to remaining width (0.85), left-aligned
+                elem.colspec = [
+                    ('AlignRight', 0.15),
+                    ('AlignLeft', 0.85)
+                ]
+            return elem
 
 def finalize(doc):
     """Add the publications table at the end of the publications section"""
     if not hasattr(doc, 'publications_header') or doc.publications_header is None:
+        pf.debug("  finalize -> no publications header; skipping table insertion")
         return
     
     # Build the publications table
@@ -155,7 +178,10 @@ def finalize(doc):
             pf.TableCell(title_cell)
         ))
     
+    # Build table and enforce same formatting as other tables
     table = pf.Table(pf.TableBody(*rows))
+    # Right-align first column, left-align second; set widths to 0.15/0.85
+    table.colspec = [('AlignRight', 0.15), ('AlignLeft', 0.85)]
     
     # Walk the document to find the publications section and append table at the end
     def add_table_to_section(elem, doc):
@@ -178,10 +204,13 @@ def finalize(doc):
                 # Insert the table before the next header or at the end
                 if next_header_index is not None:
                     elem.content.insert(next_header_index, table)
+                    # insertion index detail redundant; omit
                 else:
                     elem.content.append(table)
+                    pf.debug("  insert → end")
     
     doc.walk(add_table_to_section)
+    pf.debug("  insert → done")
 
 def main(doc=None):
     return pf.run_filter(action, prepare=prepare, finalize=finalize, doc=doc) 

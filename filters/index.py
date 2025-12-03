@@ -24,14 +24,14 @@ def load_news_items(doc):
     news_dir = doc.get_metadata('news')
 
     if not news_dir:
-        pf.debug("No 'news' metadata found, skipping news filter.")
+        pf.debug("  no news")
         return []
 
-    pf.debug(f"Loading news items from directory: {news_dir}")
+    pf.debug(f"  news dir → {news_dir}")
     news_files = [f for f in os.listdir(news_dir) if f.endswith('.md')]
+    # files count redundant with items; omit
     for news_file in news_files:
         news_path = os.path.join(news_dir, news_file)
-        pf.debug(f"\t- {news_path}")
 
         data = pathlib.Path(news_path).read_text(encoding='utf-8')
         md = markdown.Markdown(extensions=['meta'])
@@ -48,6 +48,7 @@ def load_news_items(doc):
 
     # Sort by date, most recent first
     news_items.sort(key=lambda x: x[0], reverse=True)  
+    pf.debug(f"  posts → {len(news_items)}")
     
     return [(pf.Link(pf.Str(date.strftime('%m/%Y')), url=f"{news_dir}/{name}.html"), pf.Str(title)) for (date, name, title) in news_items]
 
@@ -65,13 +66,14 @@ def clean_venue(text: str) -> str:
 def load_publications(doc):
     """Load publications from bibtex file (from publications.py)"""
     bib_file = doc.get_metadata('papers')
-    pubs_bibtex = parse_file(bib_file).entries.values() if os.path.exists(bib_file) else []
+    if not bib_file:
+        pf.debug("  no papers")
+    pubs_bibtex = parse_file(bib_file).entries.values() if (bib_file and os.path.exists(bib_file)) else []
+    pf.debug(f"  bib → {bib_file}")
 
     papers = []
 
     for pub in pubs_bibtex:
-        pf.debug(f"\t- {pub.key}")
-
         selected = pub.fields['selected'].lower() == 'true' if 'selected' in pub.fields else False
         link = pub.fields["url"] if 'url' in pub.fields else ""
 
@@ -98,6 +100,7 @@ def load_publications(doc):
         papers.append(paper_info)
 
     papers.sort(key=lambda x: (x['year'], x['venue']), reverse=True)
+    pf.debug(f"  papers → {len(papers)}")
     return papers
 
 # ============================================================================
@@ -220,6 +223,7 @@ def finalize(doc):
 
         # Adjust the offset for the next section
         offset += (start_index - end_index) + 1
+    pf.debug("  sections → rebuilt")
 
     # Add a footer with the current date
     last_update = pf.Span(pf.Str(f"Last updated: {datetime.datetime.now().strftime('%Y-%m-%d')}"), classes=['last-update'])

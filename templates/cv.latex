@@ -1,0 +1,144 @@
+\documentclass[10pt,letterpaper]{article}
+
+% Packages
+\usepackage{fontspec}
+% Use a font with stronger bold weight for headings
+\setmainfont{Times New Roman}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{calc}
+\usepackage{varwidth}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{etoolbox}
+
+% Avoid underline-related package redefinitions
+\renewcommand{\toprule}{}
+\renewcommand{\bottomrule}{}
+% Keep midrule simple, manage spacing explicitly via rule sep lengths
+\renewcommand{\midrule}{\hline}
+% Uniform spacing around horizontal rules so tall rows don't create extra gaps
+\setlength{\aboverulesep}{2pt}
+\setlength{\belowrulesep}{2pt}
+\setlength{\doublerulesep}{2pt}
+
+% Color scheme (PDF) — keep links black, no highlight color
+% \definecolor{linkcolor}{RGB}{0,102,204} % not used; links set to black
+
+% Hyperref setup
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=black,
+  citecolor=black,
+  filecolor=black,
+  pdfauthor={$if(email)$$email$$endif$},
+  pdftitle={$if(title)$$title$ - CV$endif$}
+}
+
+% Paragraph formatting: no indent
+\setlength{\parindent}{0pt}
+% Add subtle space between paragraphs
+\setlength{\parskip}{0.5em}
+
+% Remove page numbers and set header/footer
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[L]{$if(title)$$title$$endif$}
+\fancyfoot[R]{\thepage\ of \pageref{LastPage}}
+
+% Section formatting - bold, larger, without external packages
+\makeatletter
+% Slightly smaller heading sizes to match reduced body size
+\renewcommand\section{\@startsection{section}{1}{\z@}{0.8em}{0.8em}{\Large\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}{0.7em}{0.6em}{\large\bfseries}}
+\makeatother
+
+% List spacing
+\setlist{noitemsep, topsep=0pt}
+
+% Compact table settings - left align and set reasonable widths
+% Add a bit more space above tables
+\setlength{\LTpre}{1.1em}
+\setlength{\LTpost}{0.5em}
+\setlength{\tabcolsep}{8pt}
+% Table row spacing: keep consistent and compact
+\renewcommand{\arraystretch}{1.0}
+% Add uniform extra padding above/below all rows
+\setlength{\extrarowheight}{2pt}
+
+% Remove extra vertical gaps inside table cells created by makecell
+% and ensure top-left alignment
+\setcellgapes{0pt}
+\makegapedcells
+\renewcommand{\cellalign}{tl}
+
+% Eliminate paragraph spacing within longtable environments to keep
+% multi-line rows as tight as single-line rows
+\AtBeginEnvironment{longtable}{\setlength{\parskip}{0pt}}
+\setlength{\LTleft}{0pt} % Left-align longtables
+\setlength{\LTright}{\fill}
+
+% Define standard first column width - 1 inch for all tables
+\newlength{\standardfirstcol}
+\setlength{\standardfirstcol}{1in}
+
+% Custom column type for better table formatting with TOP alignment
+% Add a small strut in every cell to enforce uniform top padding
+\newcommand{\cellstrut}{\rule{0pt}{1.05em}}
+\newcolumntype{L}[1]{>{\cellstrut\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\cellstrut\RaggedLeft\arraybackslash}p{#1}}
+\newcolumntype{T}[1]{>{\cellstrut\RaggedRight\arraybackslash}m{#1}} % top-aligned column
+
+% Providelength if it doesn't exist (for longtable compatibility)
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Force top-alignment for table cells by redefining @startpbox
+% This makes all p-column cells align to the top instead of bottom
+\makeatletter
+\long\def\@startpbox#1{\vtop\bgroup\hsize#1\@arrayparboxrestore}
+\makeatother
+
+% Completely redefine multirow to handle paragraph breaks
+% Syntax: \multirow{nrows}{width}{content}
+% We ignore nrows and just render content in a top-aligned box with the given width
+\makeatletter
+\long\def\multirow#1#2#3{%
+  \ifx #2=%
+    % Natural width (= means use natural width)
+    \vtop{\hsize=\linewidth\@arrayparboxrestore\raggedright#3}%
+  \else
+    % Specified width
+    \vtop{\hsize=#2\@arrayparboxrestore\raggedright#3}%
+  \fi
+}
+\makeatother
+
+\begin{document}
+
+% Header with name and contact
+\begin{center}
+    {\Huge\bfseries $if(title)$$title$$endif$}
+    
+    \vspace{0.5em}
+    
+    $if(email)$\href{mailto:$email$}{$email$}$endif$
+    $if(website)$ \textbullet\ \href{https://$website$}{$website$}$endif$
+\end{center}
+
+\vspace{1em}
+
+$body$
+
+\end{document}
