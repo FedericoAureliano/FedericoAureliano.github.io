@@ -121,7 +121,7 @@ table > tbody > tr > td:nth-child(even) > p {
 }
 
 table > tbody > tr > td:nth-child(even) > p + p {
-    margin-top: 0.5em;
+    margin-top: 0.3em;
 }
 
 table > tbody > tr > td[colspan="2"] {
@@ -160,7 +160,7 @@ u {
 
 /* Better spacing for paragraphs in CV */
 p {
-    margin: 0.5em 0;
+    margin: 0.3em 0;
 }
 
 a {

@@ -151,6 +151,8 @@ I prioritize service that promotes diversity, equity, and inclusion in computer 
 ## Conference Reviews
 
 +------+-----------------------------------------------------------------------------------------------+
+| 2026 | Tools and Algorithms for the Construction and Analysis of Systems (TACAS)                     |
++------+-----------------------------------------------------------------------------------------------+
 | 2025 | Neural Information Processing Systems (NeurIPS)                                               |
 +------+-----------------------------------------------------------------------------------------------+
 | 2024 | Tools and Algorithms for the Construction and Analysis of Systems (TACAS)                     |
