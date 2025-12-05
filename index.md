@@ -5,6 +5,7 @@ counter: |
     <script data-goatcounter="https://federicoaureliano.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 news: posts
 papers: main.bib
+authors: false
 headshot: images/federico.jpg
 email: federico@uwaterloo.ca
 ---

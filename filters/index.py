@@ -89,12 +89,16 @@ def load_publications(doc):
         assert 'title' in pub.fields, f"Missing 'title' metadata in {pub.key}"
         title = pub.fields['title']
 
+        authors = pub.persons.get('author', [])
+        author_elements = format_author_list(authors)
+
         paper_info = {
             'title': title,
             'venue': venue,
             'year': year,
             'selected': selected,
             'link': link,
+            'author_elements': author_elements,
         }
 
         papers.append(paper_info)
@@ -102,6 +106,34 @@ def load_publications(doc):
     papers.sort(key=lambda x: (x['year'], x['venue']), reverse=True)
     pf.debug(f"  papers → {len(papers)}")
     return papers
+
+def format_author_list(authors) -> list:
+    """
+    Format a list of authors from pybtex Person objects into a list of panflute elements.
+    
+    Args:
+        authors: List of pybtex Person objects
+    
+    Returns:
+        List of panflute elements (Str, etc.) for the author list
+    """
+    author_elements = []
+    author_names = []
+
+    for author in authors:
+        first = " ".join(author.first_names)
+        last = " ".join(author.last_names)
+        full_name = f"{first} {last}" if first else last
+        author_names.append(full_name)
+
+    for i, name in enumerate(author_names):
+        author_elements.append(pf.Str(name))
+        if i < len(author_names) - 2:
+            author_elements.append(pf.Str(", "))
+        elif i == len(author_names) - 2:
+            author_elements.append(pf.Str(", and " if len(author_names) > 2 else " and "))
+
+    return author_elements
 
 # ============================================================================
 # Sections filter functions
@@ -152,7 +184,7 @@ def action(elem, doc):
             )
             elem.content += [pf.Space(), toggle_link]
             return pf.Div(elem, pf.Table(pf.TableBody(*rows)), classes=['posts'])
-        
+
         # Handle publications header (from publications.py)
         case pf.Header(identifier=name, level=1) if "publications" in name:
             div = pf.Div(elem, classes=['publications'])
@@ -163,16 +195,38 @@ def action(elem, doc):
             )
             elem.content += [pf.Space(), toggle_link]
             rows = []
+            show_authors = doc.get_metadata('authors', False)
+            
             for paper in doc.papers:
                 venue = pf.Str(f"{paper['venue']} '{paper['year'][-2:]}")
-                venue = pf.Plain(pf.Link(venue, url=paper['link']))
-                title = pf.Plain(pf.Str(paper['title']))
+                
+                if show_authors:
+                    # CV-style: link on venue, title and authors below
+                    if paper['link']:
+                        venue_cell = pf.Plain(pf.Link(venue, url=paper['link']))
+                    else:
+                        venue_cell = pf.Plain(venue)
+                    
+                    title_content = [pf.Str(paper['title'])]
+                    if paper['author_elements']:
+                        title_content.append(pf.LineBreak())
+                        title_content.append(pf.Emph(*paper['author_elements']))
+                    title_cell = pf.Plain(*title_content)
+                else:
+                    # Index-style: link on venue, just title
+                    venue_cell = pf.Plain(pf.Link(venue, url=paper['link']))
+                    title_cell = pf.Plain(pf.Str(paper['title']))
+                
                 rows.append(pf.TableRow(
-                    pf.TableCell(venue),
-                    pf.TableCell(title),
+                    pf.TableCell(venue_cell),
+                    pf.TableCell(title_cell),
                     classes=["selected" if paper['selected'] else "not-selected"]
                 ))
-            div.content.append(pf.Table(pf.TableBody(*rows)))
+
+            table = pf.Table(pf.TableBody(*rows))
+            if show_authors:
+                table.colspec = [('AlignRight', 0.15), ('AlignLeft', 0.85)]
+            div.content.append(table)
             return div
 
 def finalize(doc):

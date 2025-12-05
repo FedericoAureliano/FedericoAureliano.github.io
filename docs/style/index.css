@@ -80,6 +80,13 @@ table > tbody > tr > td:nth-child(odd) > a {
     font-size: 11pt;
 }
 
+table > tbody > tr > td:nth-child(even) > em {
+    display: block;
+    margin-top: 0.3em;
+    margin-bottom: 0.5em;
+    font-size: 10pt;
+}
+
 /* Toggle publications and news links */
 
 .toggle-publications, .toggle-recent {
