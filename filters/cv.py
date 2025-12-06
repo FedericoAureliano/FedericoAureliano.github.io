@@ -122,12 +122,6 @@ def prepare(doc):
 def action(elem, doc):
     """Handle publications header and standardize table column widths"""
     match elem:
-        case pf.Header(level=1):
-            # Allow the first section to start on the first page; add breaks for subsequent ones
-            if not getattr(doc, 'first_section_seen', False):
-                doc.first_section_seen = True
-                return elem
-            return [pf.RawBlock('\\clearpage', format='latex'), elem]
         case pf.Header(identifier=name) if "publications" in name:
             # Mark this header so we can find the section later
             doc.publications_header = elem
@@ -144,6 +138,46 @@ def action(elem, doc):
                     ('AlignRight', 0.15),
                     ('AlignLeft', 0.85)
                 ]
+            
+            # Collapse multirow cells and remove empty continuation rows
+            # When a cell has rowspan > 1, Pandoc creates continuation rows
+            # We merge the content and remove those empty continuation rows
+            for body in elem.content:
+                if isinstance(body, pf.TableBody):
+                    rows_to_keep = []
+                    skip_next = 0
+                    
+                    for i, row in enumerate(body.content):
+                        if skip_next > 0:
+                            skip_next -= 1
+                            continue
+                            
+                        # Check if any cell in this row has rowspan > 1
+                        max_rowspan = max(cell.rowspan for cell in row.content)
+                        
+                        if max_rowspan > 1:
+                            # Merge content from continuation rows into this row
+                            for cell_idx, cell in enumerate(row.content):
+                                if cell.rowspan > 1:
+                                    # Collect content from continuation rows
+                                    for row_offset in range(1, cell.rowspan):
+                                        if i + row_offset < len(body.content):
+                                            continuation_row = body.content[i + row_offset]
+                                            # Check if continuation row has enough cells
+                                            if cell_idx < len(continuation_row.content):
+                                                continuation_cell = continuation_row.content[cell_idx]
+                                                # Append continuation cell content to current cell
+                                                cell.content.extend(continuation_cell.content)
+                                    # Set rowspan to 1 now that content is merged
+                                    cell.rowspan = 1
+                            
+                            # Mark continuation rows to skip
+                            skip_next = max_rowspan - 1
+                        
+                        rows_to_keep.append(row)
+                    
+                    body.content = rows_to_keep
+            
             return elem
 
 def finalize(doc):
@@ -165,14 +199,14 @@ def finalize(doc):
             title_with_link = pf.Link(title_str, url=paper['link'])
         else:
             title_with_link = title_str
-        
+
         title_content = [title_with_link]
         if paper['author_elements']:
-            # Add a line break and authors
+            # Add line break and authors on next line
             title_content.append(pf.LineBreak())
             title_content.append(pf.Emph(*paper['author_elements']))
         title_cell = pf.Plain(*title_content)
-        
+
         rows.append(pf.TableRow(
             pf.TableCell(venue),
             pf.TableCell(title_cell)
@@ -201,11 +235,14 @@ def finalize(doc):
                         next_header_index = i
                         break
                 
-                # Insert the table before the next header or at the end
+                # Insert vertical space and the table before the next header or at the end
+                vspace = pf.RawBlock('\\vspace{1em}', format='latex')
                 if next_header_index is not None:
-                    elem.content.insert(next_header_index, table)
+                    elem.content.insert(next_header_index, vspace)
+                    elem.content.insert(next_header_index + 1, table)
                     # insertion index detail redundant; omit
                 else:
+                    elem.content.append(vspace)
                     elem.content.append(table)
                     pf.debug("  insert → end")
     
