@@ -81,10 +81,12 @@ table > tbody > tr > td:nth-child(odd) > a {
 }
 
 table > tbody > tr > td:nth-child(even) > em {
-    display: block;
-    margin-top: 0.3em;
-    margin-bottom: 0.5em;
     font-size: 10pt;
+}
+
+/* Add row spacing for publication table when authors are shown */
+.publications table.with-authors > tbody > tr > td {
+    padding-bottom: 0.3em;
 }
 
 /* Toggle publications and news links */

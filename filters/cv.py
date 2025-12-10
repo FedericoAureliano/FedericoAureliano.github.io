@@ -192,8 +192,8 @@ def finalize(doc):
         # Create venue cell with year (no link)
         venue = pf.Str(f"{paper['venue']} '{paper['year'][-2:]}")
         venue = pf.Plain(venue)
-        
-        # Create title and authors cell with link on title
+
+        # Create title and authors cell with link on title, authors on same line
         title_str = pf.Str(paper['title'])
         if paper['link']:
             title_with_link = pf.Link(title_str, url=paper['link'])
@@ -202,8 +202,8 @@ def finalize(doc):
 
         title_content = [title_with_link]
         if paper['author_elements']:
-            # Add line break and authors on next line
-            title_content.append(pf.LineBreak())
+            # Add separator and authors on same line, with italics
+            title_content.append(pf.Str(" · "))
             title_content.append(pf.Emph(*paper['author_elements']))
         title_cell = pf.Plain(*title_content)
 

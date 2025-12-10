@@ -199,24 +199,24 @@ def action(elem, doc):
             
             for paper in doc.papers:
                 venue = pf.Str(f"{paper['venue']} '{paper['year'][-2:]}")
-                
+
                 if show_authors:
-                    # CV-style: link on venue, title and authors below
+                    # CV-style: link on venue, title and authors on same line with ' · '
                     if paper['link']:
                         venue_cell = pf.Plain(pf.Link(venue, url=paper['link']))
                     else:
                         venue_cell = pf.Plain(venue)
-                    
+
                     title_content = [pf.Str(paper['title'])]
                     if paper['author_elements']:
-                        title_content.append(pf.LineBreak())
+                        title_content.append(pf.Str(" · "))
                         title_content.append(pf.Emph(*paper['author_elements']))
                     title_cell = pf.Plain(*title_content)
                 else:
                     # Index-style: link on venue, just title
                     venue_cell = pf.Plain(pf.Link(venue, url=paper['link']))
                     title_cell = pf.Plain(pf.Str(paper['title']))
-                
+
                 rows.append(pf.TableRow(
                     pf.TableCell(venue_cell),
                     pf.TableCell(title_cell),
@@ -226,6 +226,7 @@ def action(elem, doc):
             table = pf.Table(pf.TableBody(*rows))
             if show_authors:
                 table.colspec = [('AlignRight', 0.15), ('AlignLeft', 0.85)]
+                table.classes = ['with-authors']
             div.content.append(table)
             return div
 
