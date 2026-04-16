@@ -28,6 +28,7 @@ I am looking for graduate students to join my group! If you are interested, plea
 
 | | |
 |-|-|
+| [2026](https://www2.eecs.berkeley.edu/Students/Awards/17/) | David J. Sakrison Memorial Prize |
 | [2024](https://smt-comp.github.io/2024/results/qf_datatypes-single-query/) |  QF_Datatypes division of SMT-COMP |
 | [2024](https://ga.berkeley.edu/ga-news/ga-mentorship-awards/) | Outstanding Graduate Student Peer Mentor Award |
 | [2024](https://www2.eecs.berkeley.edu/Students/Awards/1/) | Demetri Angelakos Memorial Achievement Award |
