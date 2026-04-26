@@ -37,32 +37,32 @@
       }
   </script>
   <script>
-      function toggleSelected() {
-          var notSelected = document.getElementsByClassName("not-selected");
-          var toggle = document.getElementsByClassName("toggle-publications")[0];
-          var state = toggle.innerHTML === "(show selected)";
-          state = !state;
-          for (var i = 0; i < notSelected.length; i++) {
-              notSelected[i].style.display = state ? "revert" : "none";
+      function bindToggle(toggleClass, hiddenClass, expandedLabel) {
+          var toggle = document.getElementsByClassName(toggleClass)[0];
+          if (!toggle) {
+              return;
           }
-          toggle.innerHTML = state ? "(show selected)" : "(show all)";
+
+          toggle.onclick = function (event) {
+              event.preventDefault();
+
+              var section = toggle.closest("section");
+              var hiddenItems = (section || document).getElementsByClassName(hiddenClass);
+              var showHidden = toggle.textContent === "(show all)";
+
+              for (var i = 0; i < hiddenItems.length; i++) {
+                  hiddenItems[i].style.display = showHidden ? "revert" : "none";
+              }
+
+              toggle.textContent = showHidden ? expandedLabel : "(show all)";
+          };
       }
-      function toggleRecent() {
-          var notRecent = document.getElementsByClassName("not-recent");
-          var toggle = document.getElementsByClassName("toggle-recent")[0];
-          var state = toggle.innerHTML === "(show recent)";
-          state = !state;
-          for (var i = 0; i < notRecent.length; i++) {
-              notRecent[i].style.display = state ? "revert" : "none";
-          }
-          toggle.innerHTML = state ? "(show recent)" : "(show all)";
-      }
+
       window.onload = function () {
-          var togglePubs = document.getElementsByClassName("toggle-publications")[0];
-          togglePubs.onclick = toggleSelected;
-          var toggleNews = document.getElementsByClassName("toggle-recent")[0];
-          toggleNews.onclick = toggleRecent;
-      }
+          bindToggle("toggle-publications", "not-selected", "(show selected)");
+          bindToggle("toggle-awards", "not-selected", "(show selected)");
+          bindToggle("toggle-recent", "not-recent", "(show recent)");
+      };
   </script>
   <link rel="icon" type="image/x-icon" href="images/favicon.svg">
   <script data-goatcounter="https://federicoaureliano.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -94,6 +94,10 @@ work, see my <a href="cv.html">curriculum vitae</a>.</p>
 <table>
 <tbody>
 <tr>
+<td><a href="posts/verifai-invited-talk.html">04/2026</a></td>
+<td>Gave an Invited Talk at VerifAI-2</td>
+</tr>
+<tr>
 <td><a href="posts/sakrison-prize.html">04/2026</a></td>
 <td>Won the David J. Sakrison Memorial Prize</td>
 </tr>
@@ -110,7 +114,7 @@ work, see my <a href="cv.html">curriculum vitae</a>.</p>
 <td>Accepted Tenure-Track Faculty Position at the University of
 Waterloo</td>
 </tr>
-<tr>
+<tr class="not-recent">
 <td><a href="posts/algaroba-smtcomp.html">07/2024</a></td>
 <td>Won the QF_Datatypes division of SMT-COMP 2024</td>
 </tr>
@@ -173,6 +177,12 @@ class="toggle-publications">(show all)</a></h1>
 '26</a></td>
 <td>Learning Affordances at Inference-Time for Vision-Language-Action
 Models</td>
+</tr>
+<tr class="not-selected">
+<td><a
+href="https://www2.eecs.berkeley.edu/Pubs/TechRpts/2025/EECS-2025-163.html">Thesis
+'25</a></td>
+<td>Scalable and Usable Domain-Specific Automated Reasoning</td>
 </tr>
 <tr class="not-selected">
 <td><a href="https://doi.org/10.1609/aaai.v39i11.33227">AAAI
@@ -277,48 +287,65 @@ Search</td>
 interested, please list my name as a potential advisor in your <a
 href="https://uwaterloo.ca/future-graduate-students/admissions/how-to-apply">application</a>.</p>
 </section>
-<section id="selected-awards" class="selected-awards">
-<h1>Selected Awards</h1>
+<section id="awards" class="awards">
+<h1>Awards <a href="#awards" class="toggle-awards">(show all)</a></h1>
 <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
 <tbody>
-<tr>
+<tr class="selected">
 <td><a
 href="https://www2.eecs.berkeley.edu/Students/Awards/17/">2026</a></td>
 <td>David J. Sakrison Memorial Prize</td>
 </tr>
-<tr>
+<tr class="not-selected">
+<td><a href="https://neurips.cc/">2025</a></td>
+<td>NeurIPS Top Reviewer</td>
+</tr>
+<tr class="selected">
 <td><a
 href="https://smt-comp.github.io/2024/results/qf_datatypes-single-query/">2024</a></td>
 <td>QF_Datatypes division of SMT-COMP</td>
 </tr>
-<tr>
+<tr class="selected">
 <td><a
 href="https://ga.berkeley.edu/ga-news/ga-mentorship-awards/">2024</a></td>
 <td>Outstanding Graduate Student Peer Mentor Award</td>
 </tr>
-<tr>
+<tr class="selected">
 <td><a
 href="https://www2.eecs.berkeley.edu/Students/Awards/1/">2024</a></td>
 <td>Demetri Angelakos Memorial Achievement Award</td>
 </tr>
-<tr>
+<tr class="selected">
 <td><a
 href="https://www2.eecs.berkeley.edu/Students/Awards/13/">2023</a></td>
 <td>Outstanding Teaching Assistant Award</td>
 </tr>
-<tr>
+<tr class="selected">
 <td><a
 href="https://gsi.berkeley.edu/programs-services/award-programs/ogsi/">2022</a></td>
 <td>Outstanding Graduate Student Instructor Award</td>
 </tr>
-<tr>
+<tr class="selected">
 <td><a
 href="https://www.qualcomm.com/research/research/university-relations/innovation-fellowship/winners">2021</a></td>
 <td>Qualcomm Innovation Fellowship</td>
+</tr>
+<tr class="not-selected">
+<td><a
+href="https://www2.eecs.berkeley.edu/Students/Awards/109/">2021</a></td>
+<td>Chair's Graduate Award</td>
+</tr>
+<tr class="not-selected">
+<td>2019</td>
+<td>Department Fellowship</td>
+</tr>
+<tr class="not-selected">
+<td>2018</td>
+<td>C. C. Gotlieb (Kelly) Graduate Fellowship</td>
+</tr>
+<tr class="not-selected">
+<td>2017</td>
+<td>Alfred B. Lehman Graduate Scholarship</td>
 </tr>
 </tbody>
 </table>
@@ -326,7 +353,7 @@ href="https://www.qualcomm.com/research/research/university-relations/innovation
 <div class="footer">
 <span class="email"><span class="emoji">✉</span>
 <code>federico@uwaterloo.ca</code></span>
-<span class="last-update">Last updated: 2026-04-16</span>
+<span class="last-update">Last updated: 2026-04-25</span>
 </div>
 </body>
 </html>

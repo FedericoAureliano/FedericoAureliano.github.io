@@ -7,6 +7,7 @@ This repository contains the source code for Federico Mora Rocha's personal acad
 - `index.md` — Main homepage content
 - `cv.md` — Curriculum vitae
 - `main.bib` - List of publications
+- `awards/` - Awards and distinctions entries
 - `posts/` — Blog posts in Markdown
 - `templates/` — HTML templates for Pandoc
 - `filters/` — Python filters for Pandoc

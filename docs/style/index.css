@@ -91,7 +91,7 @@ table > tbody > tr > td:nth-child(even) > em {
 
 /* Toggle publications and news links */
 
-.toggle-publications, .toggle-recent {
+.toggle-publications, .toggle-awards, .toggle-recent {
     font-size: 11pt;
     float: right;
     margin: 0em;
@@ -100,7 +100,7 @@ table > tbody > tr > td:nth-child(even) > em {
     text-transform: lowercase;
 }
 
-.toggle-publications:hover, .toggle-recent:hover {
+.toggle-publications:hover, .toggle-awards:hover, .toggle-recent:hover {
     color: var(--accent1);
 }
 
