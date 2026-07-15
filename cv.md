@@ -51,6 +51,8 @@ For a full list of publications, see my [Google Scholar profile](https://scholar
 ## Invited Talks
 
 +------+-------------------------------------------------------------------------------------------------------------------------------+
+| 2026 | [Machine Learning for Solvers and Provers (ML4SP)](https://ml4sp.github.io/)                                                  |
++------+-------------------------------------------------------------------------------------------------------------------------------+
 | 2026 | [VerifAI-2: The Second Workshop on AI Verification in the Wild](https://verifai-workshop.github.io/)                          |
 +------+-------------------------------------------------------------------------------------------------------------------------------+
 
@@ -146,6 +148,10 @@ I prioritize service that promotes diversity, equity, and inclusion in computer 
 ## Program Committees
 
 +------+----------------------------------------------------------------------------------------------------------+
+| 2027 | AAAI Conference on Artificial Intelligence (AAAI)                                                        |
++------+----------------------------------------------------------------------------------------------------------+
+| 2027 | Foundations of Software Engineering (FSE)                                                                |
++------+----------------------------------------------------------------------------------------------------------+
 | 2026 | AAAI Conference on Artificial Intelligence (AAAI)                                                        |
 +------+----------------------------------------------------------------------------------------------------------+
 
@@ -157,6 +163,8 @@ I prioritize service that promotes diversity, equity, and inclusion in computer 
 
 ## Conference Reviews
 
++------+-----------------------------------------------------------------------------------------------+
+| 2026 | International Conference on Neuro-symbolic Systems (NeuS)                                     |
 +------+-----------------------------------------------------------------------------------------------+
 | 2026 | Workshop on Discrete Event Systems (WODES)                                                    |
 +------+-----------------------------------------------------------------------------------------------+
