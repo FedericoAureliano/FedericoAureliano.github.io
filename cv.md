@@ -148,6 +148,8 @@ I prioritize service that promotes diversity, equity, and inclusion in computer 
 ## Program Committees
 
 +------+----------------------------------------------------------------------------------------------------------+
+| 2027 | Formal Methods in Software Engineering (FormaliSE)                                                       |
++------+----------------------------------------------------------------------------------------------------------+
 | 2027 | AAAI Conference on Artificial Intelligence (AAAI)                                                        |
 +------+----------------------------------------------------------------------------------------------------------+
 | 2027 | Foundations of Software Engineering (FSE)                                                                |
