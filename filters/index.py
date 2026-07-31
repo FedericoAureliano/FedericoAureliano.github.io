@@ -43,14 +43,16 @@ def load_news_items(doc):
         date = datetime.datetime.strptime(md.Meta['date'][0], '%m/%Y').date()
         title = md.Meta['title'][0]
         name = os.path.splitext(news_file)[0]  # Remove the .md extension
-        
-        news_items.append((date, name, title))
+        url = md.Meta['url'][0] if 'url' in md.Meta else f"{news_dir}/{name}.html"
+        is_blog = md.Meta['blog'][0].lower() == 'true' if 'blog' in md.Meta else False
+
+        news_items.append((date, name, title, url, is_blog))
 
     # Sort by date, most recent first
-    news_items.sort(key=lambda x: x[0], reverse=True)  
+    news_items.sort(key=lambda x: x[0], reverse=True)
     pf.debug(f"  posts → {len(news_items)}")
-    
-    return [(pf.Link(pf.Str(date.strftime('%m/%Y')), url=f"{news_dir}/{name}.html"), pf.Str(title)) for (date, name, title) in news_items]
+
+    return [(pf.Link(pf.Str("BLOG" if is_blog else date.strftime('%m/%Y')), url=url), pf.Str(title)) for (date, name, title, url, is_blog) in news_items]
 
 def extract_markdown_body(data: str) -> str:
     """Extract the body from a markdown file with YAML-style frontmatter."""

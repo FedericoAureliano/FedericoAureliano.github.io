@@ -50,6 +50,11 @@ fi
 POST_COUNT=0
 for file in posts/*.md; do
     filename=$(basename "$file" .md)
+    # Posts with a 'url' front-matter field link directly to an external
+    # page and have no body, so there's nothing to render locally.
+    if grep -q '^url:' "$file"; then
+        continue
+    fi
     POST_COUNT=$((POST_COUNT + 1))
     pandoc "$file" -o "docs/posts/$filename.html" \
         --standalone \
