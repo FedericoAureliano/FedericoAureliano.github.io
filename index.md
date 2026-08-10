@@ -25,4 +25,8 @@ I study automated reasoning, programming language theory, and neuro-symbolic art
 
 I am looking for graduate students to join my group! If you are interested, please list my name as a potential advisor in your [application](https://uwaterloo.ca/future-graduate-students/admissions/how-to-apply).
 
+# Teaching
+
+- Fall 2026: [CS 846 FMxAI](https://federico.morarocha.ca/CS846-FMxAI/)
+
 # Awards
