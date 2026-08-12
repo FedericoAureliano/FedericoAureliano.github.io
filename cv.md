@@ -70,6 +70,11 @@ My teaching and mentoring is primarily influenced by universal design for learni
 
 ## Courses Taught
 
+
++---------+--------------------------------------------------------------------------------------------------------------------------+
+| 2026-   | **Instructor, University of Waterloo**                                                                                   |
++---------+                                                                                                                          |
+|         | [CS 846](https://federico.morarocha.ca/CS846-FMxAI/): FMxAI                                                              |
 +---------+--------------------------------------------------------------------------------------------------------------------------+
 | 2022-24 | **Guest Lectures, UC Berkeley**                                                                                          |
 +---------+                                                                                                                          |

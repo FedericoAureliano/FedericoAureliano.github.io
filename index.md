@@ -27,6 +27,8 @@ I am looking for graduate students to join my group! If you are interested, plea
 
 # Teaching
 
-- Fall 2026: [CS 846 FMxAI](https://federico.morarocha.ca/CS846-FMxAI/)
++-------------------------------------------------------------+---------------+
+| [Fall &apos;26](https://federico.morarocha.ca/CS846-FMxAI/) | CS 846: FMxAI |
++-------------------------------------------------------------+---------------+
 
 # Awards
