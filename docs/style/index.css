@@ -124,8 +124,13 @@ table > tbody > tr > td:nth-child(even) > em {
         padding-left: 1em;
     }
     
+    /* A shared fixed width (narrower than the desktop 6em) keeps the
+       leftmost column's right edge aligned across all four tables.
+       Letting it size to content instead makes each table's column
+       only as wide as its own longest word ("NeurIPS" vs "2026" vs
+       "Fall"), so the columns end up misaligned with each other. */
     table > tbody > tr > td:nth-child(odd) {
-        width: unset;
+        width: 4.5em;
     }
 
 }

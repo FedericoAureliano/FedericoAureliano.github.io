@@ -308,6 +308,25 @@ def action(elem, doc):
             div.content.append(pf.Table(pf.TableBody(*rows)))
             return div
 
+        # Render apostrophes (straight, or curly from pandoc's smart-quote
+        # parsing) as the literal &apos; entity instead of a raw character,
+        # so straight-quote edits in markdown source (e.g. "Fall '26") don't
+        # need to match pandoc's own typographic conversion.
+        case pf.Str(text=text) if "'" in text or "’" in text:
+            parts = []
+            buf = ""
+            for char in text:
+                if char in ("'", "’"):
+                    if buf:
+                        parts.append(pf.Str(buf))
+                        buf = ""
+                    parts.append(pf.RawInline("&apos;", format="html"))
+                else:
+                    buf += char
+            if buf:
+                parts.append(pf.Str(buf))
+            return parts
+
 def finalize(doc):
     """Finalize function from sections.py - creates sections and adds footer"""
     header_indexes = []
