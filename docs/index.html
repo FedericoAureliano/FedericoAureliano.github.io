@@ -23,51 +23,72 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="style/main.css" />
+  <link rel="stylesheet" href="style/base.css" />
   <link rel="stylesheet" href="style/index.css" />
   <script>
-      window.onscroll = function () { scroller() };
-      function scroller() {
-          var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-          var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-          var scrolled = (winScroll / height) * 100;
-          scrolled = Math.min(100, Math.max(0, scrolled));
-          var scrollerElement = document.getElementById("scroller");
-          scrollerElement.style.setProperty('--scroller-width', (100 - scrolled) + "%");
+      // Sections with hidden rows (news, publications, awards) start showing
+      // fewer rows; their headings toggle between fewer and all rows. Every
+      // other section starts fully expanded and is not clickable.
+
+      // Mark the first and last visible row of each table so the column
+      // divider can stop short of the top and bottom, like the headshot's.
+      function markTableEnds(section) {
+          section.querySelectorAll("table").forEach(function (table) {
+              var rows = Array.prototype.slice.call(table.rows);
+              rows.forEach(function (row) {
+                  row.classList.remove("row-first", "row-last");
+              });
+              var visible = rows.filter(function (row) {
+                  return row.getClientRects().length > 0;
+              });
+              if (visible.length > 0) {
+                  visible[0].classList.add("row-first");
+                  visible[visible.length - 1].classList.add("row-last");
+              }
+          });
       }
-  </script>
-  <script>
-      function bindToggle(toggleClass, hiddenClass, expandedLabel) {
-          var toggle = document.getElementsByClassName(toggleClass)[0];
-          if (!toggle) {
-              return;
-          }
 
-          toggle.onclick = function (event) {
-              event.preventDefault();
+      document.addEventListener("DOMContentLoaded", function () {
+          document.querySelectorAll("section").forEach(markTableEnds);
 
-              var section = toggle.closest("section");
-              var hiddenItems = (section || document).getElementsByClassName(hiddenClass);
-              var showHidden = toggle.textContent === "(show all)";
+          document.querySelectorAll("section:not(#profile)").forEach(function (section) {
+              var heading = section.querySelector("h1");
+              var expandable = section.querySelector(".not-selected, .not-recent") !== null;
 
-              for (var i = 0; i < hiddenItems.length; i++) {
-                  hiddenItems[i].style.display = showHidden ? "revert" : "none";
+              if (!heading) {
+                  return;
               }
 
-              toggle.textContent = showHidden ? expandedLabel : "(show all)";
-          };
-      }
+              if (!expandable) {
+                  // Always open: the arrow points down and nothing toggles.
+                  section.classList.add("static");
+                  return;
+              }
 
-      window.onload = function () {
-          bindToggle("toggle-publications", "not-selected", "(show selected)");
-          bindToggle("toggle-awards", "not-selected", "(show selected)");
-          bindToggle("toggle-recent", "not-recent", "(show recent)");
-      };
+              section.classList.add("expandable");
+              heading.setAttribute("role", "button");
+              heading.setAttribute("tabindex", "0");
+              heading.setAttribute("aria-expanded", "false");
+
+              function toggle() {
+                  var expanded = section.classList.toggle("expanded");
+                  heading.setAttribute("aria-expanded", expanded ? "true" : "false");
+                  markTableEnds(section);
+              }
+
+              heading.addEventListener("click", toggle);
+              heading.addEventListener("keydown", function (event) {
+                  if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      toggle();
+                  }
+              });
+          });
+      });
   </script>
   <link rel="icon" type="image/x-icon" href="images/favicon.svg">
   <script data-goatcounter="https://federicoaureliano.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
-<div id="scroller"></div>
 <body>
 <section id="profile" class="profile">
 <h1>Profile</h1>
@@ -76,11 +97,10 @@
 <img src="images/federico.jpg" title="Headshot" />
 </div>
 <div class="blurb">
-<p>My name is Federico Mora Rocha. I am an assistant professor of
-computer science at the <a href="https://cs.uwaterloo.ca/">University of
-Waterloo</a> and a faculty affiliate at the <a
-href="https://vectorinstitute.ai/">Vector Institute</a>. Previously, I
-was an applied scientist at <a
+<p>My name is Federico Mora Rocha. I am an assistant professor at the <a
+href="https://cs.uwaterloo.ca/">University of Waterloo</a> and a faculty
+affiliate at the <a href="https://vectorinstitute.ai/">Vector
+Institute</a>. Previously, I was an applied scientist at <a
 href="https://www.amazon.science/research-areas/automated-reasoning">Amazon
 Web Services</a> and a Ph.D. student at <a
 href="https://www.berkeley.edu/">UC Berkeley</a>.</p>
@@ -91,98 +111,114 @@ neuro-symbolic artificial intelligence. For more information about my
 work, see my <a href="cv.html">curriculum vitae</a>.</p>
 </section>
 <section id="news" class="posts">
-<h1>News <a href="#news" class="toggle-recent">(show all)</a></h1>
+<h1>News</h1>
 <table>
 <tbody>
 <tr>
-<td><a href="https://federico.morarocha.ca/agentic-stack">BLOG</a></td>
-<td>Wrote a tutorial on the agentic stack</td>
+<td>09/2026</td>
+<td>Wrote a <a
+href="https://federico.morarocha.ca/agentic-stack">tutorial</a> on the
+agentic stack</td>
 </tr>
 <tr>
-<td><a href="https://federico.morarocha.ca/sat-smt-comp/">BLOG</a></td>
-<td>Wrote about 20 years of SAT/SMT solver competition authors</td>
+<td>08/2026</td>
+<td>Wrote about <a href="https://federico.morarocha.ca/sat-smt-comp/">20
+years of SAT/SMT solver competition authors</a></td>
 </tr>
 <tr>
-<td><a href="posts/ml4sp-invited-talk.html">07/2026</a></td>
-<td>Gave an Invited Talk at ML4SP</td>
+<td>07/2026</td>
+<td>Gave an <a href="posts/ml4sp-invited-talk.html">invited talk</a> at
+ML4SP</td>
 </tr>
 <tr>
-<td><a href="posts/verifai-invited-talk.html">04/2026</a></td>
-<td>Gave an Invited Talk at VerifAI-2</td>
+<td>04/2026</td>
+<td>Gave an <a href="posts/verifai-invited-talk.html">invited talk</a>
+at VerifAI-2</td>
 </tr>
 <tr>
-<td><a href="posts/sakrison-prize.html">04/2026</a></td>
-<td>Won the David J. Sakrison Memorial Prize</td>
+<td>04/2026</td>
+<td>Won the <a href="posts/sakrison-prize.html">David J. Sakrison
+Memorial Prize</a></td>
 </tr>
 <tr class="not-recent">
-<td><a href="posts/neurips-2025-expo-demo.html">11/2025</a></td>
-<td>Gave an Expo Demonstration at NeurIPS 2025</td>
+<td>11/2025</td>
+<td>Gave an <a href="posts/neurips-2025-expo-demo.html">expo
+demonstration at NeurIPS 2025</a></td>
 </tr>
 <tr class="not-recent">
-<td><a href="posts/dissertation.html">08/2025</a></td>
-<td>Graduated from the University of California, Berkeley</td>
+<td>08/2025</td>
+<td><a href="posts/dissertation.html">Graduated</a> from the University
+of California, Berkeley</td>
 </tr>
 <tr class="not-recent">
-<td><a href="posts/waterloo-job.html">07/2025</a></td>
-<td>Accepted Tenure-Track Faculty Position at the University of
-Waterloo</td>
+<td>07/2025</td>
+<td>Accepted <a href="posts/waterloo-job.html">tenure-track faculty
+position at the University of Waterloo</a></td>
 </tr>
 <tr class="not-recent">
-<td><a href="posts/algaroba-smtcomp.html">07/2024</a></td>
-<td>Won the QF_Datatypes division of SMT-COMP 2024</td>
+<td>07/2024</td>
+<td>Won the <a href="posts/algaroba-smtcomp.html">QF_Datatypes division
+of SMT-COMP 2024</a></td>
 </tr>
 <tr class="not-recent">
-<td><a href="posts/amar-shah-src.html">05/2024</a></td>
-<td>Amar Shah Won Silver at the ACM SRC Grand Finals</td>
+<td>05/2024</td>
+<td>Amar Shah won <a href="posts/amar-shah-src.html">silver at the ACM
+SRC Grand Finals</a></td>
 </tr>
 <tr class="not-recent">
-<td><a href="posts/peer-mentor-award.html">04/2024</a></td>
-<td>Won Outstanding Graduate Student Peer Mentor Award</td>
+<td>04/2024</td>
+<td>Won <a href="posts/peer-mentor-award.html">Outstanding Graduate
+Student Peer Mentor Award</a></td>
 </tr>
 <tr class="not-recent">
-<td><a href="posts/demetri-angelakos-award.html">04/2024</a></td>
-<td>Won Demetri Angelakos Memorial Achievement Award</td>
+<td>04/2024</td>
+<td>Won <a href="posts/demetri-angelakos-award.html">Demetri Angelakos
+Memorial Achievement Award</a></td>
 </tr>
 <tr class="not-recent">
-<td><a href="posts/haley-lepe-stem-award.html">10/2023</a></td>
-<td>Haley Lepe won National Diversity in STEM Conference Presentation
-Award</td>
+<td>10/2023</td>
+<td>Haley Lepe won <a href="posts/haley-lepe-stem-award.html">National
+Diversity in STEM Conference Presentation Award</a></td>
 </tr>
 <tr class="not-recent">
-<td><a href="posts/pldi23-competition.html">06/2023</a></td>
-<td>Amar Shah won PLDI Undergraduate Student Research Competition</td>
+<td>06/2023</td>
+<td>Amar Shah won <a href="posts/pldi23-competition.html">PLDI
+undergraduate student research competition</a></td>
 </tr>
 <tr class="not-recent">
-<td><a href="posts/outstanding-ta-award.html">05/2023</a></td>
-<td>Won Outstanding TA Award</td>
+<td>05/2023</td>
+<td>Won <a href="posts/outstanding-ta-award.html">Outstanding TA
+Award</a></td>
 </tr>
 <tr class="not-recent">
-<td><a href="posts/quals-passed.html">02/2023</a></td>
-<td>Passed Qualifying Exam</td>
+<td>02/2023</td>
+<td>Passed <a href="posts/quals-passed.html">qualifying exam</a></td>
 </tr>
 <tr class="not-recent">
-<td><a href="posts/outstanding-gsi-award.html">05/2022</a></td>
-<td>Won Outstanding GSI Award</td>
+<td>05/2022</td>
+<td>Won <a href="posts/outstanding-gsi-award.html">Outstanding GSI
+Award</a></td>
 </tr>
 <tr class="not-recent">
-<td><a href="posts/periodicals-map.html">BLOG</a></td>
-<td>African American Museum and Library Recommends my Map</td>
+<td>03/2022</td>
+<td>African American Museum and Library recommends <a
+href="posts/periodicals-map.html">my map</a></td>
 </tr>
 <tr class="not-recent">
-<td><a href="posts/qualcomm-fellowship.html">07/2021</a></td>
-<td>Won Qualcomm Innovation Fellowship</td>
+<td>07/2021</td>
+<td>Won <a href="posts/qualcomm-fellowship.html">Qualcomm Innovation
+Fellowship</a></td>
 </tr>
 <tr class="not-recent">
-<td><a href="posts/popl20-competition.html">01/2020</a></td>
-<td>Murad Akhundov won POPL Undergraduate Student Research
-Competition</td>
+<td>01/2020</td>
+<td>Murad Akhundov won <a href="posts/popl20-competition.html">POPL
+undergraduate student research competition</a></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="publications" class="publications">
-<h1>Publications <a href="#publications"
-class="toggle-publications">(show all)</a></h1>
+<h1>Publications</h1>
 <table>
 <tbody>
 <tr class="not-selected">
@@ -300,18 +336,18 @@ Search</td>
 interested, please list my name as a potential advisor in your <a
 href="https://uwaterloo.ca/future-graduate-students/admissions/how-to-apply">application</a>.
 I am currently working with:</p>
-<table style="width:50%;">
+<table style="width:39%;">
 <colgroup>
-<col style="width: 27%" />
+<col style="width: 16%" />
 <col style="width: 22%" />
 </colgroup>
 <tbody>
 <tr>
-<td><a href="">MMath &apos;26</a></td>
+<td>MMath</td>
 <td>Sophie Pavlik</td>
 </tr>
 <tr>
-<td><a href="">MMath &apos;26</a></td>
+<td>MMath</td>
 <td>Lamina Zaman</td>
 </tr>
 </tbody>
@@ -321,20 +357,20 @@ I am currently working with:</p>
 <h1>Teaching</h1>
 <table>
 <colgroup>
-<col style="width: 79%" />
-<col style="width: 20%" />
+<col style="width: 14%" />
+<col style="width: 85%" />
 </colgroup>
 <tbody>
 <tr>
-<td><a href="https://federico.morarocha.ca/CS846-FMxAI/">Fall
-&apos;26</a></td>
-<td>CS 846: FMxAI</td>
+<td>Fall &apos;26</td>
+<td><a href="https://federico.morarocha.ca/CS846-FMxAI/">CS 846:
+FMxAI</a></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="awards" class="awards">
-<h1>Awards <a href="#awards" class="toggle-awards">(show all)</a></h1>
+<h1>Awards</h1>
 <table>
 <tbody>
 <tr class="selected">

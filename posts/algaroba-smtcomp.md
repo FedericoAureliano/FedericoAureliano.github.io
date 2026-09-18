@@ -1,5 +1,6 @@
 ---
 title: Won the QF_Datatypes division of SMT-COMP 2024
+link: QF_Datatypes division of SMT-COMP 2024
 date: 07/2024
 ---
 

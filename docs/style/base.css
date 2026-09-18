@@ -1,0 +1,99 @@
+/* Shared style for the index and the blog posts. Palette, typography, spacing,
+   and link treatment follow https://github.com/FedericoAureliano/CS846-FMxAI
+   (The CV uses main.css instead.) */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Emoji:wght@300..700&display=swap');
+
+:root {
+    --font-sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    /* Everything is black, white, or grey, except links (blue). */
+    --bg: #ffffff;
+    --fg: #000000;
+    --border: #e4e4e4;
+
+    --size-4-2: 8px;
+    --size-4-4: 16px;
+    --size-4-5: 20px;
+    --size-4-8: 32px;
+    --size-4-12: 48px;
+    --size-4-16: 64px;
+
+    --font-text-size: 17px;
+    --line-height-normal: 1.5;
+    --line-height-tight: 1.3;
+}
+
+* { box-sizing: border-box; }
+
+html {
+    background-color: var(--bg);
+    min-width: 330px;
+}
+
+body {
+    box-sizing: content-box;
+    max-width: 41rem;
+    margin: 0 auto;
+    padding: 3rem 1.25rem 4rem;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: var(--font-text-size);
+    line-height: var(--line-height-normal);
+    -webkit-text-size-adjust: 100%;
+}
+
+p, ul, ol {
+    margin: var(--size-4-4) 0;
+}
+
+/* Standard links: blue text, thin underline, a
+   slightly different blue once visited, and a thicker underline on hover. */
+a {
+    color: #025e8d;
+    text-decoration: underline;
+    text-decoration-thickness: 0.0625rem;
+    text-underline-offset: 0.08em;
+    text-decoration-skip-ink: auto;
+}
+
+a:visited {
+    color: #006699;
+}
+
+a:hover {
+    color: #006699;
+    text-decoration-thickness: 0.125rem;
+}
+
+a:active {
+    color: #025e8d;
+}
+
+code {
+    font-family: var(--font-mono);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+}
+
+.emoji {
+    font-family: 'Noto Emoji';
+}
+
+img {
+    max-width: 100%;
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 2rem 1rem 3rem;
+    }
+}
+
+::selection {
+    background: var(--border);
+}

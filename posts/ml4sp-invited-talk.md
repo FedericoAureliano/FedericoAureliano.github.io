@@ -1,5 +1,6 @@
 ---
-title: Gave an Invited Talk at ML4SP
+title: Gave an invited talk at ML4SP
+link: invited talk
 date: 07/2026
 ---
 

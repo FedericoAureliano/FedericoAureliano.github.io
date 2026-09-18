@@ -1,5 +1,6 @@
 ---
-title: Amar Shah Won Silver at the ACM SRC Grand Finals
+title: Amar Shah won silver at the ACM SRC Grand Finals
+link: silver at the ACM SRC Grand Finals
 date: 05/2024
 ---
 

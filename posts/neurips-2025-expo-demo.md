@@ -1,5 +1,6 @@
 ---
-title: Gave an Expo Demonstration at NeurIPS 2025
+title: Gave an expo demonstration at NeurIPS 2025
+link: expo demonstration at NeurIPS 2025
 date: 11/2025
 ---
 

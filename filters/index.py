@@ -44,15 +44,26 @@ def load_news_items(doc):
         title = md.Meta['title'][0]
         name = os.path.splitext(news_file)[0]  # Remove the .md extension
         url = md.Meta['url'][0] if 'url' in md.Meta else f"{news_dir}/{name}.html"
-        is_blog = md.Meta['blog'][0].lower() == 'true' if 'blog' in md.Meta else False
+        # Optional 'link' names the exact phrase of the title to link.
+        link_text = md.Meta['link'][0] if 'link' in md.Meta else title
+        assert link_text in title, f"'link' is not part of the title in {news_file}"
 
-        news_items.append((date, name, title, url, is_blog))
+        news_items.append((date, name, title, url, link_text))
 
     # Sort by date, most recent first
     news_items.sort(key=lambda x: x[0], reverse=True)
     pf.debug(f"  posts → {len(news_items)}")
 
-    return [(pf.Link(pf.Str("BLOG" if is_blog else date.strftime('%m/%Y')), url=url), pf.Str(title)) for (date, name, title, url, is_blog) in news_items]
+    return [(pf.Str(date.strftime('%m/%Y')), link_title(title, link_text, url)) for (date, name, title, url, link_text) in news_items]
+
+def link_title(title: str, link_text: str, url: str) -> list:
+    """Split a title into inline elements, linking only the phrase link_text."""
+    before, _, after = title.partition(link_text)
+    parts = [pf.Str(before)] if before else []
+    parts.append(pf.Link(pf.Str(link_text), url=url))
+    if after:
+        parts.append(pf.Str(after))
+    return parts
 
 def extract_markdown_body(data: str) -> str:
     """Extract the body from a markdown file with YAML-style frontmatter."""
@@ -229,46 +240,32 @@ def action(elem, doc):
             rows = []
             for (i, (date, title)) in enumerate(doc.news_items):
                 classes = ['not-recent'] if i >= 5 else []
-                rows.append(pf.TableRow(pf.TableCell(pf.Plain(date)), pf.TableCell(pf.Plain(title)), classes=classes))
-            toggle_link = pf.Link(
-                pf.Str("(show all)"),
-                url=f"#{name}",
-                classes=["toggle-recent"]
-            )
-            elem.content += [pf.Space(), toggle_link]
+                rows.append(pf.TableRow(pf.TableCell(pf.Plain(date)), pf.TableCell(pf.Plain(*title)), classes=classes))
             return pf.Div(elem, pf.Table(pf.TableBody(*rows)), classes=['posts'])
 
         # Handle publications header (from publications.py)
         case pf.Header(identifier=name, level=1) if "publications" in name:
             div = pf.Div(elem, classes=['publications'])
-            toggle_link = pf.Link(
-                pf.Str("(show all)"),
-                url=f"#{name}",
-                classes=["toggle-publications"]
-            )
-            elem.content += [pf.Space(), toggle_link]
             rows = []
             show_authors = doc.get_metadata('authors', False)
             
             for paper in doc.papers:
                 venue = pf.Str(f"{paper['venue']} '{paper['year'][-2:]}")
 
-                if show_authors:
-                    # CV-style: link on venue, title and authors on same line with ' · '
-                    if paper['link']:
-                        venue_cell = pf.Plain(pf.Link(venue, url=paper['link']))
-                    else:
-                        venue_cell = pf.Plain(venue)
+                # The link lives on the venue, which is what the paper links to.
+                venue_cell = pf.Plain(pf.Link(venue, url=paper['link'])) if paper['link'] else pf.Plain(venue)
+                title_str = pf.Str(paper['title'])
 
-                    title_content = [pf.Str(paper['title'])]
+                if show_authors:
+                    # CV-style: title and authors on same line with ' · '
+                    title_content = [title_str]
                     if paper['author_elements']:
                         title_content.append(pf.Str(" · "))
                         title_content.append(pf.Emph(*paper['author_elements']))
                     title_cell = pf.Plain(*title_content)
                 else:
-                    # Index-style: link on venue, just title
-                    venue_cell = pf.Plain(pf.Link(venue, url=paper['link']))
-                    title_cell = pf.Plain(pf.Str(paper['title']))
+                    # Index-style: just the title
+                    title_cell = pf.Plain(title_str)
 
                 rows.append(pf.TableRow(
                     pf.TableCell(venue_cell),
@@ -286,12 +283,6 @@ def action(elem, doc):
         # Handle awards header
         case pf.Header(identifier=name, level=1) if name == "awards":
             div = pf.Div(elem, classes=['awards'])
-            toggle_link = pf.Link(
-                pf.Str("(show all)"),
-                url=f"#{name}",
-                classes=["toggle-awards"]
-            )
-            elem.content += [pf.Space(), toggle_link]
             rows = []
 
             for award in doc.awards:

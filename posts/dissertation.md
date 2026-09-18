@@ -1,5 +1,6 @@
 ---
 title: Graduated from the University of California, Berkeley
+link: Graduated
 date: 08/2025
 ---
 

@@ -1,5 +1,6 @@
 ---
-title: Gave an Invited Talk at VerifAI-2
+title: Gave an invited talk at VerifAI-2
+link: invited talk
 date: 04/2026
 ---
 

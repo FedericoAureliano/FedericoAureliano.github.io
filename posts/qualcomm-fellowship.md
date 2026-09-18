@@ -1,5 +1,6 @@
 ---
 title: Won Qualcomm Innovation Fellowship
+link: Qualcomm Innovation Fellowship
 date: 07/2021
 ---
 

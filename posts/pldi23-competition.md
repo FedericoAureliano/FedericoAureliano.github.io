@@ -1,5 +1,6 @@
 ---
-title: Amar Shah won PLDI Undergraduate Student Research Competition
+title: Amar Shah won PLDI undergraduate student research competition
+link: PLDI undergraduate student research competition
 date: 06/2023
 ---
 

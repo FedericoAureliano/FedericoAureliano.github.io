@@ -1,5 +1,6 @@
 ---
 title: Haley Lepe won National Diversity in STEM Conference Presentation Award
+link: National Diversity in STEM Conference Presentation Award
 date: 10/2023
 ---
 

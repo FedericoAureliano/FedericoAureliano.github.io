@@ -1,28 +1,67 @@
+/* Index page style (loaded after base.css). */
+
 :root {
-    --headshot-width: 130px;
+    --headshot-width: 120px;
+    /* Arrow color on hover, for the headings that can be clicked. */
+    --arrow-hover: #785ef0;
+    /* Space between the divider in tables and the text on either side. */
+    --table-gap: 20px;
+    /* How far the table column divider stops short of the top and bottom. */
+    --divider-inset: 16px;
+}
+
+/* Headings */
+
+section {
+    margin: 0 0 var(--size-4-8);
 }
 
 h1 {
-    text-decoration: underline var(--grey3) 4px;
-    text-transform: uppercase;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: var(--line-height-tight);
+    margin: var(--size-4-12) 0 var(--size-4-4);
 }
 
-/* Profile Section Stuff */
+h1::before {
+    content: ">";
+    display: inline-block;
+    margin-right: 0.5em;
+    font-weight: 700;
+    transition: transform 0.15s ease-out, color 0.15s ease-out;
+}
+
+/* The arrow points down when the section is fully open. */
+section.static > h1::before,
+section.expandable.expanded > h1::before {
+    transform: rotate(90deg);
+}
+
+section.expandable > h1 {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+section.expandable > h1:hover::before {
+    color: var(--arrow-hover);
+}
+
+section > p {
+    text-align: justify;
+}
+
+/* Profile */
 
 #profile > h1 {
     display: none;
 }
 
-/* The section should be a block container, not a grid */
-section.profile {
-    display: block;
-}
-
-/* Only the inner profile div should be a grid */
 section.profile > div.profile {
     display: grid;
     grid-template-columns: auto 1fr;
-    margin-bottom: 1em;
+    align-items: center;
+    margin-bottom: var(--size-4-4);
 }
 
 .headshot {
@@ -34,103 +73,144 @@ section.profile > div.profile {
 .headshot > img {
     width: var(--headshot-width);
     height: auto;
-    border-radius: 4px;
-    margin-right: 20px;
+    border-radius: 8px;
+    margin-right: var(--size-4-5);
 }
 
 .blurb {
     grid-column: 2;
     display: flex;
     align-items: center;
-    border-left: 2px solid var(--grey3);
-    padding-left: 20px;
-    font-size: 14pt;
+    border-left: 1px solid var(--border);
+    padding-left: var(--size-4-5);
 }
 
 .blurb > p {
-    margin: 0em;
+    margin: 0;
 }
 
-/* Paragraphs after the profile grid should be full-width */
-#profile > p {
-    width: 100%;
-    margin-top: 1em;
-    font-size: 14pt;
-}
-
-
-/* News, Publication, and Teaching Tables */
+/* News, publications, group, teaching, and awards tables */
 
 table {
-    width: 100%;
+    /* Pandoc emits an inline width on grid tables; keep every table full width. */
+    width: 100% !important;
     border-collapse: collapse;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin: var(--size-4-2) 0 var(--size-4-4);
 }
 
-table > tbody > tr > td:nth-child(odd) {
-    width: 6em;
-    text-align: right;
+td {
+    text-align: left;
     vertical-align: top;
-    padding-right: 1em;
+    padding: 4px var(--table-gap) 4px 0;
 }
 
-
-table > tbody > tr > td:nth-child(odd) > a {
-    font-size: 11pt;
+/* Left-hand column: dates, venues, years, terms. */
+table > tbody > tr > td:nth-child(odd) {
+    width: 6.5rem;
+    text-align: right;
+    font-size: 15px;
+    line-height: 1.7;
+    white-space: nowrap;
 }
 
-table > tbody > tr > td:nth-child(even) > em {
-    font-size: 10pt;
+/* Vertical rule between the columns, like the one beside the headshot: it
+   stops short of the top and bottom of the table. selected.html marks the
+   first and last visible rows (the rule runs full height without it). */
+table > tbody > tr > td:nth-child(even) {
+    position: relative;
+    padding-left: var(--table-gap);
+    padding-right: 0;
 }
 
-/* Add row spacing for publication table when authors are shown */
-.publications table.with-authors > tbody > tr > td {
-    padding-bottom: 0.3em;
+table > tbody > tr > td:nth-child(even)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--border);
 }
 
-/* Toggle publications and news links */
-
-.toggle-publications, .toggle-awards, .toggle-recent {
-    font-size: 11pt;
-    float: right;
-    margin: 0em;
-    padding: 0em;
-    background-color: transparent;
-    text-transform: lowercase;
+/* :first-child and :last-child are the fallback; the script refines them to
+   the first and last visible rows when some rows are hidden. */
+table > tbody > tr:first-child > td:nth-child(even)::before,
+table > tbody > tr.row-first > td:nth-child(even)::before {
+    top: var(--divider-inset);
 }
 
-.toggle-publications:hover, .toggle-awards:hover, .toggle-recent:hover {
-    color: var(--accent1);
+table > tbody > tr:last-child > td:nth-child(even)::before,
+table > tbody > tr.row-last > td:nth-child(even)::before {
+    bottom: var(--divider-inset);
 }
+
+table > tbody > tr:first-child:last-child > td:nth-child(even)::before,
+table > tbody > tr.row-first.row-last > td:nth-child(even)::before {
+    top: calc(var(--divider-inset) / 2);
+    bottom: calc(var(--divider-inset) / 2);
+}
+
+/* Pandoc tries to calculate the size of table columns; ignore it. */
+col {
+    width: 0% !important;
+}
+
+/* Rows hidden until the section is expanded */
 
 .not-selected, .not-recent {
     display: none;
 }
 
-/* Mobile Stuff */
+section.expanded .not-selected,
+section.expanded .not-recent {
+    display: table-row;
+}
+
+/* Footer */
+
+.footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 12px;
+    margin-top: var(--size-4-16);
+    padding-top: var(--size-4-4);
+    border-top: 1px solid var(--border);
+}
+
+.email {
+    grid-column: 1;
+    text-wrap: nowrap;
+}
+
+.last-update {
+    grid-column: 2;
+    text-align: right;
+    text-wrap: nowrap;
+}
+
+.footer code {
+    background: none;
+    border: none;
+    padding: 0;
+}
 
 @media (max-width: 600px) {
     .headshot {
         display: none;
     }
 
-    #profile > table > tbody > tr > td:nth-child(odd) {
-        width: 0em;
-        padding: 0em;
+    .blurb {
+        border-left: none;
+        padding-left: 0;
     }
 
-    #profile > table > tbody > tr > td:nth-child(even) {
-        padding-left: 1em;
-    }
-    
-    /* A shared fixed width (narrower than the desktop 6em) keeps the
-       leftmost column's right edge aligned across all four tables.
-       Letting it size to content instead makes each table's column
-       only as wide as its own longest word ("NeurIPS" vs "2026" vs
-       "Fall"), so the columns end up misaligned with each other. */
     table > tbody > tr > td:nth-child(odd) {
-        width: 4.5em;
+        width: 5.5rem;
     }
+}
 
+@media (max-width: 480px) {
+    :root {
+        --table-gap: 12px;
+    }
 }

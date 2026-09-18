@@ -1,0 +1,5 @@
+/* Blog post style (loaded after base.css). */
+
+body > p {
+    text-align: justify;
+}

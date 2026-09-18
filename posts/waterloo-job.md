@@ -1,5 +1,6 @@
 ---
-title: Accepted Tenure-Track Faculty Position at the University of Waterloo
+title: Accepted tenure-track faculty position at the University of Waterloo
+link: tenure-track faculty position at the University of Waterloo
 date: 07/2025
 ---
 

@@ -1,5 +1,6 @@
 ---
-title: Passed Qualifying Exam
+title: Passed qualifying exam
+link: qualifying exam
 date: 02/2023
 ---
 

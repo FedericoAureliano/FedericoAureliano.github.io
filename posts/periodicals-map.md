@@ -1,5 +1,6 @@
 ---
-title: African American Museum and Library Recommends my Map
+title: African American Museum and Library recommends my map
+link: my map
 date: 03/2022
 blog: true
 ---
