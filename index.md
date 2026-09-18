@@ -23,7 +23,14 @@ I study automated reasoning, programming language theory, and neuro-symbolic art
 
 # Group
 
-I am looking for graduate students to join my group! If you are interested, please list my name as a potential advisor in your [application](https://uwaterloo.ca/future-graduate-students/admissions/how-to-apply).
+I am looking for graduate students to join my group! If you are interested, please list my name as a potential advisor in your [application](https://uwaterloo.ca/future-graduate-students/admissions/how-to-apply). I am currently working with:
+
++-------------------+-----------+
+| [MMath]()     | Sophie Pavlik |
++-------------------+-----------+
+| [MMath]()     | Lamina Zaman  |
++-------------------+-----------+
+
 
 # Teaching
 
