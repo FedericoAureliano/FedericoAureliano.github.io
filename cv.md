@@ -16,7 +16,7 @@ counter: |
 
 # Research
 
-I study automated reasoning, programming language theory, and neuro-symbolic artificial intelligence.
+I study automated reasoning, programming languages, and neuro-symbolic artificial intelligence.
 
 ## Appointments
 

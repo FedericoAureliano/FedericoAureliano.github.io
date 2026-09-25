@@ -201,18 +201,35 @@ def format_author_list(authors) -> list:
 # ============================================================================
 
 def emoji(char):
-    """Create an emoji span (from sections.py)"""
+    """Create an emoji span"""
     return pf.Span(pf.Str(char), classes=['emoji'])
 
-def load_profile_info(doc):
-    """Load profile information (from sections.py)"""
-    headshot = doc.get_metadata('headshot')
-    headshot_div = pf.Div(pf.Plain(pf.Image(url=headshot, title="Headshot")), classes=['headshot'])
-    
+def contact_spans(doc):
+    """The email, office, and last update date, each with an emoji"""
     email = doc.get_metadata('email')
-    email_span = pf.Span(emoji("✉"), pf.Space(), pf.Code(email), classes=['email'])
-    
-    return headshot_div, email_span
+    office = doc.get_metadata('office')
+    today = datetime.datetime.now().strftime('%Y-%m-%d')
+    return [
+        pf.Span(emoji("✉"), pf.Space(), pf.Str(email), classes=['email']),
+        pf.Span(emoji("🏢"), pf.Space(), pf.Str(office), classes=['office']),
+        pf.Span(emoji("📅"), pf.Space(), pf.Str(today), classes=['last-update']),
+    ]
+
+def load_profile_info(doc):
+    """Load the headshot, with the contact details below it, and the footer.
+    On large screens the details under the headshot serve as the footer; on
+    mobile the headshot and details move to the footer instead."""
+    headshot = doc.get_metadata('headshot')
+    headshot_div = pf.Div(
+        pf.Div(pf.Plain(pf.Image(url=headshot, title="Headshot")), classes=['headshot-photo']),
+        pf.Div(*[pf.Plain(span) for span in contact_spans(doc)], classes=['headshot-contact']),
+        classes=['headshot'])
+    footer = pf.Div(
+        pf.Div(pf.Plain(pf.Image(url=headshot, title="Headshot")), classes=['footer-headshot']),
+        *[pf.Plain(span) for span in contact_spans(doc)],
+        classes=['footer'])
+
+    return headshot_div, footer
 
 # ============================================================================
 # Combined prepare/action/finalize functions
@@ -230,7 +247,7 @@ def prepare(doc):
     doc.awards = load_awards(doc)
     
     # Load profile info
-    doc.headshot, doc.email = load_profile_info(doc)
+    doc.headshot, doc.footer = load_profile_info(doc)
 
 def action(elem, doc):
     """Action function that combines news and publications actions"""
@@ -345,17 +362,8 @@ def finalize(doc):
             # Create a section with the content between the headers
             section_content = doc.content[start_index+1:end_index]
             
-            # Only put the first paragraph in the blurb class
-            if section_content and isinstance(section_content[0], pf.Para):
-                first_para = section_content[0]
-                remaining_content = section_content[1:]
-                # Create profile grid with headshot and first paragraph side by side
-                profile_grid = pf.Div(doc.headshot, pf.Div(first_para, classes=['blurb']), classes=['profile'])
-                # Create section with profile grid, then remaining content full-width below
-                section_div = pf.Div(header, profile_grid, *remaining_content, classes=[name])
-            else:
-                # Fallback to original behavior if no paragraphs
-                section_div = pf.Div(header, doc.headshot, pf.Div(*section_content, classes=['blurb']), classes=[name])
+            # The headshot sits in the left margin beside the profile text.
+            section_div = pf.Div(header, doc.headshot, *section_content, classes=[name])
         else:
             # Create a section with the content between the headers
             section_content = doc.content[start_index:end_index]
@@ -368,10 +376,8 @@ def finalize(doc):
         offset += (start_index - end_index) + 1
     pf.debug("  sections → rebuilt")
 
-    # Add a footer with the current date
-    last_update = pf.Span(pf.Str(f"Last updated: {datetime.datetime.now().strftime('%Y-%m-%d')}"), classes=['last-update'])
-    footer = pf.Div(pf.Plain(doc.email), pf.Plain(last_update), classes=['footer'])
-    doc.content.append(footer)
+    # Add the footer (only shown on mobile)
+    doc.content.append(doc.footer)
 
 def main(doc=None):
     return pf.run_filter(action, prepare=prepare, finalize=finalize, doc=doc) 

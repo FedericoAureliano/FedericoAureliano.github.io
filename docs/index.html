@@ -26,30 +26,40 @@
   <link rel="stylesheet" href="style/base.css" />
   <link rel="stylesheet" href="style/index.css" />
   <script>
+      window.onscroll = function () { scroller() };
+      function scroller() {
+          var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+          var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          var scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+          scrolled = Math.min(100, Math.max(0, scrolled));
+          var scrollerElement = document.getElementById("scroller");
+          scrollerElement.style.setProperty('--scroller-width', (100 - scrolled) + "%");
+      }
+  </script>
+  <script>
       // Sections with hidden rows (news, publications, awards) start showing
       // fewer rows; their headings toggle between fewer and all rows. Every
       // other section starts fully expanded and is not clickable.
 
-      // Mark the first and last visible row of each table so the column
-      // divider can stop short of the top and bottom, like the headshot's.
-      function markTableEnds(section) {
+      // Shade every other visible row of each table, so the stripes stay even
+      // when some rows are hidden.
+      function stripeRows(section) {
           section.querySelectorAll("table").forEach(function (table) {
-              var rows = Array.prototype.slice.call(table.rows);
-              rows.forEach(function (row) {
-                  row.classList.remove("row-first", "row-last");
+              var visible = 0;
+              Array.prototype.forEach.call(table.tBodies, function (body) {
+                  Array.prototype.forEach.call(body.rows, function (row) {
+                      var shown = row.getClientRects().length > 0;
+                      row.classList.toggle("row-alt", shown && visible % 2 === 0);
+                      if (shown) {
+                          visible++;
+                      }
+                  });
               });
-              var visible = rows.filter(function (row) {
-                  return row.getClientRects().length > 0;
-              });
-              if (visible.length > 0) {
-                  visible[0].classList.add("row-first");
-                  visible[visible.length - 1].classList.add("row-last");
-              }
           });
       }
 
       document.addEventListener("DOMContentLoaded", function () {
-          document.querySelectorAll("section").forEach(markTableEnds);
+          document.querySelectorAll("section").forEach(stripeRows);
 
           document.querySelectorAll("section:not(#profile)").forEach(function (section) {
               var heading = section.querySelector("h1");
@@ -73,7 +83,7 @@
               function toggle() {
                   var expanded = section.classList.toggle("expanded");
                   heading.setAttribute("aria-expanded", expanded ? "true" : "false");
-                  markTableEnds(section);
+                  stripeRows(section);
               }
 
               heading.addEventListener("click", toggle);
@@ -90,13 +100,21 @@
   <script data-goatcounter="https://federicoaureliano.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
+<div id="scroller"></div>
 <section id="profile" class="profile">
 <h1>Profile</h1>
-<div class="profile">
 <div class="headshot">
+<div class="headshot-photo">
 <img src="images/federico.jpg" title="Headshot" />
 </div>
-<div class="blurb">
+<div class="headshot-contact">
+<span class="email"><span class="emoji">✉</span>
+federico@uwaterloo.ca</span>
+<span class="office"><span class="emoji">🏢</span> DC 2510</span>
+<span class="last-update"><span class="emoji">📅</span>
+2026-09-25</span>
+</div>
+</div>
 <p>My name is Federico Mora Rocha. I am an assistant professor at the <a
 href="https://cs.uwaterloo.ca/">University of Waterloo</a> and a faculty
 affiliate at the <a href="https://vectorinstitute.ai/">Vector
@@ -104,9 +122,7 @@ Institute</a>. Previously, I was an applied scientist at <a
 href="https://www.amazon.science/research-areas/automated-reasoning">Amazon
 Web Services</a> and a Ph.D. student at <a
 href="https://www.berkeley.edu/">UC Berkeley</a>.</p>
-</div>
-</div>
-<p>I study automated reasoning, programming language theory, and
+<p>I study automated reasoning, programming languages, and
 neuro-symbolic artificial intelligence. For more information about my
 work, see my <a href="cv.html">curriculum vitae</a>.</p>
 </section>
@@ -182,8 +198,9 @@ Diversity in STEM Conference Presentation Award</a></td>
 </tr>
 <tr class="not-recent">
 <td>06/2023</td>
-<td>Amar Shah won <a href="posts/pldi23-competition.html">PLDI
-undergraduate student research competition</a></td>
+<td>Amar Shah won the undergraduate <a
+href="posts/pldi23-competition.html">PLDI Student Research
+Competition</a></td>
 </tr>
 <tr class="not-recent">
 <td>05/2023</td>
@@ -211,8 +228,9 @@ Fellowship</a></td>
 </tr>
 <tr class="not-recent">
 <td>01/2020</td>
-<td>Murad Akhundov won <a href="posts/popl20-competition.html">POPL
-undergraduate student research competition</a></td>
+<td>Murad Akhundov won the undergraduate <a
+href="posts/popl20-competition.html">POPL Student Research
+Competition</a></td>
 </tr>
 </tbody>
 </table>
@@ -433,9 +451,14 @@ href="https://www2.eecs.berkeley.edu/Students/Awards/109/">2021</a></td>
 </table>
 </section>
 <div class="footer">
+<div class="footer-headshot">
+<img src="images/federico.jpg" title="Headshot" />
+</div>
 <span class="email"><span class="emoji">✉</span>
-<code>federico@uwaterloo.ca</code></span>
-<span class="last-update">Last updated: 2026-09-18</span>
+federico@uwaterloo.ca</span>
+<span class="office"><span class="emoji">🏢</span> DC 2510</span>
+<span class="last-update"><span class="emoji">📅</span>
+2026-09-25</span>
 </div>
 </body>
 </html>

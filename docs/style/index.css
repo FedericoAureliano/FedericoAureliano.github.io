@@ -1,26 +1,16 @@
 /* Index page style (loaded after base.css). */
 
-:root {
-    --headshot-width: 120px;
-    /* Arrow color on hover, for the headings that can be clicked. */
-    --arrow-hover: #785ef0;
-    /* Space between the divider in tables and the text on either side. */
-    --table-gap: 20px;
-    /* How far the table column divider stops short of the top and bottom. */
-    --divider-inset: 16px;
-}
-
 /* Headings */
 
 section {
-    margin: 0 0 var(--size-4-8);
+    margin: 0;
 }
 
 h1 {
-    font-size: 19px;
+    font-size: var(--font-heading-size);
     font-weight: 600;
     line-height: var(--line-height-tight);
-    margin: var(--size-4-12) 0 var(--size-4-4);
+    margin: 2rem 0 1rem;
 }
 
 h1::before {
@@ -28,6 +18,7 @@ h1::before {
     display: inline-block;
     margin-right: 0.5em;
     font-weight: 700;
+    color: var(--color-accent);
     transition: transform 0.15s ease-out, color 0.15s ease-out;
 }
 
@@ -44,7 +35,7 @@ section.expandable > h1 {
 }
 
 section.expandable > h1:hover::before {
-    color: var(--arrow-hover);
+    color: var(--color-accent-hover);
 }
 
 section > p {
@@ -57,36 +48,68 @@ section > p {
     display: none;
 }
 
-section.profile > div.profile {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    margin-bottom: var(--size-4-4);
+/* The headshot hangs in the left margin, level with the top of the profile
+   text, with the email, office, and last update below it (they serve as the
+   footer on large screens). The column is as wide as the email, and the photo
+   stretches to match. A vertical line runs halfway between the photo and the
+   text. */
+section.profile {
+    position: relative;
+    display: flow-root;
 }
 
 .headshot {
-    grid-column: 1;
-    display: flex;
-    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 100%;
+    width: min-content;
+    margin-right: var(--size-4-16);
 }
 
-.headshot > img {
-    width: var(--headshot-width);
+.headshot-photo {
+    position: relative;
+}
+
+.headshot-photo::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(100% + var(--size-4-8));
+    width: 1px;
+    background: var(--border);
+}
+
+.headshot img {
+    display: block;
+    width: 100%;
     height: auto;
     border-radius: 8px;
-    margin-right: var(--size-4-5);
 }
 
-.blurb {
-    grid-column: 2;
-    display: flex;
-    align-items: center;
-    border-left: 1px solid var(--border);
-    padding-left: var(--size-4-5);
+.headshot-contact {
+    margin-top: 12px;
+    font-size: var(--font-footer-size);
+    white-space: nowrap;
 }
 
-.blurb > p {
-    margin: 0;
+.headshot-contact > span {
+    display: block;
+}
+
+section.profile > p:first-of-type {
+    margin-top: 0;
+}
+
+section.profile > p:last-of-type {
+    margin-bottom: 0;
+}
+
+/* Without room in the margin, the headshot moves to the footer instead. */
+@media (max-width: 1100px) {
+    .headshot {
+        display: none;
+    }
 }
 
 /* News, publications, group, teaching, and awards tables */
@@ -99,55 +122,23 @@ table {
 }
 
 td {
+    font-size: var(--font-table-size);
     text-align: left;
-    vertical-align: top;
-    padding: 4px var(--table-gap) 4px 0;
+    vertical-align: middle;
+    padding: var(--size-4-2) var(--size-4-4);
 }
 
 /* Left-hand column: dates, venues, years, terms. */
 table > tbody > tr > td:nth-child(odd) {
     width: 6.5rem;
     text-align: right;
-    font-size: 15px;
-    line-height: 1.7;
     white-space: nowrap;
 }
 
-/* Vertical rule between the columns, like the one beside the headshot: it
-   stops short of the top and bottom of the table. selected.html marks the
-   first and last visible rows (the rule runs full height without it). */
-table > tbody > tr > td:nth-child(even) {
-    position: relative;
-    padding-left: var(--table-gap);
-    padding-right: 0;
-}
-
-table > tbody > tr > td:nth-child(even)::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--border);
-}
-
-/* :first-child and :last-child are the fallback; the script refines them to
-   the first and last visible rows when some rows are hidden. */
-table > tbody > tr:first-child > td:nth-child(even)::before,
-table > tbody > tr.row-first > td:nth-child(even)::before {
-    top: var(--divider-inset);
-}
-
-table > tbody > tr:last-child > td:nth-child(even)::before,
-table > tbody > tr.row-last > td:nth-child(even)::before {
-    bottom: var(--divider-inset);
-}
-
-table > tbody > tr:first-child:last-child > td:nth-child(even)::before,
-table > tbody > tr.row-first.row-last > td:nth-child(even)::before {
-    top: calc(var(--divider-inset) / 2);
-    bottom: calc(var(--divider-inset) / 2);
+/* Alternating shaded rows. selected.html marks every other visible row, so
+   the stripes stay even when some rows are hidden. */
+table > tbody > tr.row-alt {
+    background: var(--bg-alt);
 }
 
 /* Pandoc tries to calculate the size of table columns; ignore it. */
@@ -168,49 +159,76 @@ section.expanded .not-recent {
 
 /* Footer */
 
+/* Less empty space below the footer than base.css leaves below posts. */
+body {
+    padding-bottom: var(--size-4-5);
+}
+
 .footer {
+    /* Email on the left, office in the center, last update on the right. */
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    font-size: 12px;
-    margin-top: var(--size-4-16);
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--size-4-4);
+    font-size: var(--font-footer-size);
+    margin-top: var(--size-4-8);
     padding-top: var(--size-4-4);
     border-top: 1px solid var(--border);
 }
 
-.email {
-    grid-column: 1;
-    text-wrap: nowrap;
+.email, .office, .last-update {
+    white-space: nowrap;
 }
 
-.last-update {
-    grid-column: 2;
-    text-align: right;
-    text-wrap: nowrap;
+.footer .emoji, .headshot-contact .emoji {
+    margin-right: 0.25em;
 }
 
-.footer code {
-    background: none;
-    border: none;
-    padding: 0;
+.footer-headshot {
+    display: none;
+}
+
+/* On large screens the details under the headshot replace the footer. */
+@media (min-width: 1101px) {
+    .footer {
+        display: none;
+    }
+}
+
+/* On mobile the footer holds the headshot, with the email, office, and last
+   update stacked and vertically centered beside it. */
+@media (max-width: 1100px) {
+    .footer {
+        grid-template-columns: auto 1fr;
+        grid-template-rows: 1fr auto auto auto 1fr;
+        column-gap: var(--size-4-5);
+        row-gap: var(--size-4-2);
+    }
+
+    .footer-headshot {
+        display: block;
+        grid-row: 1 / -1;
+    }
+
+    .footer-headshot img {
+        display: block;
+        width: 90px;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .email { grid-column: 2; grid-row: 2; }
+    .office { grid-column: 2; grid-row: 3; }
+    .last-update { grid-column: 2; grid-row: 4; }
 }
 
 @media (max-width: 600px) {
-    .headshot {
-        display: none;
-    }
-
-    .blurb {
-        border-left: none;
-        padding-left: 0;
-    }
-
     table > tbody > tr > td:nth-child(odd) {
         width: 5.5rem;
     }
 }
 
 @media (max-width: 480px) {
-    :root {
-        --table-gap: 12px;
+    td {
+        padding: 4px var(--size-4-2);
     }
 }

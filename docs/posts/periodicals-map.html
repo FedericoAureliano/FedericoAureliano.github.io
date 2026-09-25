@@ -24,8 +24,20 @@
   </style>
   <link rel="stylesheet" href="../style/base.css" />
   <link rel="stylesheet" href="../style/post.css" />
+  <script>
+      window.onscroll = function () { scroller() };
+      function scroller() {
+          var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+          var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          var scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+          scrolled = Math.min(100, Math.max(0, scrolled));
+          var scrollerElement = document.getElementById("scroller");
+          scrollerElement.style.setProperty('--scroller-width', (100 - scrolled) + "%");
+      }
+  </script>
 </head>
 <body>
+<div id="scroller"></div>
 <p><a
 href="https://oaklandlibrary.org/content/newspapers-and-journalists/">The
 African American Museum and Library at Oakland</a> reached out to ask if

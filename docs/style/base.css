@@ -1,5 +1,6 @@
 /* Shared style for the index and the blog posts. Palette, typography, spacing,
-   and link treatment follow https://github.com/FedericoAureliano/CS846-FMxAI
+   links, and the progress bar follow https://federico.morarocha.ca/agentic-stack/
+   and the tables follow https://github.com/FedericoAureliano/CS846-FMxAI
    (The CV uses main.css instead.) */
 
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Emoji:wght@300..700&display=swap');
@@ -8,9 +9,15 @@
     --font-sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-    /* Everything is black, white, or grey, except links (blue). */
+    /* Obsidian light theme: Foundations/Colors (subset) */
+    --color-accent: hsl(258, 88%, 66%);
+    --color-accent-hover: hsl(258, 88%, 58%);
+    --color-orange: #e69f00;
+
     --bg: #ffffff;
-    --fg: #000000;
+    --bg-alt: #f6f6f6;
+    --fg: #222222;
+    --muted: #707070;
     --border: #e4e4e4;
 
     --size-4-2: 8px;
@@ -20,7 +27,12 @@
     --size-4-12: 48px;
     --size-4-16: 64px;
 
-    --font-text-size: 17px;
+    /* The only four font sizes: section headings, body text, tables, and
+       the footer. */
+    --font-heading-size: 17px;
+    --font-text-size: 15px;
+    --font-table-size: 13px;
+    --font-footer-size: 12px;
     --line-height-normal: 1.5;
     --line-height-tight: 1.3;
 }
@@ -33,8 +45,7 @@ html {
 }
 
 body {
-    box-sizing: content-box;
-    max-width: 41rem;
+    max-width: 40rem;
     margin: 0 auto;
     padding: 3rem 1.25rem 4rem;
     background: var(--bg);
@@ -49,27 +60,19 @@ p, ul, ol {
     margin: var(--size-4-4) 0;
 }
 
-/* Standard links: blue text, thin underline, a
-   slightly different blue once visited, and a thicker underline on hover. */
+/* Links: body-colored text over a thick, translucent orange underline that
+   turns solid on hover. */
 a {
-    color: #025e8d;
-    text-decoration: underline;
-    text-decoration-thickness: 0.0625rem;
-    text-underline-offset: 0.08em;
-    text-decoration-skip-ink: auto;
-}
-
-a:visited {
-    color: #006699;
+    color: var(--fg);
+    text-decoration-line: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-orange) 38%, transparent);
+    text-decoration-thickness: 0.6em;
+    text-underline-offset: -0.42em;
+    text-decoration-skip-ink: none;
 }
 
 a:hover {
-    color: #006699;
-    text-decoration-thickness: 0.125rem;
-}
-
-a:active {
-    color: #025e8d;
+    text-decoration-color: var(--color-orange);
 }
 
 code {
@@ -86,6 +89,37 @@ code {
 
 img {
     max-width: 100%;
+}
+
+/* Reading-progress bar, updated by the script in scroller.html. */
+#scroller {
+    height: 0.4rem;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: var(--border);
+    --scroller-width: 100%;
+    z-index: 10;
+}
+
+#scroller::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: var(--scroller-width);
+    background-color: var(--color-accent);
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    transition: width 0.1s ease-out;
+}
+
+@media print {
+    #scroller {
+        display: none;
+    }
 }
 
 @media (max-width: 480px) {
