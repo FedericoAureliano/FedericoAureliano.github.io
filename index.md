@@ -24,7 +24,7 @@ I study automated reasoning, programming languages, and neuro-symbolic artificia
 
 # Group
 
-I am looking for graduate students to join my group! If you are interested, please list my name as a potential advisor in your [application](https://uwaterloo.ca/future-graduate-students/admissions/how-to-apply). I am currently working with:
+I am looking for graduate students (MMath or PhD) to join my group! If you are interested, please list my name as a potential advisor in your [University of Waterloo application](https://uwaterloo.ca/future-graduate-students/admissions/how-to-apply) or your [Vector Institute application](https://vectorinstitute.ai/graduate-student-application-portal/). I am currently working with:
 
 +-----------+---------------+
 | MMath     | Sophie Pavlik |
