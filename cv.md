@@ -70,7 +70,6 @@ My teaching and mentoring is primarily influenced by universal design for learni
 
 ## Courses Taught
 
-
 +---------+------------------------------------------------------------------------------------------------------------------------------+
 | 2026-   | **Instructor, University of Waterloo**                                                                                       |
 +---------+                                                                                                                              |
@@ -99,22 +98,31 @@ My teaching and mentoring is primarily influenced by universal design for learni
 |         | COMP 1631: Introduction to Computer Science                                                                                  |
 +---------+------------------------------------------------------------------------------------------------------------------------------+
 
-## Students Mentored
+## Graduate Student Advisees
+
++-------+----------------------------------------------------------------------------------------------------------+
+| 2026- | Sophie Pavlik (MMath, University of Waterloo)                                                            |
++-------+----------------------------------------------------------------------------------------------------------+
+| 2026- | Lamina Zaman (MMath, University of Waterloo)                                                             |
++-------+----------------------------------------------------------------------------------------------------------+
+
+
+## Undergraduate Student Advisees
 
 +---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2020-24 | **UC Berkeley Undergraduate Students**                                                                                                                                   |
+| 2020-24 | **UC Berkeley**                                                                                                                                                          |
 +---------+                                                                                                                                                                          |
 |         | Amar Shah ([ACM SRC Grand Finals Runner-up](https://src.acm.org/)), Annamira O'Toole, Selina Kim, Nikhil Pimpalkhare (co-mentored with Elizabeth Polgreen)               |
 +---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2023-24 | **MiraCosta College Students**                                                                                                                                           |
+| 2023-24 | **MiraCosta College**                                                                                                                                                    |
 +---------+                                                                                                                                                                          |
 |         | Haley Lepe ([NDiSTEM '23 Presentation Award Winner](https://www.sacnas.org/diversity-news/stem-students-recognized-for-research-and-presentation-skills-at-2023ndistem)) |
 +---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2022-23 | **City College of San Francisco Students**                                                                                                                               |
+| 2022-23 | **City College of San Francisco**                                                                                                                                        |
 +---------+                                                                                                                                                                          |
 |         | Isaac Chan (co-mentored with Lauren Pick)                                                                                                                                |
 +---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2018-20 | **University of Toronto Undergraduate Students**                                                                                                                         |
+| 2018-20 | **University of Toronto**                                                                                                                                                |
 +---------+                                                                                                                                                                          |
 |         | Murad Akhundov ([POPL '20 USRC Winner](https://popl20.sigplan.org/track/POPL-2020-Student-Research-Competition)), Lukas Finnbarr O'Callahan, Alex Tough                  |
 +---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
