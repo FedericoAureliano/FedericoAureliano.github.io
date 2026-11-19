@@ -97,13 +97,13 @@ h4 + table {
 table > tbody > tr > td:nth-child(odd) {
     width: 8em;
     text-align: right;
-    vertical-align: top;
+    vertical-align: baseline;
     padding-right: 1.5em;
     padding-bottom: 0.8em;
 }
 
 table > tbody > tr > td:nth-child(even) {
-    vertical-align: top;
+    vertical-align: baseline;
     padding-bottom: 0.8em;
     line-height: 1.5;
 }
@@ -118,7 +118,9 @@ table em {
     font-size: 10pt;
 }
 
-table > tbody > tr > td:nth-child(even) > p {
+/* Pandoc wraps multi-paragraph cells in <p>; drop the global p margin so
+   the first line of each cell starts at the same height. */
+table > tbody > tr > td > p {
     margin: 0em;
 }
 
