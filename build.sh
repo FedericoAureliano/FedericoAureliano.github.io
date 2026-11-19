@@ -13,16 +13,37 @@ section() {
     printf "\n${BOLD}${MAGENTA}== ${1} ==${RESET}\n"
 }
 
-# Activate virtual environment if it exists
-if [ -d ".venv" ]; then
-    log "${CYAN}venv:${RESET} activating .venv"
-    source .venv/bin/activate
-fi
-
 # Error handler
 error_exit() {
     log "${RED}error:${RESET} $1"
     exit 1
+}
+
+# Always run from the repository root so relative paths resolve.
+cd "$(dirname "$0")" || error_exit "Cannot cd to script directory"
+
+# The pandoc filters need Python >= 3.10 (they use `match`) and the packages
+# in requirements.txt. Run pandoc through uv so its filters get both.
+command -v uv >/dev/null 2>&1 \
+    || error_exit "uv is required: https://docs.astral.sh/uv/getting-started/installation/"
+command -v pandoc >/dev/null 2>&1 \
+    || error_exit "pandoc is required: https://pandoc.org/installing.html"
+command -v xelatex >/dev/null 2>&1 \
+    || error_exit "xelatex is required to build cv.pdf (install MacTeX or BasicTeX)"
+
+# Check that every LaTeX package used by the CV template is installed.
+# (BasicTeX ships without many of them.)
+MISSING_STY=""
+for pkg in $(grep -ohE '\\usepackage(\[[^]]*\])?\{[^}]*\}' templates/cv.latex \
+                | sed -E 's/.*\{(.*)\}/\1/' | tr ',' ' '); do
+    kpsewhich "$pkg.sty" >/dev/null || MISSING_STY="$MISSING_STY $pkg"
+done
+[ -z "$MISSING_STY" ] \
+    || error_exit "missing LaTeX packages:$MISSING_STY\n       install with: sudo tlmgr install$MISSING_STY"
+
+pandoc() {
+    uv run --quiet --no-project --python ">=3.10" --with-requirements requirements.txt \
+        pandoc "$@"
 }
 
 section "Index"

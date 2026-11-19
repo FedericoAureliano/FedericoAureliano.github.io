@@ -11,6 +11,7 @@
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage{longtable}
+\newcounter{none} % pandoc >= 3 sets \LTcaptype{none} on uncaptioned tables
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{ragged2e}

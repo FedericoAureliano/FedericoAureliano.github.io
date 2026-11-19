@@ -16,7 +16,7 @@ counter: |
 
 # Research
 
-I study automated reasoning, programming languages, and neuro-symbolic artificial intelligence.
+I study automated reasoning, formal methods, and programming languages.
 
 ## Appointments
 
@@ -71,40 +71,33 @@ My teaching and mentoring is primarily influenced by universal design for learni
 ## Courses Taught
 
 
-+---------+--------------------------------------------------------------------------------------------------------------------------+
-| 2026-   | **Instructor, University of Waterloo**                                                                                   |
-+---------+                                                                                                                          |
-|         | [CS 846](https://federico.morarocha.ca/CS846-FMxAI/): FMxAI                                                              |
-+---------+--------------------------------------------------------------------------------------------------------------------------+
-| 2022-24 | **Guest Lectures, UC Berkeley**                                                                                          |
-+---------+                                                                                                                          |
-|         | [EECS 219C](https://people.eecs.berkeley.edu/~sseshia/219c/): Formal Methods: Specification, Verification, and Synthesis |
-|         |                                                                                                                          |
-|         | - Abstraction and Verification by Reduction to Synthesis                                                                 |
-|         | - Interpolation-Based Model Checking and IC3                                                                             |
-|         | - Satisfiability Modulo Theories - Part II: Theories and Theory Solvers                                                  |
-|         | - Syntax-Guided Synthesis                                                                                                |
-|         |                                                                                                                          |
-|         | [CS 164](https://www2.eecs.berkeley.edu/Courses/CS164/): Programming Languages and Compilers                             |
-|         |                                                                                                                          |
-|         | - Regular Expressions and Tokenization                                                                                   |
-+---------+--------------------------------------------------------------------------------------------------------------------------+
-| 2021-22 | **Graduate Student Instructor, UC Berkeley**                                                                             |
-+---------+                                                                                                                          |
-|         | [CS 164](https://www2.eecs.berkeley.edu/Courses/CS164/): Programming Languages and Compilers (2)                         |
-+---------+--------------------------------------------------------------------------------------------------------------------------+
-| 2016-18 | **Teaching Assistant, University of Toronto**                                                                            |
-+---------+                                                                                                                          |
-|         | [CSC 324](https://www.cs.toronto.edu/~gfb/csc324/2017F/): Principles of Programming Languages                            |
-|         |                                                                                                                          |
-|         | [CSC 384](http://www.teach.cs.toronto.edu/~csc384h/winter/): Introduction to Artificial Intelligence (2)                 |
-|         |                                                                                                                          |
-|         | [CSC 410](http://www.cs.toronto.edu/~chechik/courses16/csc410/): Software Testing and Verification (2)                   |
-+---------+--------------------------------------------------------------------------------------------------------------------------+
-| 2015-16 | **Teaching Assistant, Mount Allison University**                                                                         |
-+---------+                                                                                                                          |
-|         | COMP 1631: Introduction to Computer Science                                                                              |
-+---------+--------------------------------------------------------------------------------------------------------------------------+
++---------+------------------------------------------------------------------------------------------------------------------------------+
+| 2026-   | **Instructor, University of Waterloo**                                                                                       |
++---------+                                                                                                                              |
+|         | [CS 846](https://federico.morarocha.ca/CS846-FMxAI/): FMxAI                                                                  |
++---------+------------------------------------------------------------------------------------------------------------------------------+
+| 2022-24 | **Guest Lectures, UC Berkeley**                                                                                              |
++---------+                                                                                                                              |
+|         | [EECS 219C](https://people.eecs.berkeley.edu/~sseshia/219c/): Formal Methods: Specification, Verification, and Synthesis (4) |
+|         |                                                                                                                              |
+|         | [CS 164](https://www2.eecs.berkeley.edu/Courses/CS164/): Programming Languages and Compilers                                 |
++---------+------------------------------------------------------------------------------------------------------------------------------+
+| 2021-22 | **Graduate Student Instructor, UC Berkeley**                                                                                 |
++---------+                                                                                                                              |
+|         | [CS 164](https://www2.eecs.berkeley.edu/Courses/CS164/): Programming Languages and Compilers (2)                             |
++---------+------------------------------------------------------------------------------------------------------------------------------+
+| 2016-18 | **Teaching Assistant, University of Toronto**                                                                                |
++---------+                                                                                                                              |
+|         | [CSC 324](https://www.cs.toronto.edu/~gfb/csc324/2017F/): Principles of Programming Languages                                |
+|         |                                                                                                                              |
+|         | [CSC 384](http://www.teach.cs.toronto.edu/~csc384h/winter/): Introduction to Artificial Intelligence (2)                     |
+|         |                                                                                                                              |
+|         | [CSC 410](http://www.cs.toronto.edu/~chechik/courses16/csc410/): Software Testing and Verification (2)                       |
++---------+------------------------------------------------------------------------------------------------------------------------------+
+| 2015-16 | **Teaching Assistant, Mount Allison University**                                                                             |
++---------+                                                                                                                              |
+|         | COMP 1631: Introduction to Computer Science                                                                                  |
++---------+------------------------------------------------------------------------------------------------------------------------------+
 
 ## Students Mentored
 
@@ -152,6 +145,8 @@ I prioritize service that promotes diversity, equity, and inclusion in computer 
 
 ## Program Committees
 
++------+----------------------------------------------------------------------------------------------------------+
+| 2027 | International Symposium on Formal Methods (FM)                                                           |
 +------+----------------------------------------------------------------------------------------------------------+
 | 2027 | Formal Methods in Software Engineering (FormaliSE)                                                       |
 +------+----------------------------------------------------------------------------------------------------------+

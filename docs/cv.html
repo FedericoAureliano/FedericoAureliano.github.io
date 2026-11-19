@@ -6,10 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Federico Mora</title>
   <style>
-    code{white-space: pre-wrap;}
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    em, em em em, em em em em em {
+      font-style: italic;
+    }
+    em em, em em em em {
+      font-style: normal;
+    }
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     /* The extra [class] is a hack that increases specificity enough to
        override a similar rule in reveal.js */
@@ -20,8 +32,27 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
-  </style>
+    @media print {
+      html {
+        color-scheme: light only;
+      }
+      html, body, pre, code {
+        background-color: transparent;
+      }
+      body, a, a:visited, blockquote {
+        color: black;
+      }
+      pre, code {
+        padding: 0;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }  </style>
   <link rel="stylesheet" href="style/main.css" />
   <link rel="stylesheet" href="style/cv.css" />
   <script>
@@ -49,8 +80,8 @@
   </div>
 </header>
 <h1 id="research">Research</h1>
-<p>I study automated reasoning, programming languages, and
-neuro-symbolic artificial intelligence.</p>
+<p>I study automated reasoning, formal methods, and programming
+languages.</p>
 <h2 id="appointments">Appointments</h2>
 <table>
 <colgroup>
@@ -83,7 +114,7 @@ Web Services</td>
 </colgroup>
 <tbody>
 <tr>
-<td style="text-align: right;">2025</td>
+<td style="text-align: right;"><p>2025</p></td>
 <td style="text-align: left;"><p><strong>Ph.D. Computer
 Science</strong>, University of California, Berkeley</p>
 <p>Advised by <a
@@ -91,14 +122,14 @@ href="https://people.eecs.berkeley.edu/~sseshia/">Sanjit A.
 Seshia</a></p></td>
 </tr>
 <tr>
-<td style="text-align: right;">2018</td>
+<td style="text-align: right;"><p>2018</p></td>
 <td style="text-align: left;"><p><strong>M.Sc. Computer
 Science</strong>, University of Toronto</p>
 <p>Advised by <a href="http://www.cs.toronto.edu/~chechik/">Marsha
 Chechik</a></p></td>
 </tr>
 <tr>
-<td style="text-align: right;">2016</td>
+<td style="text-align: right;"><p>2016</p></td>
 <td style="text-align: left;"><p><strong>B.Sc. Math and Computer
 Science</strong>, Mount Allison University</p>
 <p>First Class Honours with Distinction</p></td>
@@ -296,7 +327,7 @@ Workshop on AI Verification in the Wild</a></td>
 </colgroup>
 <tbody>
 <tr>
-<td style="text-align: right;">2021</td>
+<td style="text-align: right;"><p>2021</p></td>
 <td style="text-align: left;"><p><a
 href="https://www.amazon.science/research-awards/program-updates/spring-2021-amazon-research-awards-recipients-announced">Amazon
 Research Award</a> (with Sanjit A. Seshia as PI)</p>
@@ -316,40 +347,31 @@ for learning (UDL) principles.</p>
 </colgroup>
 <tbody>
 <tr>
-<td style="text-align: right;">2026-</td>
+<td style="text-align: right;"><p>2026-</p></td>
 <td style="text-align: left;"><p><strong>Instructor, University of
 Waterloo</strong></p>
 <p><a href="https://federico.morarocha.ca/CS846-FMxAI/">CS 846</a>:
 FMxAI</p></td>
 </tr>
 <tr>
-<td style="text-align: right;">2022-24</td>
+<td style="text-align: right;"><p>2022-24</p></td>
 <td style="text-align: left;"><p><strong>Guest Lectures, UC
 Berkeley</strong></p>
 <p><a href="https://people.eecs.berkeley.edu/~sseshia/219c/">EECS
-219C</a>: Formal Methods: Specification, Verification, and Synthesis</p>
-<ul>
-<li>Abstraction and Verification by Reduction to Synthesis</li>
-<li>Interpolation-Based Model Checking and IC3</li>
-<li>Satisfiability Modulo Theories - Part II: Theories and Theory
-Solvers</li>
-<li>Syntax-Guided Synthesis</li>
-</ul>
+219C</a>: Formal Methods: Specification, Verification, and Synthesis
+(4)</p>
 <p><a href="https://www2.eecs.berkeley.edu/Courses/CS164/">CS 164</a>:
-Programming Languages and Compilers</p>
-<ul>
-<li>Regular Expressions and Tokenization</li>
-</ul></td>
+Programming Languages and Compilers</p></td>
 </tr>
 <tr>
-<td style="text-align: right;">2021-22</td>
+<td style="text-align: right;"><p>2021-22</p></td>
 <td style="text-align: left;"><p><strong>Graduate Student Instructor, UC
 Berkeley</strong></p>
 <p><a href="https://www2.eecs.berkeley.edu/Courses/CS164/">CS 164</a>:
 Programming Languages and Compilers (2)</p></td>
 </tr>
 <tr>
-<td style="text-align: right;">2016-18</td>
+<td style="text-align: right;"><p>2016-18</p></td>
 <td style="text-align: left;"><p><strong>Teaching Assistant, University
 of Toronto</strong></p>
 <p><a href="https://www.cs.toronto.edu/~gfb/csc324/2017F/">CSC 324</a>:
@@ -360,7 +382,7 @@ Principles of Programming Languages</p>
 410</a>: Software Testing and Verification (2)</p></td>
 </tr>
 <tr>
-<td style="text-align: right;">2015-16</td>
+<td style="text-align: right;"><p>2015-16</p></td>
 <td style="text-align: left;"><p><strong>Teaching Assistant, Mount
 Allison University</strong></p>
 <p>COMP 1631: Introduction to Computer Science</p></td>
@@ -375,7 +397,7 @@ Allison University</strong></p>
 </colgroup>
 <tbody>
 <tr>
-<td style="text-align: right;">2020-24</td>
+<td style="text-align: right;"><p>2020-24</p></td>
 <td style="text-align: left;"><p><strong>UC Berkeley Undergraduate
 Students</strong></p>
 <p>Amar Shah (<a href="https://src.acm.org/">ACM SRC Grand Finals
@@ -383,7 +405,7 @@ Runner-up</a>), Annamira O’Toole, Selina Kim, Nikhil Pimpalkhare
 (co-mentored with Elizabeth Polgreen)</p></td>
 </tr>
 <tr>
-<td style="text-align: right;">2023-24</td>
+<td style="text-align: right;"><p>2023-24</p></td>
 <td style="text-align: left;"><p><strong>MiraCosta College
 Students</strong></p>
 <p>Haley Lepe (<a
@@ -391,13 +413,13 @@ href="https://www.sacnas.org/diversity-news/stem-students-recognized-for-researc
 ’23 Presentation Award Winner</a>)</p></td>
 </tr>
 <tr>
-<td style="text-align: right;">2022-23</td>
+<td style="text-align: right;"><p>2022-23</p></td>
 <td style="text-align: left;"><p><strong>City College of San Francisco
 Students</strong></p>
 <p>Isaac Chan (co-mentored with Lauren Pick)</p></td>
 </tr>
 <tr>
-<td style="text-align: right;">2018-20</td>
+<td style="text-align: right;"><p>2018-20</p></td>
 <td style="text-align: left;"><p><strong>University of Toronto
 Undergraduate Students</strong></p>
 <p>Murad Akhundov (<a
@@ -465,6 +487,11 @@ on Neuro-symbolic Systems (NeuS)</td>
 <col style="width: 85%" />
 </colgroup>
 <tbody>
+<tr>
+<td style="text-align: right;">2027</td>
+<td style="text-align: left;">International Symposium on Formal Methods
+(FM)</td>
+</tr>
 <tr>
 <td style="text-align: right;">2027</td>
 <td style="text-align: left;">Formal Methods in Software Engineering
@@ -635,7 +662,7 @@ Learning, Verification, and Security Workshop</a></td>
 </colgroup>
 <tbody>
 <tr>
-<td style="text-align: right;">2022</td>
+<td style="text-align: right;"><p>2022</p></td>
 <td style="text-align: left;"><p><a
 href="https://cltc.berkeley.edu/about-us/citizen-clinic/">Citizen
 Clinic</a></p>
@@ -643,7 +670,7 @@ Clinic</a></p>
 themselves and their communities from cyber threats.</em></p></td>
 </tr>
 <tr>
-<td style="text-align: right;">2022</td>
+<td style="text-align: right;"><p>2022</p></td>
 <td style="text-align: left;"><p><a
 href="https://crscience.org/outreach/beascientist/">Be A
 Scientist</a></p>
@@ -652,7 +679,7 @@ Students designed and conducted their own scientific experiment over a
 six-week-long lab.</em></p></td>
 </tr>
 <tr>
-<td style="text-align: right;">2020</td>
+<td style="text-align: right;"><p>2020</p></td>
 <td style="text-align: left;"><p><a
 href="https://crscience.org/you-belong-lessons-promote-inclusion-and-diversity/">Bay
 Area Scientists in Schools (BASIS)</a></p>
