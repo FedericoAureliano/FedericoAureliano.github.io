@@ -97,7 +97,6 @@ def prepare(doc):
 
     for pub in pubs_bibtex:
         selected = pub.fields['selected'].lower() == 'true' if 'selected' in pub.fields else False
-        link = pub.fields["url"] if 'url' in pub.fields else ""
 
         venue = extract_venue(pub)
 
@@ -115,7 +114,6 @@ def prepare(doc):
             'venue': venue,
             'year': year,
             'selected': selected,
-            'link': link,
             'author_elements': author_elements,
         }
 
@@ -210,15 +208,19 @@ def build_publications_table(doc):
     """Build the publications table."""
     rows = []
     for paper in doc.papers:
-        venue = pf.Plain(pf.Str(f"{paper['venue']} '{paper['year'][-2:]}"))
+        venue = pf.Plain(pf.Str(f"{paper['venue']} {paper['year'][-2:]}"))
 
-        title_str = pf.Str(paper['title'])
-        title_with_link = pf.Link(title_str, url=paper['link']) if paper['link'] else title_str
-
-        title_content = [title_with_link]
+        # Title on the first line, authors on the next.
+        title_content = [pf.Str(paper['title'])]
         if paper['author_elements']:
-            title_content.append(pf.Str(" · "))
-            title_content.append(pf.Emph(*paper['author_elements']))
+            title_content.append(pf.LineBreak())
+            authors = pf.Emph(*paper['author_elements'])
+            if doc.format == 'latex':
+                # Same slate as the HTML (--tone4, #4d5a72)
+                title_content += [pf.RawInline(r'{\color[HTML]{4D5A72}', format='latex'),
+                                  authors, pf.RawInline('}', format='latex')]
+            else:
+                title_content.append(pf.Span(authors, classes=['authors']))
 
         rows.append(pf.TableRow(
             pf.TableCell(venue),

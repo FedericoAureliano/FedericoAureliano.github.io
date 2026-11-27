@@ -52,7 +52,7 @@ log "${YELLOW}build:${RESET} index → docs/index.html"
 pandoc index.md -o docs/index.html \
     --standalone \
     --template="templates/index.html" \
-    --css "style/base.css" \
+    --css "style/main.css" \
     --css "style/index.css" \
     --include-in-header="templates/scroller.html" \
     --include-in-header="templates/selected.html" \
@@ -80,8 +80,7 @@ for file in posts/*.md; do
     pandoc "$file" -o "docs/posts/$filename.html" \
         --standalone \
         --template="templates/post.html" \
-        --css "../style/base.css" \
-        --css "../style/post.css" \
+        --css "../style/main.css" \
         --include-in-header="templates/scroller.html" \
         || log "${RED}error:${RESET} Failed to build $filename.html"
 done

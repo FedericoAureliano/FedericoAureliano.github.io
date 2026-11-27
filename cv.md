@@ -19,13 +19,13 @@ I study automated reasoning, formal methods, and programming languages.
 
 ## Appointments
 
-+-----------+-------------------------------------------------+
-| 2026-     | **Assistant Professor**, University of Waterloo |
-+-----------+-------------------------------------------------+
-| 2026-     | **Faculty Affiliate**, Vector Institute         |
-+-----------+-------------------------------------------------+
-| 2025-2026 | **Applied Scientist**, Amazon Web Services      |
-+-----------+-------------------------------------------------+
++----------+-------------------------------------------------+
+| 2026-    | **Assistant Professor**, University of Waterloo |
++----------+-------------------------------------------------+
+| 2026-    | **Faculty Affiliate**, Vector Institute         |
++----------+-------------------------------------------------+
+| 2025-26  | **Applied Scientist**, Amazon Web Services      |
++----------+-------------------------------------------------+
 
 ## Education
 
@@ -45,7 +45,7 @@ I study automated reasoning, formal methods, and programming languages.
 
 ## Publications
 
-For a full list of publications, see my [Google Scholar profile](https://scholar.google.com/citations?user=mm91pq0AAAAJ&hl). Student advisees are listed in **bold**.
+For a full list of publications, see my [Google Scholar profile](https://scholar.google.com/citations?user=mm91pq0AAAAJ&hl). Student advisees are listed in bold.
 
 ## Invited Talks
 
@@ -116,7 +116,7 @@ For a full list of publications, see my [Google Scholar profile](https://scholar
 +---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 2023-24 | **MiraCosta College**                                                                                                                                                    |
 +---------+                                                                                                                                                                          |
-|         | Haley Lepe ([NDiSTEM '23 Presentation Award Winner](https://www.sacnas.org/diversity-news/stem-students-recognized-for-research-and-presentation-skills-at-2023ndistem)) |
+|         | Haley Lepe ([NDiSTEM 23 Presentation Award Winner](https://www.sacnas.org/diversity-news/stem-students-recognized-for-research-and-presentation-skills-at-2023ndistem))  |
 +---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 2022-23 | **City College of San Francisco**                                                                                                                                        |
 +---------+                                                                                                                                                                          |
@@ -124,7 +124,7 @@ For a full list of publications, see my [Google Scholar profile](https://scholar
 +---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 2018-20 | **University of Toronto**                                                                                                                                                |
 +---------+                                                                                                                                                                          |
-|         | Murad Akhundov ([POPL '20 USRC Winner](https://popl20.sigplan.org/track/POPL-2020-Student-Research-Competition)), Lukas Finnbarr O'Callahan, Alex Tough                  |
+|         | Murad Akhundov ([POPL 20 USRC Winner](https://popl20.sigplan.org/track/POPL-2020-Student-Research-Competition)), Lukas Finnbarr O'Callahan, Alex Tough                   |
 +---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 # Service

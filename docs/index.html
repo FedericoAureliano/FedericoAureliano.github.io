@@ -54,10 +54,12 @@
         page-break-after: avoid;
       }
     }  </style>
-  <link rel="stylesheet" href="style/base.css" />
+  <link rel="stylesheet" href="style/main.css" />
   <link rel="stylesheet" href="style/index.css" />
   <script>
-      window.onscroll = function () { scroller() };
+      // The bar starts full at the top of the page and empties at the bottom.
+      window.onscroll = scroller;
+      window.onload = scroller;
       function scroller() {
           var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
           var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -68,61 +70,27 @@
       }
   </script>
   <script>
-      // Sections with hidden rows (news, publications) start showing
-      // fewer rows; their headings toggle between fewer and all rows. Every
-      // other section starts fully expanded and is not clickable.
-
-      // Shade every other visible row of each table, so the stripes stay even
-      // when some rows are hidden.
-      function stripeRows(section) {
-          section.querySelectorAll("table").forEach(function (table) {
-              var visible = 0;
-              Array.prototype.forEach.call(table.tBodies, function (body) {
-                  Array.prototype.forEach.call(body.rows, function (row) {
-                      var shown = row.getClientRects().length > 0;
-                      row.classList.toggle("row-alt", shown && visible % 2 === 0);
-                      if (shown) {
-                          visible++;
-                      }
-                  });
-              });
-          });
-      }
+      // Sections with hidden rows (news, publications) start showing fewer
+      // rows, with a "(show more)" button after the table that toggles between
+      // fewer and all rows.
 
       document.addEventListener("DOMContentLoaded", function () {
-          document.querySelectorAll("section").forEach(stripeRows);
-
           document.querySelectorAll("section:not(#profile)").forEach(function (section) {
-              var heading = section.querySelector("h1");
-              var expandable = section.querySelector(".not-selected, .not-recent") !== null;
-
-              if (!heading) {
+              var table = section.querySelector("table");
+              if (!table || !section.querySelector(".not-selected, .not-recent")) {
                   return;
               }
 
-              if (!expandable) {
-                  // Always open: the arrow points down and nothing toggles.
-                  section.classList.add("static");
-                  return;
-              }
+              var button = document.createElement("button");
+              button.className = "show-more";
+              button.textContent = "(show more)";
+              button.setAttribute("aria-expanded", "false");
+              table.after(button);
 
-              section.classList.add("expandable");
-              heading.setAttribute("role", "button");
-              heading.setAttribute("tabindex", "0");
-              heading.setAttribute("aria-expanded", "false");
-
-              function toggle() {
+              button.addEventListener("click", function () {
                   var expanded = section.classList.toggle("expanded");
-                  heading.setAttribute("aria-expanded", expanded ? "true" : "false");
-                  stripeRows(section);
-              }
-
-              heading.addEventListener("click", toggle);
-              heading.addEventListener("keydown", function (event) {
-                  if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      toggle();
-                  }
+                  button.textContent = expanded ? "(show less)" : "(show more)";
+                  button.setAttribute("aria-expanded", expanded ? "true" : "false");
               });
           });
       });
@@ -146,6 +114,7 @@ federico@uwaterloo.ca</span>
 2026-11-27</span>
 </div>
 </div>
+<div class="blurb">
 <p>My name is Federico Mora Rocha. I am an assistant professor at the <a
 href="https://cs.uwaterloo.ca/">University of Waterloo</a> and a faculty
 affiliate at the <a href="https://vectorinstitute.ai/">Vector
@@ -156,109 +125,110 @@ href="https://www.berkeley.edu/">UC Berkeley</a>.</p>
 <p>I study automated reasoning, formal methods, and programming
 languages. For more information about my work, see my <a
 href="cv.html">curriculum vitae</a>.</p>
+</div>
 </section>
 <section id="news" class="posts">
 <h1>News</h1>
 <table>
 <tbody>
 <tr>
-<td>09/2026</td>
+<td>09/26</td>
 <td>Wrote a <a
 href="https://federico.morarocha.ca/agentic-stack">tutorial</a> on the
 agentic stack</td>
 </tr>
 <tr>
-<td>08/2026</td>
+<td>08/26</td>
 <td>Wrote about <a href="https://federico.morarocha.ca/sat-smt-comp/">20
 years of SAT/SMT solver competition authors</a></td>
 </tr>
 <tr>
-<td>07/2026</td>
+<td>07/26</td>
 <td>Gave an <a href="posts/ml4sp-invited-talk.html">invited talk</a> at
 ML4SP</td>
 </tr>
 <tr>
-<td>04/2026</td>
+<td>04/26</td>
 <td>Gave an <a href="posts/verifai-invited-talk.html">invited talk</a>
 at VerifAI-2</td>
 </tr>
 <tr>
-<td>04/2026</td>
+<td>04/26</td>
 <td>Won the <a href="posts/sakrison-prize.html">David J. Sakrison
 Memorial Prize</a></td>
 </tr>
 <tr class="not-recent">
-<td>11/2025</td>
+<td>11/25</td>
 <td>Gave an <a href="posts/neurips-2025-expo-demo.html">expo
 demonstration at NeurIPS 2025</a></td>
 </tr>
 <tr class="not-recent">
-<td>08/2025</td>
+<td>08/25</td>
 <td><a href="posts/dissertation.html">Graduated</a> from the University
 of California, Berkeley</td>
 </tr>
 <tr class="not-recent">
-<td>07/2025</td>
+<td>07/25</td>
 <td>Accepted <a href="posts/waterloo-job.html">tenure-track faculty
 position at the University of Waterloo</a></td>
 </tr>
 <tr class="not-recent">
-<td>07/2024</td>
+<td>07/24</td>
 <td>Won the <a href="posts/algaroba-smtcomp.html">QF_Datatypes division
 of SMT-COMP 2024</a></td>
 </tr>
 <tr class="not-recent">
-<td>05/2024</td>
+<td>05/24</td>
 <td>Amar Shah won <a href="posts/amar-shah-src.html">silver at the ACM
 SRC Grand Finals</a></td>
 </tr>
 <tr class="not-recent">
-<td>04/2024</td>
+<td>04/24</td>
 <td>Won <a href="posts/peer-mentor-award.html">Outstanding Graduate
 Student Peer Mentor Award</a></td>
 </tr>
 <tr class="not-recent">
-<td>04/2024</td>
+<td>04/24</td>
 <td>Won <a href="posts/demetri-angelakos-award.html">Demetri Angelakos
 Memorial Achievement Award</a></td>
 </tr>
 <tr class="not-recent">
-<td>10/2023</td>
+<td>10/23</td>
 <td>Haley Lepe won <a href="posts/haley-lepe-stem-award.html">National
 Diversity in STEM Conference Presentation Award</a></td>
 </tr>
 <tr class="not-recent">
-<td>06/2023</td>
+<td>06/23</td>
 <td>Amar Shah won the undergraduate <a
 href="posts/pldi23-competition.html">PLDI Student Research
 Competition</a></td>
 </tr>
 <tr class="not-recent">
-<td>05/2023</td>
+<td>05/23</td>
 <td>Won <a href="posts/outstanding-ta-award.html">Outstanding TA
 Award</a></td>
 </tr>
 <tr class="not-recent">
-<td>02/2023</td>
+<td>02/23</td>
 <td>Passed <a href="posts/quals-passed.html">qualifying exam</a></td>
 </tr>
 <tr class="not-recent">
-<td>05/2022</td>
+<td>05/22</td>
 <td>Won <a href="posts/outstanding-gsi-award.html">Outstanding GSI
 Award</a></td>
 </tr>
 <tr class="not-recent">
-<td>03/2022</td>
+<td>03/22</td>
 <td>African American Museum and Library recommends <a
 href="posts/periodicals-map.html">my map</a></td>
 </tr>
 <tr class="not-recent">
-<td>07/2021</td>
+<td>07/21</td>
 <td>Won <a href="posts/qualcomm-fellowship.html">Qualcomm Innovation
 Fellowship</a></td>
 </tr>
 <tr class="not-recent">
-<td>01/2020</td>
+<td>01/20</td>
 <td>Murad Akhundov won the undergraduate <a
 href="posts/popl20-competition.html">POPL Student Research
 Competition</a></td>
@@ -271,110 +241,110 @@ Competition</a></td>
 <table>
 <tbody>
 <tr class="not-selected">
-<td><a href="https://doi.org/10.48550/arXiv.2510.19752">ICRA
-'26</a></td>
-<td>Learning Affordances at Inference-Time for Vision-Language-Action
-Models</td>
+<td>ICRA 26</td>
+<td><a href="https://doi.org/10.48550/arXiv.2510.19752">Learning
+Affordances at Inference-Time for Vision-Language-Action Models</a></td>
 </tr>
 <tr class="not-selected">
+<td>Thesis 25</td>
 <td><a
-href="https://www2.eecs.berkeley.edu/Pubs/TechRpts/2025/EECS-2025-163.html">Thesis
-'25</a></td>
-<td>Scalable and Usable Domain-Specific Automated Reasoning</td>
+href="https://www2.eecs.berkeley.edu/Pubs/TechRpts/2025/EECS-2025-163.html">Scalable
+and Usable Domain-Specific Automated Reasoning</a></td>
 </tr>
 <tr class="not-selected">
-<td><a href="https://doi.org/10.1609/aaai.v39i11.33227">AAAI
-'25</a></td>
-<td>Online Prompt Selection for Program Synthesis</td>
+<td>AAAI 25</td>
+<td><a href="https://doi.org/10.1609/aaai.v39i11.33227">Online Prompt
+Selection for Program Synthesis</a></td>
 </tr>
 <tr class="selected">
+<td>NeurIPS 24</td>
 <td><a
-href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/bde1c75d7d89e64d6d93dce1c68dc3d8-Abstract-Conference.html">NeurIPS
-'24</a></td>
-<td>Synthetic Programming Elicitation for Text-to-Code in Very
-Low-Resource Programming and Formal Languages</td>
+href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/bde1c75d7d89e64d6d93dce1c68dc3d8-Abstract-Conference.html">Synthetic
+Programming Elicitation for Text-to-Code in Very Low-Resource
+Programming and Formal Languages</a></td>
 </tr>
 <tr class="selected">
-<td><a href="https://doi.org/10.1609/aaai.v38i8.28649">AAAI '24</a></td>
-<td>An Eager Satisfiability Modulo Theories Solver for Algebraic
-Datatypes</td>
+<td>AAAI 24</td>
+<td><a href="https://doi.org/10.1609/aaai.v38i8.28649">An Eager
+Satisfiability Modulo Theories Solver for Algebraic Datatypes</a></td>
 </tr>
 <tr class="not-selected">
-<td><a href="https://doi.org/10.1016/j.tcs.2022.12.009">TCS '23</a></td>
-<td>Towards more efficient methods for solving regular-expression heavy
-string constraints</td>
+<td>TCS 23</td>
+<td><a href="https://doi.org/10.1016/j.tcs.2022.12.009">Towards more
+efficient methods for solving regular-expression heavy string
+constraints</a></td>
 </tr>
 <tr class="not-selected">
-<td><a href="https://arxiv.org/abs/2306.00521">SYNT '23</a></td>
-<td>Genetic Algorithms for Searching a Matrix of Metagrammars for
-Synthesis</td>
+<td>SYNT 23</td>
+<td><a href="https://arxiv.org/abs/2306.00521">Genetic Algorithms for
+Searching a Matrix of Metagrammars for Synthesis</a></td>
 </tr>
 <tr class="selected">
-<td><a href="https://doi.org/10.1145/3622876">OOPSLA '23</a></td>
-<td>Message Chains for Distributed System Verification</td>
+<td>OOPSLA 23</td>
+<td><a href="https://doi.org/10.1145/3622876">Message Chains for
+Distributed System Verification</a></td>
 </tr>
 <tr class="not-selected">
-<td><a href="https://doi.org/10.1007/978-3-031-13185-1_27">CAV
-'22</a></td>
-<td>UCLID5: Multi-Modal Formal Modeling, Verification, and
-Synthesis</td>
+<td>CAV 22</td>
+<td><a href="https://doi.org/10.1007/978-3-031-13185-1_27">UCLID5:
+Multi-Modal Formal Modeling, Verification, and Synthesis</a></td>
 </tr>
 <tr class="not-selected">
-<td><a href="https://doi.org/10.1007/978-3-030-85088-3_5">WORDS
-'21</a></td>
-<td>String Theories involving Regular Membership Predicates: From
-Practice to Theory and Back</td>
+<td>WORDS 21</td>
+<td><a href="https://doi.org/10.1007/978-3-030-85088-3_5">String
+Theories involving Regular Membership Predicates: From Practice to
+Theory and Back</a></td>
 </tr>
 <tr class="selected">
-<td><a href="https://doi.org/10.1007/978-3-030-80223-3_31">SAT
-'21</a></td>
-<td>MedleySolver: Online SMT Algorithm Selection</td>
+<td>SAT 21</td>
+<td><a href="https://doi.org/10.1007/978-3-030-80223-3_31">MedleySolver:
+Online SMT Algorithm Selection</a></td>
 </tr>
 <tr class="selected">
-<td><a href="https://doi.org/10.1007/978-3-030-90870-6_21">FM
-'21</a></td>
-<td>Z3str4: A Multi-armed String Solver</td>
+<td>FM 21</td>
+<td><a href="https://doi.org/10.1007/978-3-030-90870-6_21">Z3str4: A
+Multi-armed String Solver</a></td>
 </tr>
 <tr class="not-selected">
-<td><a href="https://doi.org/10.1007/978-3-030-90870-6_6">FM
-'21</a></td>
-<td>BanditFuzz: Fuzzing SMT Solvers with Multi-Agent Reinforcement
-Learning</td>
+<td>FM 21</td>
+<td><a href="https://doi.org/10.1007/978-3-030-90870-6_6">BanditFuzz:
+Fuzzing SMT Solvers with Multi-Agent Reinforcement Learning</a></td>
 </tr>
 <tr class="selected">
-<td><a href="https://doi.org/10.1007/978-3-030-81688-9_14">CAV
-'21</a></td>
-<td>An SMT Solver for Regular Expressions and Linear Arithmetic over
-String Length</td>
+<td>CAV 21</td>
+<td><a href="https://doi.org/10.1007/978-3-030-81688-9_14">An SMT Solver
+for Regular Expressions and Linear Arithmetic over String
+Length</a></td>
 </tr>
 <tr class="not-selected">
-<td><a href="https://doi.org/10.1007/978-3-030-88885-5_18">ATVA
-'21</a></td>
-<td>Verification by Gambling on Program Slices</td>
+<td>ATVA 21</td>
+<td><a href="https://doi.org/10.1007/978-3-030-88885-5_18">Verification
+by Gambling on Program Slices</a></td>
 </tr>
 <tr class="not-selected">
-<td><a href="https://doi.org/10.1007/978-3-030-63618-0_5">VSTTE
-'20</a></td>
-<td>BanditFuzz: A Reinforcement-Learning Based Performance Fuzzer for
-SMT Solvers</td>
+<td>VSTTE 20</td>
+<td><a href="https://doi.org/10.1007/978-3-030-63618-0_5">BanditFuzz: A
+Reinforcement-Learning Based Performance Fuzzer for SMT Solvers</a></td>
 </tr>
 <tr class="not-selected">
-<td><a href="https://arxiv.org/abs/2007.06760">SYNT '20</a></td>
-<td>Synthesis in UCLID5</td>
+<td>SYNT 20</td>
+<td><a href="https://arxiv.org/abs/2007.06760">Synthesis in
+UCLID5</a></td>
 </tr>
 <tr class="not-selected">
-<td><a href="https://doi.org/10.1145/3324884.3416634">ASE '20</a></td>
-<td>Scaling Client-Specific Equivalence Checking via Impact Boundary
-Search</td>
+<td>ASE 20</td>
+<td><a href="https://doi.org/10.1145/3324884.3416634">Scaling
+Client-Specific Equivalence Checking via Impact Boundary Search</a></td>
 </tr>
 <tr class="selected">
-<td><a href="https://doi.org/10.1007/978-3-319-96142-2_6">CAV
-'18</a></td>
-<td>StringFuzz: A Fuzzer for String Solvers</td>
+<td>CAV 18</td>
+<td><a href="https://doi.org/10.1007/978-3-319-96142-2_6">StringFuzz: A
+Fuzzer for String Solvers</a></td>
 </tr>
 <tr class="not-selected">
-<td><a href="https://doi.org/10.1145/3238147.3238178">ASE '18</a></td>
-<td>Client-Specific Equivalence Checking</td>
+<td>ASE 18</td>
+<td><a href="https://doi.org/10.1145/3238147.3238178">Client-Specific
+Equivalence Checking</a></td>
 </tr>
 </tbody>
 </table>
@@ -409,12 +379,12 @@ Institute application</a>. I am currently working with:</p>
 <h1>Teaching</h1>
 <table>
 <colgroup>
-<col style="width: 14%" />
-<col style="width: 85%" />
+<col style="width: 13%" />
+<col style="width: 86%" />
 </colgroup>
 <tbody>
 <tr>
-<td>Fall &apos;26</td>
+<td>Fall 26</td>
 <td><a href="https://federico.morarocha.ca/CS846-FMxAI/">CS 846:
 FMxAI</a></td>
 </tr>
@@ -425,44 +395,49 @@ FMxAI</a></td>
 <h1>Awards</h1>
 <table>
 <colgroup>
-<col style="width: 67%" />
-<col style="width: 32%" />
+<col style="width: 5%" />
+<col style="width: 94%" />
 </colgroup>
 <tbody>
 <tr>
-<td><a
-href="https://www2.eecs.berkeley.edu/Students/Awards/17/">2026</a></td>
-<td>David J. Sakrison Memorial Prize</td>
+<td>2026</td>
+<td><a href="https://www2.eecs.berkeley.edu/Students/Awards/17/">David
+J. Sakrison Memorial Prize</a></td>
 </tr>
 <tr>
+<td>2024</td>
 <td><a
-href="https://smt-comp.github.io/2024/results/qf_datatypes-single-query/">2024</a></td>
-<td>QF_Datatypes division of SMT-COMP</td>
+href="https://smt-comp.github.io/2024/results/qf_datatypes-single-query/">QF_Datatypes
+division of SMT-COMP</a></td>
 </tr>
 <tr>
+<td>2024</td>
 <td><a
-href="https://ga.berkeley.edu/ga-news/ga-mentorship-awards/">2024</a></td>
-<td>Outstanding Graduate Student Peer Mentor Award</td>
+href="https://ga.berkeley.edu/ga-news/ga-mentorship-awards/">Outstanding
+Graduate Student Peer Mentor Award</a></td>
 </tr>
 <tr>
-<td><a
-href="https://www2.eecs.berkeley.edu/Students/Awards/1/">2024</a></td>
-<td>Demetri Angelakos Memorial Achievement Award</td>
+<td>2024</td>
+<td><a href="https://www2.eecs.berkeley.edu/Students/Awards/1/">Demetri
+Angelakos Memorial Achievement Award</a></td>
 </tr>
 <tr>
+<td>2023</td>
 <td><a
-href="https://www2.eecs.berkeley.edu/Students/Awards/13/">2023</a></td>
-<td>Outstanding Teaching Assistant Award</td>
+href="https://www2.eecs.berkeley.edu/Students/Awards/13/">Outstanding
+Teaching Assistant Award</a></td>
 </tr>
 <tr>
+<td>2022</td>
 <td><a
-href="https://gsi.berkeley.edu/programs-services/award-programs/ogsi/">2022</a></td>
-<td>Outstanding Graduate Student Instructor Award</td>
+href="https://gsi.berkeley.edu/programs-services/award-programs/ogsi/">Outstanding
+Graduate Student Instructor Award</a></td>
 </tr>
 <tr>
+<td>2021</td>
 <td><a
-href="https://www.qualcomm.com/research/research/university-relations/innovation-fellowship/winners">2021</a></td>
-<td>Qualcomm Innovation Fellowship</td>
+href="https://www.qualcomm.com/research/research/university-relations/innovation-fellowship/winners">Qualcomm
+Innovation Fellowship</a></td>
 </tr>
 </tbody>
 </table>

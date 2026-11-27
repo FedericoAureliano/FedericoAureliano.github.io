@@ -1,128 +1,232 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+/* Shared style for the index, the CV, and the blog posts.
+   Page-specific layout lives in index.css and cv.css. */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Emoji:wght@300..700&display=swap');
 
 :root {
-    --white: #ffffff;
-    --grey1: #eceff4;
-    --grey2: #d8dee9;
-    --grey3: #4c566a;
-    --black: #000000;
-    --accent1: #88c0d0;
-    --accent2: #DB5461;
+    /* Palette taken from images/background.png (a lake at dusk): the page
+       is a light version of the house's lavender-grey wall (#a7a5b2), the
+       light tones are darker steps of that wall colour, slate blues from the
+       water are the darker tones, a deep navy is the text, and the orange
+       glow of the cabin windows is the accent. */
+    --paper: #fdfcfe;
+    --tone1: #efeef3;
+    --tone2: #c3c1cd;
+    --tone3: #a5a3af;
+    --tone4: #4d5a72;
+    --tone5: #2f4562;
+    --ink: #17202c;
+    --water: #1f324a;
+    --accent: #c7764f;
 }
 
+/* Page: a light card on a darker background */
+
 html {
-    background-color: var(--grey1);
+    background-color: var(--tone1);
     min-width: 330px;
 }
 
 body {
     font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12pt;
     line-height: 1.5;
     max-width: 750px;
     margin: 1.5em auto;
-    padding: 1em 5em 1em 5em;
-    border-radius: 4px;
-    background-color: var(--white);
-    color: var(--black);
-    font-size: 12pt;
-    box-shadow: 0 0 10px var(--grey2);
+    padding: 1em 5em;
+    background-color: var(--paper);
+    color: var(--ink);
+    box-shadow: 0 0 10px var(--tone2);
 }
 
-section {
-    padding: 0em;
-    margin: 1em 0em 2em 0em;
+/* Headings */
+
+h1 { font-size: 18pt; font-weight: 700; margin: 2em 0 1em; }
+h2 { font-size: 14pt; font-weight: 600; margin: 1.5em 0 1em; }
+h3 { font-size: 12pt; font-weight: 600; margin: 1em 0; }
+h4 { font-size: 12pt; font-weight: 500; margin: 0.8em 0 1em; }
+
+/* Text */
+
+p {
+    margin: 0.3em 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-size: 14pt;
-    margin: 0em;
-    color: var(--black);
-    font-weight: normal;
+ol, ul {
+    padding-left: 1.5em;
 }
 
-a {
-    color: var(--black);
+li {
+    margin-bottom: 0.8em;
+}
+
+/* Links: a subtle grey highlight that darkens on hover. The highlight
+   reaches a little past the words (padding) without moving the text around
+   it (matching negative margin), on every line the link wraps onto.
+   The index's "(show more)" buttons look the same. */
+a, .show-more {
+    color: inherit;
     text-decoration: none;
-    background-color: var(--accent1);
-    border-radius: 4px;
-    padding: 0em 0.2em;
-    font-size: 11.5pt;
+    background-color: var(--tone1);
+    padding: 0 0.15em;
+    margin: 0 -0.15em;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
 }
 
-a:hover {
-    color: var(--white);
+/* On hover the highlight turns orange and its edges blur outward (a
+   shadow of the same colour). */
+a:hover, .show-more:hover {
+    --highlight: color-mix(in srgb, var(--accent) 30%, var(--paper));
+    background-color: var(--highlight);
+    box-shadow: 0 0 2px 1px color-mix(in srgb, var(--highlight) 50%, transparent);
 }
 
 code {
     font-family: "IBM Plex Mono", monospace;
-    background-color: var(--grey2);
+    background-color: var(--tone2);
     padding: 0.1em 0.3em;
-    border-radius: 4px;
+}
+
+img {
+    max-width: 100%;
 }
 
 .emoji {
     font-family: 'Noto Emoji';
 }
 
+/* Tables: a right-aligned date/venue column and a left-aligned entry column */
+
+table {
+    /* Pandoc emits an inline width on grid tables; keep every table full width. */
+    width: 100% !important;
+    border-collapse: collapse;
+    margin: 1em 0 0.6em;
+}
+
+/* Pandoc tries to calculate the size of table columns; ignore it. */
+col {
+    width: 0% !important;
+}
+
+td {
+    vertical-align: baseline;
+    padding: 0 0 0.3em;
+}
+
+td:nth-child(odd) {
+    width: 8em;
+    text-align: right;
+    padding-right: 1.5em;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11pt;
+    color: var(--tone4);
+}
+
+table em {
+    font-size: 10pt;
+}
+
+/* Pandoc wraps multi-paragraph cells in <p>; drop the global p margin so
+   the first line of each cell starts at the same height. */
+td > p {
+    margin: 0;
+}
+
+td > p + p {
+    margin-top: 0.3em;
+}
+
+table ul, table ol {
+    margin: 0;
+}
+
+table li {
+    margin-bottom: 0.2em;
+}
+
+/* Reading-progress bar, updated by the script in scroller.html: a thin
+   orange line, like the lit windows of the house in the
+   background photo, that starts full and shrinks as you scroll down,
+   leaving deep blue behind. */
+
 #scroller {
-    height: 0.6em;
-    width: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: var(--grey3);
     --scroller-width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 0.3em;
+    /* The emptied part shows the deep blue of the photo's water. */
+    background-color: var(--water);
 }
 
 #scroller::before {
     content: '';
     position: absolute;
-    left: 0;
     top: 0;
-    height: 100%;
+    left: 0;
     width: var(--scroller-width);
-    background-color: var(--accent1);
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+    height: 100%;
+    background-color: color-mix(in srgb, var(--accent) 75%, var(--paper));
     transition: width 0.1s ease-out;
 }
 
-.footer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    font-size: 8pt;
-    color: var(--grey3);
-    margin-top: 5em;
-}
-
-.email {
-    grid-column: 1;
-    text-wrap: nowrap;
-}
-
-.last-update {
-    grid-column: 2;
-    text-align: right;
-    text-wrap: nowrap;
-}
-
-/* Hack because Panddoc tries to calculate the size of tables columns */
-col {
-    width: 0% !important;
-}
+/* Small screens and print: drop the card and use the full width */
 
 @media (max-width: 840px) {
+    html {
+        background-color: var(--paper);
+    }
+
     body {
+        margin: 0;
         padding: 1em;
-        margin: 0em;
+        box-shadow: none;
+    }
+}
+
+@media (max-width: 600px) {
+    td:nth-child(odd) {
+        width: 5.5em;
+        padding-right: 1em;
+        font-size: 9pt;
+    }
+
+    td:nth-child(even) {
+        font-size: 11pt;
+    }
+}
+
+/* Print: pure white paper and pure black text (lighter elements, like the
+   CV's author lists and the dates column, keep their slate colour), with no
+   card, shadow, link highlights, or progress bar. */
+
+@media print {
+    :root {
+        --paper: #ffffff;
+        --ink: #000000;
+    }
+
+    html {
+        background-color: var(--paper);
+    }
+
+    a, a:hover {
+        background: none;
         box-shadow: none;
     }
 
-    html{
-        background-color: transparent;
+    body {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+    }
+
+    #scroller {
+        display: none;
     }
 }

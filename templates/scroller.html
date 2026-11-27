@@ -1,5 +1,7 @@
 <script>
-    window.onscroll = function () { scroller() };
+    // The bar starts full at the top of the page and empties at the bottom.
+    window.onscroll = scroller;
+    window.onload = scroller;
     function scroller() {
         var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;

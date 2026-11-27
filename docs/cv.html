@@ -56,7 +56,9 @@
   <link rel="stylesheet" href="style/main.css" />
   <link rel="stylesheet" href="style/cv.css" />
   <script>
-      window.onscroll = function () { scroller() };
+      // The bar starts full at the top of the page and empties at the bottom.
+      window.onscroll = scroller;
+      window.onload = scroller;
       function scroller() {
           var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
           var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -100,7 +102,7 @@ University of Waterloo</td>
 Institute</td>
 </tr>
 <tr>
-<td style="text-align: right;">2025-2026</td>
+<td style="text-align: right;">2025-26</td>
 <td style="text-align: left;"><strong>Applied Scientist</strong>, Amazon
 Web Services</td>
 </tr>
@@ -139,8 +141,7 @@ Science</strong>, Mount Allison University</p>
 <h2 id="publications">Publications</h2>
 <p>For a full list of publications, see my <a
 href="https://scholar.google.com/citations?user=mm91pq0AAAAJ&amp;hl">Google
-Scholar profile</a>. Student advisees are listed in
-<strong>bold</strong>.</p>
+Scholar profile</a>. Student advisees are listed in bold.</p>
 <table>
 <colgroup>
 <col style="width: 15%" />
@@ -148,154 +149,145 @@ Scholar profile</a>. Student advisees are listed in
 </colgroup>
 <tbody>
 <tr>
-<td style="text-align: right;">ICRA '26</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.48550/arXiv.2510.19752">Learning Affordances at
-Inference-Time for Vision-Language-Action Models</a> · <em>Ameesh Shah,
-William Chen, Adwait Godbole, Federico Mora, Sanjit Seshia, and Sergey
-Levine</em></td>
+<td style="text-align: right;">ICRA 26</td>
+<td style="text-align: left;">Learning Affordances at Inference-Time for
+Vision-Language-Action Models<br />
+<span class="authors"><em>Ameesh Shah, William Chen, Adwait Godbole,
+Federico Mora, Sanjit Seshia, and Sergey Levine</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">Thesis '25</td>
-<td style="text-align: left;"><a
-href="https://www2.eecs.berkeley.edu/Pubs/TechRpts/2025/EECS-2025-163.html">Scalable
-and Usable Domain-Specific Automated Reasoning</a> · <em>Federico
-Mora</em></td>
+<td style="text-align: right;">Thesis 25</td>
+<td style="text-align: left;">Scalable and Usable Domain-Specific
+Automated Reasoning<br />
+<span class="authors"><em>Federico Mora</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">AAAI '25</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.1609/aaai.v39i11.33227">Online Prompt Selection
-for Program Synthesis</a> · <em>Yixuan Li, Lewis Frampton, Federico
-Mora, and Elizabeth Polgreen</em></td>
+<td style="text-align: right;">AAAI 25</td>
+<td style="text-align: left;">Online Prompt Selection for Program
+Synthesis<br />
+<span class="authors"><em>Yixuan Li, Lewis Frampton, Federico Mora, and
+Elizabeth Polgreen</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">NeurIPS '24</td>
-<td style="text-align: left;"><a
-href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/bde1c75d7d89e64d6d93dce1c68dc3d8-Abstract-Conference.html">Synthetic
-Programming Elicitation for Text-to-Code in Very Low-Resource
-Programming and Formal Languages</a> · <em>Federico Mora, Justin Wong,
-<strong>Haley Lepe</strong>, Sahil Bhatia, Karim Elmaaroufi, George
-Varghese, Joseph Gonzalez, Elizabeth Polgreen, and Sanjit
-Seshia</em></td>
+<td style="text-align: right;">NeurIPS 24</td>
+<td style="text-align: left;">Synthetic Programming Elicitation for
+Text-to-Code in Very Low-Resource Programming and Formal Languages<br />
+<span class="authors"><em>Federico Mora, Justin Wong, <strong>Haley
+Lepe</strong>, Sahil Bhatia, Karim Elmaaroufi, George Varghese, Joseph
+Gonzalez, Elizabeth Polgreen, and Sanjit Seshia</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">AAAI '24</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.1609/aaai.v38i8.28649">An Eager Satisfiability
-Modulo Theories Solver for Algebraic Datatypes</a> · <em><strong>Amar
-Shah</strong>, Federico Mora, and Sanjit Seshia</em></td>
+<td style="text-align: right;">AAAI 24</td>
+<td style="text-align: left;">An Eager Satisfiability Modulo Theories
+Solver for Algebraic Datatypes<br />
+<span class="authors"><em><strong>Amar Shah</strong>, Federico Mora, and
+Sanjit Seshia</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">TCS '23</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.1016/j.tcs.2022.12.009">Towards more efficient
-methods for solving regular-expression heavy string constraints</a> ·
-<em>Murphy Berzish, Joel Day, Vijay Ganesh, Mitja Kulczynski, Florin
-Manea, Federico Mora, and Dirk Nowotka</em></td>
+<td style="text-align: right;">TCS 23</td>
+<td style="text-align: left;">Towards more efficient methods for solving
+regular-expression heavy string constraints<br />
+<span class="authors"><em>Murphy Berzish, Joel Day, Vijay Ganesh, Mitja
+Kulczynski, Florin Manea, Federico Mora, and Dirk
+Nowotka</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">SYNT '23</td>
-<td style="text-align: left;"><a
-href="https://arxiv.org/abs/2306.00521">Genetic Algorithms for Searching
-a Matrix of Metagrammars for Synthesis</a> · <em>Yixuan Li, Federico
-Mora, Elizabeth Polgreen, and Sanjit Seshia</em></td>
+<td style="text-align: right;">SYNT 23</td>
+<td style="text-align: left;">Genetic Algorithms for Searching a Matrix
+of Metagrammars for Synthesis<br />
+<span class="authors"><em>Yixuan Li, Federico Mora, Elizabeth Polgreen,
+and Sanjit Seshia</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">OOPSLA '23</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.1145/3622876">Message Chains for Distributed
-System Verification</a> · <em>Federico Mora, Ankush Desai, Elizabeth
-Polgreen, and Sanjit Seshia</em></td>
+<td style="text-align: right;">OOPSLA 23</td>
+<td style="text-align: left;">Message Chains for Distributed System
+Verification<br />
+<span class="authors"><em>Federico Mora, Ankush Desai, Elizabeth
+Polgreen, and Sanjit Seshia</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">CAV '22</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.1007/978-3-031-13185-1_27">UCLID5: Multi-Modal
-Formal Modeling, Verification, and Synthesis</a> · <em>Elizabeth
-Polgreen, Kevin Cheang, Pranav Gaddamadugu, Adwait Godbole, Kevin
-Laeufer, Shaokai Lin, Yatin Manerkar, Federico Mora, and Sanjit
-Seshia</em></td>
+<td style="text-align: right;">CAV 22</td>
+<td style="text-align: left;">UCLID5: Multi-Modal Formal Modeling,
+Verification, and Synthesis<br />
+<span class="authors"><em>Elizabeth Polgreen, Kevin Cheang, Pranav
+Gaddamadugu, Adwait Godbole, Kevin Laeufer, Shaokai Lin, Yatin Manerkar,
+Federico Mora, and Sanjit Seshia</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">WORDS '21</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.1007/978-3-030-85088-3_5">String Theories
-involving Regular Membership Predicates: From Practice to Theory and
-Back</a> · <em>Murphy Berzish, Joel Day, Vijay Ganesh, Mitja Kulczynski,
-Florin Manea, Federico Mora, and Dirk Nowotka</em></td>
+<td style="text-align: right;">WORDS 21</td>
+<td style="text-align: left;">String Theories involving Regular
+Membership Predicates: From Practice to Theory and Back<br />
+<span class="authors"><em>Murphy Berzish, Joel Day, Vijay Ganesh, Mitja
+Kulczynski, Florin Manea, Federico Mora, and Dirk
+Nowotka</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">SAT '21</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.1007/978-3-030-80223-3_31">MedleySolver: Online
-SMT Algorithm Selection</a> · <em><strong>Nikhil Pimpalkhare</strong>,
-Federico Mora, Elizabeth Polgreen, and Sanjit Seshia</em></td>
+<td style="text-align: right;">SAT 21</td>
+<td style="text-align: left;">MedleySolver: Online SMT Algorithm
+Selection<br />
+<span class="authors"><em><strong>Nikhil Pimpalkhare</strong>, Federico
+Mora, Elizabeth Polgreen, and Sanjit Seshia</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">FM '21</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.1007/978-3-030-90870-6_21">Z3str4: A
-Multi-armed String Solver</a> · <em>Federico Mora, Murphy Berzish, Mitja
-Kulczynski, Dirk Nowotka, and Vijay Ganesh</em></td>
+<td style="text-align: right;">FM 21</td>
+<td style="text-align: left;">Z3str4: A Multi-armed String Solver<br />
+<span class="authors"><em>Federico Mora, Murphy Berzish, Mitja
+Kulczynski, Dirk Nowotka, and Vijay Ganesh</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">FM '21</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.1007/978-3-030-90870-6_6">BanditFuzz: Fuzzing
-SMT Solvers with Multi-Agent Reinforcement Learning</a> · <em>Joseph
-Scott, Trishal Sudula, Hammad Rehman, Federico Mora, and Vijay
-Ganesh</em></td>
+<td style="text-align: right;">FM 21</td>
+<td style="text-align: left;">BanditFuzz: Fuzzing SMT Solvers with
+Multi-Agent Reinforcement Learning<br />
+<span class="authors"><em>Joseph Scott, Trishal Sudula, Hammad Rehman,
+Federico Mora, and Vijay Ganesh</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">CAV '21</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.1007/978-3-030-81688-9_14">An SMT Solver for
-Regular Expressions and Linear Arithmetic over String Length</a> ·
-<em>Murphy Berzish, Mitja Kulczynski, Federico Mora, Florin Manea, Joel
-Day, Dirk Nowotka, and Vijay Ganesh</em></td>
+<td style="text-align: right;">CAV 21</td>
+<td style="text-align: left;">An SMT Solver for Regular Expressions and
+Linear Arithmetic over String Length<br />
+<span class="authors"><em>Murphy Berzish, Mitja Kulczynski, Federico
+Mora, Florin Manea, Joel Day, Dirk Nowotka, and Vijay
+Ganesh</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">ATVA '21</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.1007/978-3-030-88885-5_18">Verification by
-Gambling on Program Slices</a> · <em><strong>Murad Akhundov</strong>,
-Federico Mora, Nick Feng, Vincent Hui, and Marsha Chechik</em></td>
+<td style="text-align: right;">ATVA 21</td>
+<td style="text-align: left;">Verification by Gambling on Program
+Slices<br />
+<span class="authors"><em><strong>Murad Akhundov</strong>, Federico
+Mora, Nick Feng, Vincent Hui, and Marsha Chechik</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">VSTTE '20</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.1007/978-3-030-63618-0_5">BanditFuzz: A
-Reinforcement-Learning Based Performance Fuzzer for SMT Solvers</a> ·
-<em>Joseph Scott, Federico Mora, and Vijay Ganesh</em></td>
+<td style="text-align: right;">VSTTE 20</td>
+<td style="text-align: left;">BanditFuzz: A Reinforcement-Learning Based
+Performance Fuzzer for SMT Solvers<br />
+<span class="authors"><em>Joseph Scott, Federico Mora, and Vijay
+Ganesh</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">SYNT '20</td>
-<td style="text-align: left;"><a
-href="https://arxiv.org/abs/2007.06760">Synthesis in UCLID5</a> ·
-<em>Federico Mora, Kevin Cheang, Elizabeth Polgreen, and Sanjit
-Seshia</em></td>
+<td style="text-align: right;">SYNT 20</td>
+<td style="text-align: left;">Synthesis in UCLID5<br />
+<span class="authors"><em>Federico Mora, Kevin Cheang, Elizabeth
+Polgreen, and Sanjit Seshia</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">ASE '20</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.1145/3324884.3416634">Scaling Client-Specific
-Equivalence Checking via Impact Boundary Search</a> · <em>Nick Feng,
-Federico Mora, Vincent Hui, and Marsha Chechik</em></td>
+<td style="text-align: right;">ASE 20</td>
+<td style="text-align: left;">Scaling Client-Specific Equivalence
+Checking via Impact Boundary Search<br />
+<span class="authors"><em>Nick Feng, Federico Mora, Vincent Hui, and
+Marsha Chechik</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">CAV '18</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.1007/978-3-319-96142-2_6">StringFuzz: A Fuzzer
-for String Solvers</a> · <em>Dmitry Blotsky, Federico Mora, Murphy
-Berzish, Yunhui Zheng, Ifaz Kabir, and Vijay Ganesh</em></td>
+<td style="text-align: right;">CAV 18</td>
+<td style="text-align: left;">StringFuzz: A Fuzzer for String
+Solvers<br />
+<span class="authors"><em>Dmitry Blotsky, Federico Mora, Murphy Berzish,
+Yunhui Zheng, Ifaz Kabir, and Vijay Ganesh</em></span></td>
 </tr>
 <tr>
-<td style="text-align: right;">ASE '18</td>
-<td style="text-align: left;"><a
-href="https://doi.org/10.1145/3238147.3238178">Client-Specific
-Equivalence Checking</a> · <em>Federico Mora, Yi Li, Julia Rubin, and
-Marsha Chechik</em></td>
+<td style="text-align: right;">ASE 18</td>
+<td style="text-align: left;">Client-Specific Equivalence Checking<br />
+<span class="authors"><em>Federico Mora, Yi Li, Julia Rubin, and Marsha
+Chechik</em></span></td>
 </tr>
 </tbody>
 </table>
@@ -437,7 +429,7 @@ Runner-up</a>), Annamira O’Toole, Selina Kim, Nikhil Pimpalkhare
 <td style="text-align: left;"><p><strong>MiraCosta College</strong></p>
 <p>Haley Lepe (<a
 href="https://www.sacnas.org/diversity-news/stem-students-recognized-for-research-and-presentation-skills-at-2023ndistem">NDiSTEM
-’23 Presentation Award Winner</a>)</p></td>
+23 Presentation Award Winner</a>)</p></td>
 </tr>
 <tr>
 <td style="text-align: right;"><p>2022-23</p></td>
@@ -451,7 +443,7 @@ Francisco</strong></p>
 Toronto</strong></p>
 <p>Murad Akhundov (<a
 href="https://popl20.sigplan.org/track/POPL-2020-Student-Research-Competition">POPL
-’20 USRC Winner</a>), Lukas Finnbarr O’Callahan, Alex Tough</p></td>
+20 USRC Winner</a>), Lukas Finnbarr O’Callahan, Alex Tough</p></td>
 </tr>
 </tbody>
 </table>

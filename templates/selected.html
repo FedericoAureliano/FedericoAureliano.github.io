@@ -1,59 +1,25 @@
 <script>
-    // Sections with hidden rows (news, publications) start showing
-    // fewer rows; their headings toggle between fewer and all rows. Every
-    // other section starts fully expanded and is not clickable.
-
-    // Shade every other visible row of each table, so the stripes stay even
-    // when some rows are hidden.
-    function stripeRows(section) {
-        section.querySelectorAll("table").forEach(function (table) {
-            var visible = 0;
-            Array.prototype.forEach.call(table.tBodies, function (body) {
-                Array.prototype.forEach.call(body.rows, function (row) {
-                    var shown = row.getClientRects().length > 0;
-                    row.classList.toggle("row-alt", shown && visible % 2 === 0);
-                    if (shown) {
-                        visible++;
-                    }
-                });
-            });
-        });
-    }
+    // Sections with hidden rows (news, publications) start showing fewer
+    // rows, with a "(show more)" button after the table that toggles between
+    // fewer and all rows.
 
     document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll("section").forEach(stripeRows);
-
         document.querySelectorAll("section:not(#profile)").forEach(function (section) {
-            var heading = section.querySelector("h1");
-            var expandable = section.querySelector(".not-selected, .not-recent") !== null;
-
-            if (!heading) {
+            var table = section.querySelector("table");
+            if (!table || !section.querySelector(".not-selected, .not-recent")) {
                 return;
             }
 
-            if (!expandable) {
-                // Always open: the arrow points down and nothing toggles.
-                section.classList.add("static");
-                return;
-            }
+            var button = document.createElement("button");
+            button.className = "show-more";
+            button.textContent = "(show more)";
+            button.setAttribute("aria-expanded", "false");
+            table.after(button);
 
-            section.classList.add("expandable");
-            heading.setAttribute("role", "button");
-            heading.setAttribute("tabindex", "0");
-            heading.setAttribute("aria-expanded", "false");
-
-            function toggle() {
+            button.addEventListener("click", function () {
                 var expanded = section.classList.toggle("expanded");
-                heading.setAttribute("aria-expanded", expanded ? "true" : "false");
-                stripeRows(section);
-            }
-
-            heading.addEventListener("click", toggle);
-            heading.addEventListener("keydown", function (event) {
-                if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    toggle();
-                }
+                button.textContent = expanded ? "(show less)" : "(show more)";
+                button.setAttribute("aria-expanded", expanded ? "true" : "false");
             });
         });
     });
