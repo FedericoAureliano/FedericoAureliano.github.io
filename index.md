@@ -5,7 +5,6 @@ counter: |
     <script data-goatcounter="https://federicoaureliano.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 news: posts
 papers: main.bib
-awards: awards
 authors: false
 headshot: images/federico.jpg
 office: DC 2510
@@ -40,3 +39,19 @@ I am looking for graduate students (MMath or PhD) to join my group! If you are i
 +----------+---------------------------------------------------------------+
 
 # Awards
+
++-------------------------------------------------------------------------------------------------------+------------------------------------------------+
+| [2026](https://www2.eecs.berkeley.edu/Students/Awards/17/)                                            | David J. Sakrison Memorial Prize               |
++-------------------------------------------------------------------------------------------------------+------------------------------------------------+
+| [2024](https://smt-comp.github.io/2024/results/qf_datatypes-single-query/)                            | QF_Datatypes division of SMT-COMP              |
++-------------------------------------------------------------------------------------------------------+------------------------------------------------+
+| [2024](https://ga.berkeley.edu/ga-news/ga-mentorship-awards/)                                         | Outstanding Graduate Student Peer Mentor Award |
++-------------------------------------------------------------------------------------------------------+------------------------------------------------+
+| [2024](https://www2.eecs.berkeley.edu/Students/Awards/1/)                                             | Demetri Angelakos Memorial Achievement Award   |
++-------------------------------------------------------------------------------------------------------+------------------------------------------------+
+| [2023](https://www2.eecs.berkeley.edu/Students/Awards/13/)                                            | Outstanding Teaching Assistant Award           |
++-------------------------------------------------------------------------------------------------------+------------------------------------------------+
+| [2022](https://gsi.berkeley.edu/programs-services/award-programs/ogsi/)                               | Outstanding Graduate Student Instructor Award  |
++-------------------------------------------------------------------------------------------------------+------------------------------------------------+
+| [2021](https://www.qualcomm.com/research/research/university-relations/innovation-fellowship/winners) | Qualcomm Innovation Fellowship                 |
++-------------------------------------------------------------------------------------------------------+------------------------------------------------+

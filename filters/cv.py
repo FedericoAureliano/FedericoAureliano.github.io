@@ -8,8 +8,6 @@ Also standardizes table column widths for consistent formatting.
 
 import panflute as pf
 import os
-import pathlib
-import markdown
 from pybtex.database import parse_file, Person
 
 def clean_venue(text: str) -> str:
@@ -28,47 +26,6 @@ def extract_venue(pub) -> str:
     if "journal" in pub.fields:
         return clean_venue(pub.fields["journal"])
     assert False, f"Missing venue metadata in {pub.key}"
-
-def extract_markdown_body(data: str) -> str:
-    """Extract the body from a markdown file with YAML-style frontmatter."""
-    if data.startswith('---'):
-        parts = data.split('---', 2)
-        if len(parts) == 3:
-            return parts[2].strip()
-    return ""
-
-def load_awards(doc):
-    """Load awards from a directory of markdown files."""
-    awards_dir = doc.get_metadata('awards')
-    if not awards_dir:
-        pf.debug("  no awards")
-        return []
-
-    award_files = [f for f in os.listdir(awards_dir) if f.endswith('.md')]
-
-    awards = []
-    for award_file in award_files:
-        award_path = os.path.join(awards_dir, award_file)
-        data = pathlib.Path(award_path).read_text(encoding='utf-8')
-        md = markdown.Markdown(extensions=['meta'])
-        md.convert(data)
-
-        assert 'year' in md.Meta, f"Missing 'year' metadata in {award_file}"
-        assert 'title' in md.Meta, f"Missing 'title' metadata in {award_file}"
-
-        awards.append({
-            'year': md.Meta['year'][0],
-            'title': md.Meta['title'][0],
-            'cv_title': md.Meta['cv_title'][0] if 'cv_title' in md.Meta else md.Meta['title'][0],
-            'url': md.Meta['url'][0] if 'url' in md.Meta else "",
-            'organization': md.Meta['organization'][0] if 'organization' in md.Meta else "",
-            'selected': md.Meta['selected'][0].lower() == 'true' if 'selected' in md.Meta else False,
-            'description': extract_markdown_body(data),
-        })
-
-    awards.sort(key=lambda x: (int(x['year']), x['title']), reverse=True)
-    pf.debug(f"  awards → {len(awards)}")
-    return awards
 
 def format_author_list(authors, students=None) -> list:
     """
@@ -135,7 +92,6 @@ def prepare(doc):
     doc.students = set(students_list) if students_list else set()
 
     doc.papers = []
-    doc.awards = load_awards(doc)
     # Track whether we've seen the first top-level section
     doc.first_section_seen = False
 
@@ -177,9 +133,6 @@ def action(elem, doc):
             # Store the parent for later reference
             if not hasattr(doc, 'current_section'):
                 doc.current_section = None
-            pf.debug(f"  header → {name}")
-        case pf.Header(identifier=name) if "awards" in name:
-            doc.awards_header = elem
             pf.debug(f"  header → {name}")
         case pf.Table():
             # Standardize column widths for 2-column tables
@@ -276,29 +229,8 @@ def build_publications_table(doc):
     table.colspec = [('AlignRight', 0.15), ('AlignLeft', 0.85)]
     return table
 
-def build_awards_table(doc):
-    """Build the awards table."""
-    rows = []
-    for award in doc.awards:
-        title = award['cv_title']
-        title_inline = pf.Link(pf.Str(title), url=award['url']) if award['url'] else pf.Str(title)
-        title_content = [title_inline]
-        if award['organization']:
-            title_content.append(pf.Str(f" ({award['organization']})"))
-        if award['description']:
-            title_content.extend([pf.LineBreak, pf.Emph(pf.Str(award['description']))])
-
-        rows.append(pf.TableRow(
-            pf.TableCell(pf.Plain(pf.Str(award['year']))),
-            pf.TableCell(pf.Plain(*title_content))
-        ))
-
-    table = pf.Table(pf.TableBody(*rows))
-    table.colspec = [('AlignRight', 0.15), ('AlignLeft', 0.85)]
-    return table
-
 def finalize(doc):
-    """Add generated tables at the end of the publications and awards sections."""
+    """Add generated tables at the end of the publications section."""
     if getattr(doc, 'publications_header', None) is not None:
         insert_blocks_at_section_end(
             doc,
@@ -307,9 +239,6 @@ def finalize(doc):
         )
     else:
         pf.debug("  finalize -> no publications header; skipping table insertion")
-
-    if getattr(doc, 'awards_header', None) is not None:
-        insert_blocks_at_section_end(doc, doc.awards_header, [build_awards_table(doc)])
 
     pf.debug("  insert → done")
 

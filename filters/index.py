@@ -2,7 +2,7 @@
 
 """
 Combined filter for index page generation.
-Combines news, publications, awards, and section rendering.
+Combines news, publications, and section rendering.
 """
 
 from typing import List, Tuple
@@ -65,14 +65,6 @@ def link_title(title: str, link_text: str, url: str) -> list:
         parts.append(pf.Str(after))
     return parts
 
-def extract_markdown_body(data: str) -> str:
-    """Extract the body from a markdown file with YAML-style frontmatter."""
-    if data.startswith('---'):
-        parts = data.split('---', 2)
-        if len(parts) == 3:
-            return parts[2].strip()
-    return ""
-
 # ============================================================================
 # Publications filter functions
 # ============================================================================
@@ -132,41 +124,6 @@ def load_publications(doc):
     papers.sort(key=lambda x: (x['year'], x['venue']), reverse=True)
     pf.debug(f"  papers → {len(papers)}")
     return papers
-
-def load_awards(doc):
-    """Load awards from a directory of markdown files."""
-    awards_dir = doc.get_metadata('awards')
-
-    if not awards_dir:
-        pf.debug("  no awards")
-        return []
-
-    pf.debug(f"  awards dir → {awards_dir}")
-    award_files = [f for f in os.listdir(awards_dir) if f.endswith('.md')]
-
-    awards = []
-    for award_file in award_files:
-        award_path = os.path.join(awards_dir, award_file)
-        data = pathlib.Path(award_path).read_text(encoding='utf-8')
-        md = markdown.Markdown(extensions=['meta'])
-        md.convert(data)
-
-        assert 'year' in md.Meta, f"Missing 'year' metadata in {award_file}"
-        assert 'title' in md.Meta, f"Missing 'title' metadata in {award_file}"
-
-        awards.append({
-            'year': md.Meta['year'][0],
-            'title': md.Meta['title'][0],
-            'cv_title': md.Meta['cv_title'][0] if 'cv_title' in md.Meta else md.Meta['title'][0],
-            'url': md.Meta['url'][0] if 'url' in md.Meta else "",
-            'organization': md.Meta['organization'][0] if 'organization' in md.Meta else "",
-            'selected': md.Meta['selected'][0].lower() == 'true' if 'selected' in md.Meta else False,
-            'description': extract_markdown_body(data),
-        })
-
-    awards.sort(key=lambda x: (int(x['year']), x['title']), reverse=True)
-    pf.debug(f"  awards → {len(awards)}")
-    return awards
 
 def format_author_list(authors) -> list:
     """
@@ -242,9 +199,6 @@ def prepare(doc):
     
     # Load publications
     doc.papers = load_publications(doc)
-
-    # Load awards
-    doc.awards = load_awards(doc)
     
     # Load profile info
     doc.headshot, doc.footer = load_profile_info(doc)
@@ -295,25 +249,6 @@ def action(elem, doc):
                 table.colspec = [('AlignRight', 0.15), ('AlignLeft', 0.85)]
                 table.classes = ['with-authors']
             div.content.append(table)
-            return div
-
-        # Handle awards header
-        case pf.Header(identifier=name, level=1) if name == "awards":
-            div = pf.Div(elem, classes=['awards'])
-            rows = []
-
-            for award in doc.awards:
-                year = pf.Str(award['year'])
-                year_cell = pf.Plain(pf.Link(year, url=award['url'])) if award['url'] else pf.Plain(year)
-                title_cell = pf.Plain(pf.Str(award['title']))
-                row_class = "selected" if award['selected'] else "not-selected"
-                rows.append(pf.TableRow(
-                    pf.TableCell(year_cell),
-                    pf.TableCell(title_cell),
-                    classes=[row_class]
-                ))
-
-            div.content.append(pf.Table(pf.TableBody(*rows)))
             return div
 
         # Render apostrophes (straight, or curly from pandoc's smart-quote
