@@ -1,40 +1,18 @@
 /* Index page layout (loaded after main.css). */
 
-/* The whole lake photo is shown behind the page, scaled to fit the window
-   (::after). Any space it leaves is filled by a heavily blurred, darker copy
-   stretched to cover the window (::before), so the edges fade into matching
-   colours. Fixed pseudo-elements (rather than background-attachment: fixed)
-   keep the photo still on iOS too. */
-html::before,
-html::after {
+/* The lake photo covers the window behind the page. A fixed pseudo-element
+   (rather than background-attachment: fixed) keeps it still on iOS too. */
+html::before {
     content: "";
     position: fixed;
+    inset: 0;
     z-index: -1;
     background: url("../images/background.jpg") center / cover no-repeat;
 }
 
-html::before {
-    /* Extend past the window so the blur doesn't fade at its edges. */
-    inset: -80px;
-    background-color: var(--tone5);
-    filter: blur(40px) brightness(0.8);
-}
-
-html::after {
-    /* The photo's own shape (5423x2810, so width/height = 1.9299), centered,
-       at --zoom times the largest size that fits the window. */
-    --zoom: 1.25;
-    inset: 0;
-    margin: auto;
-    width: calc(var(--zoom) * min(100vw, 192.99vh));
-    height: calc(var(--zoom) * min(51.82vw, 100vh));
-    /* Fade the photo's edges into the blurred fill. */
-    --fade-x: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-    --fade-y: linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
-    -webkit-mask-image: var(--fade-x), var(--fade-y);
-    -webkit-mask-composite: source-in;
-    mask-image: var(--fade-x), var(--fade-y);
-    mask-composite: intersect;
+/* The page colour behind the photo, seen only when Safari overscrolls. */
+html {
+    background-color: #0b1220;
 }
 
 /* The page glows softly orange out into the photo. */
@@ -45,9 +23,12 @@ body {
 }
 
 /* Without the card (small screens), the page is plain. */
-@media (max-width: 840px) {
-    html::before,
-    html::after {
+@media (max-width: 840px), print {
+    html {
+        background-color: var(--paper);
+    }
+
+    html::before {
         display: none;
     }
 }
