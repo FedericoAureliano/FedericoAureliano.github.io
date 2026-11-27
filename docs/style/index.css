@@ -10,7 +10,7 @@ html::after {
     content: "";
     position: fixed;
     z-index: -1;
-    background: url("../images/background.png") center / cover no-repeat;
+    background: url("../images/background.jpg") center / cover no-repeat;
 }
 
 html::before {
